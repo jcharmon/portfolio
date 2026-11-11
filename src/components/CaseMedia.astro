@@ -36,17 +36,23 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   )}
 
   {layout === "carousel" && (
-    <div class="card carousel" data-loader data-carousel style={block.aspect ? `aspect-ratio: ${block.aspect}` : undefined}>
-      <div class="track" tabindex="-1">
-        {images.map((img, i) => (
-          <div class="slide" aria-roledescription="slide" aria-label={`${i + 1} of ${images.length}`}>
-            <Image src={img.src} alt={img.alt} widths={[720, 1200, 1760]} sizes={full} loading="eager" />
+    <div class="card carousel" data-loader data-carousel aria-roledescription="carousel">
+      <div class="stage">
+        <div class="viewport">
+          <div class="track">
+            {images.map((img, i) => (
+              <div class="slide" aria-roledescription="slide" aria-label={`${i + 1} of ${images.length}`} aria-hidden={i === 0 ? undefined : "true"}>
+                <Image src={img.src} alt={img.alt} widths={[600, 1200]} sizes="(max-width: 1023px) 70vw, 600px" loading="eager" />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <div class="dots" aria-hidden="true">
+          {images.map((_, i) => <span class:list={["dot", { on: i === 0 }]}></span>)}
+        </div>
+        <button class="nav prev" type="button" aria-label="Previous slide" data-dir="-1" disabled><Icon name="arrow-left" size={20} /></button>
+        <button class="nav next" type="button" aria-label="Next slide" data-dir="1"><Icon name="arrow-left" size={20} /></button>
       </div>
-      <!-- The arrows and dots are part of the pictures; these invisible buttons sit on top of them -->
-      <button class="nav prev" type="button" aria-label="Previous slide" data-dir="-1"></button>
-      <button class="nav next" type="button" aria-label="Next slide" data-dir="1"></button>
     </div>
   )}
 
@@ -85,16 +91,30 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
 </figure>
 
 <script>
+  // Slideshow: the arrows and dots stay put, only the screens slide.
   document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((el) => {
     const track = el.querySelector<HTMLElement>(".track")!;
-    const count = track.children.length;
-    el.querySelectorAll<HTMLButtonElement>(".nav").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const w = track.clientWidth;
-        const now = Math.round(track.scrollLeft / w);
-        const next = (now + Number(btn.dataset.dir) + count) % count;
-        track.scrollTo({ left: next * w, behavior: "smooth" });
-      });
+    const slides = Array.from(track.children) as HTMLElement[];
+    const dots = Array.from(el.querySelectorAll<HTMLElement>(".dot"));
+    const prev = el.querySelector<HTMLButtonElement>(".nav.prev")!;
+    const next = el.querySelector<HTMLButtonElement>(".nav.next")!;
+    let index = 0;
+    const go = (i: number) => {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      track.style.setProperty("--index", String(index));
+      slides.forEach((s, n) => s.toggleAttribute("aria-hidden", n !== index));
+      dots.forEach((d, n) => d.classList.toggle("on", n === index));
+      prev.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+    };
+    prev.addEventListener("click", () => go(index - 1));
+    next.addEventListener("click", () => go(index + 1));
+    // Swipe on phones
+    let startX = 0;
+    el.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
     });
   });
 </script>
@@ -134,34 +154,88 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   }
   .trio .big { grid-row: span 2; }
 
-  .carousel { aspect-ratio: 880 / 560; }
+  /* Slideshow, measured from the Figma frame (880 x 560) */
+  .carousel {
+    aspect-ratio: 880 / 560;
+    border: 1px solid var(--theme-border);
+    container-type: inline-size;
+  }
+  .stage {
+    --u: calc(100cqi / 880);
+    position: absolute;
+    inset: 0;
+  }
+  .viewport {
+    position: absolute;
+    left: calc(var(--u) * 120);
+    top: calc(var(--u) * 32);
+    width: calc(var(--u) * 640);
+    height: calc(var(--u) * 462);
+    overflow: hidden;
+  }
   .track {
+    --index: 0;
     display: flex;
-    height: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    outline: none;
+    gap: calc(var(--u) * 40);
+    padding-left: calc(var(--u) * 20);
+    transform: translateX(calc(var(--u) * -640 * var(--index)));
+    transition: transform 600ms cubic-bezier(0.65, 0, 0.25, 1);
   }
-  .track::-webkit-scrollbar { display: none; }
   .slide {
-    flex: 0 0 100%;
-    height: 100%;
-    scroll-snap-align: start;
+    flex: 0 0 auto;
+    width: calc(var(--u) * 600);
+    height: calc(var(--u) * 461);
+    border-radius: calc(var(--u) * 10);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #fff;
   }
+  .carousel .slide :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .dots {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--u) * 522);
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--theme-text);
+    opacity: 0.25;
+    transition: opacity 300ms var(--ease-out);
+  }
+  .dot.on { opacity: 1; }
   .nav {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 14%;
+    top: calc(var(--u) * 262);
+    transform: translateY(-50%);
+    width: max(32px, calc(var(--u) * 44));
+    height: max(32px, calc(var(--u) * 44));
+    display: grid;
+    place-items: center;
     border: 0;
     padding: 0;
+    border-radius: var(--radius-pill);
     background: transparent;
+    color: var(--theme-text);
     cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
   }
-  .nav.prev { left: 0; }
-  .nav.next { right: 0; }
-  .nav:focus-visible { outline-offset: -6px; }
+  .nav.prev { left: calc(var(--u) * 60); transform: translate(-50%, -50%); }
+  .nav.next { left: calc(var(--u) * 820); transform: translate(-50%, -50%); }
+  .nav.next :global(svg) { transform: scaleX(-1); }
+  .nav:disabled { opacity: 0.3; cursor: default; }
+  @media (hover: hover) {
+    .nav:not(:disabled):hover { background: var(--theme-surface-alt); }
+  }
+  .nav:not(:disabled):active { background: var(--theme-border); }
+  @media (max-width: 1023px) {
+    .dots { gap: 4px; }
+    .dot { width: 5px; height: 5px; }
+  }
 
   .browser-stage {
     aspect-ratio: 880 / 560;
