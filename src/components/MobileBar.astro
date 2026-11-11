@@ -11,7 +11,7 @@ import { site } from "../content/site";
 interface Props { variant: "top" | "back" }
 const { variant } = Astro.props;
 ---
-<header class="mobile-bar">
+<header class:list={["mobile-bar", variant]}>
   {variant === "top" ? (
     <>
       <Smiley />
@@ -27,6 +27,26 @@ const { variant } = Astro.props;
     </a>
   )}
 </header>
+
+<script>
+  /*
+   * Home page on phones: the bar's "Reach out" and "Resume" links stay hidden
+   * while the same links in the intro are on screen, then slide in once you
+   * scroll past them (and slide away again if you scroll back up).
+   */
+  const bar = document.querySelector<HTMLElement>(".mobile-bar.top");
+  const trigger = document.querySelector<HTMLElement>("[data-bar-trigger]");
+  if (bar && trigger && "IntersectionObserver" in window) {
+    bar.classList.add("links-hidden");
+    new IntersectionObserver(
+      ([entry]) => {
+        const passed = !entry.isIntersecting && entry.boundingClientRect.top < 56;
+        bar.classList.toggle("links-hidden", !passed);
+      },
+      { rootMargin: "-56px 0px 0px 0px" }
+    ).observe(trigger);
+  }
+</script>
 
 <style>
   .mobile-bar {
@@ -50,6 +70,31 @@ const { variant } = Astro.props;
   .links {
     display: flex;
     gap: 24px;
+  }
+
+  /* Slide-in for the home page links (phones only, since the bar is phones only) */
+  .mobile-bar.top {
+    box-shadow: 0 1px 0 transparent;
+    transition: box-shadow 300ms var(--ease-out);
+  }
+  .mobile-bar.top:not(.links-hidden) { box-shadow: 0 1px 0 var(--theme-border); }
+  .top .links > :global(*) {
+    transition:
+      opacity 420ms var(--ease-out),
+      transform 520ms cubic-bezier(0.3, 1.35, 0.5, 1),
+      filter 420ms var(--ease-out);
+  }
+  .top .links > :global(*:nth-child(2)) { transition-delay: 70ms; }
+  .top.links-hidden .links > :global(*) {
+    opacity: 0;
+    transform: translateY(-10px);
+    filter: blur(4px);
+    pointer-events: none;
+    transition-duration: 220ms;
+    transition-delay: 0ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .top .links > :global(*) { transform: none !important; filter: none !important; }
   }
   .back {
     display: inline-flex;

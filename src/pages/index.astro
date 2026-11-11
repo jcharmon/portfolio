@@ -33,7 +33,7 @@ import { site } from "../content/site";
         <h1 class="t-heading">{home.greeting.map((line) => <span>{line}</span>)}</h1>
         {home.intro.map((p) => <p class="t-body">{p}</p>)}
       </div>
-      <div class="links" data-reveal>
+      <div class="links" data-reveal data-bar-trigger>
         <TextLink href={site.email} external>Reach out</TextLink>
         <TextLink href={site.resume} external>Resume</TextLink>
       </div>
