@@ -18,11 +18,17 @@ export interface MediaBlock {
    * pair: two pictures side by side
    * one-big-two-small: one large picture with two stacked on the right
    * browser: a browser window with a second card on top (needs 2 images)
+   * carousel: a slideshow you can click through (any number of images)
    */
-  layout: "single" | "pair" | "one-big-two-small" | "browser";
+  layout: "single" | "pair" | "one-big-two-small" | "browser" | "carousel";
   images: Picture[];
-  /** Crop the picture to this shape, e.g. "880 / 560". Leave out to show it whole. */
+  /**
+   * Crop the picture to this shape, e.g. "880 / 560". Leave out to show it whole.
+   * For "pair" this is the shape of the whole row.
+   */
   aspect?: string;
+  /** Space between pictures in a "pair", in pixels (default 16) */
+  gap?: number;
   background?: string;
   browserUrl?: string;
   /** Bold words that start the caption */
@@ -30,19 +36,36 @@ export interface MediaBlock {
   caption: string[];
 }
 
-export type Block = TextBlock | MediaBlock;
+/** A grid of small cards, each with a picture and a short caption */
+export interface HighlightsBlock {
+  type: "highlights";
+  heading: string;
+  items: { image: Picture; lead: string; text: string }[];
+}
+
+export type Block = TextBlock | MediaBlock | HighlightsBlock;
 
 export interface CaseStudy {
   slug: string;
   title: string;
   summary: string;
   meta: { label: string; value: string[] }[];
-  hero: {
-    kind: "logo-over-photo";
-    photo: ImageMetadata;
-    logo: ImageMetadata;
-    logoAlt: string;
-    dim: number;
-  };
+  /** Optional big statement shown above the hero picture */
+  intro?: string;
+  hero:
+    | {
+        /** A photo with a logo centered on top */
+        kind: "logo-over-photo";
+        photo: ImageMetadata;
+        logo: ImageMetadata;
+        logoAlt: string;
+        dim: number;
+      }
+    | {
+        /** One finished picture, exported straight from Figma */
+        kind: "image";
+        image: ImageMetadata;
+        alt: string;
+      };
   blocks: Block[];
 }

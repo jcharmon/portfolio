@@ -1,0 +1,67 @@
+---
+/** "Highlights" section: a 2x2 grid of small picture cards with captions. */
+import { Image } from "astro:assets";
+import type { HighlightsBlock } from "../content/types";
+
+interface Props { block: HighlightsBlock }
+const { block } = Astro.props;
+---
+<section class="highlights">
+  <h2 class="t-heading" data-reveal>{block.heading}</h2>
+  <div class="grid">
+    {block.items.map((item) => (
+      <figure class="item" data-reveal>
+        <div class="card" data-loader>
+          <Image src={item.image.src} alt={item.image.alt} widths={[440, 864]} sizes="(max-width: 1023px) calc(100vw - 32px), 432px" />
+        </div>
+        <figcaption class="t-body-l">
+          <strong>{item.lead}</strong> <span class="muted">{item.text}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</section>
+
+<style>
+  .highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 24px;
+    align-items: start;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .card {
+    position: relative;
+    aspect-ratio: 432 / 400;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--theme-border);
+    overflow: hidden;
+  }
+  .card :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  figcaption { padding: 0 16px; }
+  figcaption strong { font-weight: 600; }
+
+  @media (max-width: 1023px) {
+    .highlights { gap: 20px; }
+    .grid {
+      grid-template-columns: 1fr;
+      row-gap: 32px;
+    }
+    .item { gap: 16px; }
+    figcaption { padding: 0; }
+  }
+</style>

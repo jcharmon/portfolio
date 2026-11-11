@@ -8,12 +8,15 @@ import Base from "./Base.astro";
 import MobileBar from "../components/MobileBar.astro";
 import MetaList from "../components/MetaList.astro";
 import CaseMedia from "../components/CaseMedia.astro";
+import Highlights from "../components/Highlights.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import Icon from "../components/Icon.astro";
 import type { CaseStudy } from "../content/types";
 
 interface Props { study: CaseStudy }
 const { study } = Astro.props;
+const { hero } = study;
+const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
 ---
 <Base title={study.title} description={study.summary}>
   <MobileBar slot="topbar" variant="back" />
@@ -30,10 +33,18 @@ const { study } = Astro.props;
   </Fragment>
 
   <div class="content">
+    {study.intro && <p class="intro t-heading" data-reveal>{study.intro}</p>}
+
     <div class="hero" data-reveal data-loader>
-      <Image class="hero-photo" src={study.hero.photo} alt="" widths={[720, 1200, 1760]} sizes="(max-width: 1023px) calc(100vw - 32px), 880px" />
-      <div class="hero-dim" style={`background: rgba(0,0,0,${study.hero.dim})`}></div>
-      <Image class="hero-logo" src={study.hero.logo} alt={study.hero.logoAlt} width={480} />
+      {hero.kind === "logo-over-photo" ? (
+        <>
+          <Image class="hero-photo" src={hero.photo} alt="" widths={[720, 1200, 1760]} sizes={heroSizes} />
+          <div class="hero-dim" style={`background: rgba(0,0,0,${hero.dim})`}></div>
+          <Image class="hero-logo" src={hero.logo} alt={hero.logoAlt} width={480} />
+        </>
+      ) : (
+        <Image class="hero-photo" src={hero.image} alt={hero.alt} widths={[720, 1200, 1760]} sizes={heroSizes} loading="eager" />
+      )}
     </div>
 
     <!-- On phones the sidebar is hidden, so the title and details show here -->
@@ -54,6 +65,8 @@ const { study } = Astro.props;
               {block.paragraphs.map((p) => <p>{p}</p>)}
             </div>
           </section>
+        ) : block.type === "highlights" ? (
+          <Highlights block={block} />
         ) : (
           <CaseMedia block={block} />
         )
@@ -139,7 +152,10 @@ const { study } = Astro.props;
     flex-direction: column;
     gap: 20px;
   }
-  .text-block + :global(.media-block) { margin-top: 24px; }
+  .text-block + :global(.media-block),
+  .text-block + :global(.highlights),
+  :global(.highlights) + :global(.media-block) { margin-top: 24px; }
+  .intro { max-width: var(--text-max); }
 
   @media (max-width: 1279px) {
     .content { padding: 64px 48px 96px; }
@@ -159,7 +175,9 @@ const { study } = Astro.props;
     .blocks { gap: 48px; }
     .text-block { gap: 12px; }
     .text-block + .text-block,
-    .text-block + :global(.media-block) { margin-top: 0; }
+    .text-block + :global(.media-block),
+    .text-block + :global(.highlights),
+    :global(.highlights) + :global(.media-block) { margin-top: 0; }
     .paras { gap: 0; }
   }
 </style>

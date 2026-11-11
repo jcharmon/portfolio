@@ -19,7 +19,7 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   )}
 
   {layout === "pair" && (
-    <div class="pair">
+    <div class="pair" style={[block.aspect && `aspect-ratio:${block.aspect}`, block.gap && `--pair-gap:${block.gap}px`].filter(Boolean).join(";") || undefined}>
       {images.map((img) => (
         <div class="card" data-loader><Image src={img.src} alt={img.alt} widths={[440, 880]} sizes="(max-width: 1023px) 50vw, 432px" /></div>
       ))}
@@ -31,6 +31,21 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
       <div data-loader class="card big"><Image src={images[0].src} alt={images[0].alt} widths={[600, 1160]} sizes="(max-width: 1023px) 66vw, 580px" /></div>
       <div class="card" data-loader><Image src={images[1].src} alt={images[1].alt} widths={[300, 570]} sizes="(max-width: 1023px) 33vw, 284px" /></div>
       <div class="card" data-loader><Image src={images[2].src} alt={images[2].alt} widths={[300, 570]} sizes="(max-width: 1023px) 33vw, 284px" /></div>
+    </div>
+  )}
+
+  {layout === "carousel" && (
+    <div class="card carousel" data-loader data-carousel style={block.aspect ? `aspect-ratio: ${block.aspect}` : undefined}>
+      <div class="track" tabindex="-1">
+        {images.map((img, i) => (
+          <div class="slide" aria-roledescription="slide" aria-label={`${i + 1} of ${images.length}`}>
+            <Image src={img.src} alt={img.alt} widths={[720, 1200, 1760]} sizes={full} loading="eager" />
+          </div>
+        ))}
+      </div>
+      <!-- The arrows and dots are part of the pictures; these invisible buttons sit on top of them -->
+      <button class="nav prev" type="button" aria-label="Previous slide" data-dir="-1"></button>
+      <button class="nav next" type="button" aria-label="Next slide" data-dir="1"></button>
     </div>
   )}
 
@@ -63,6 +78,21 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   </figcaption>
 </figure>
 
+<script>
+  document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((el) => {
+    const track = el.querySelector<HTMLElement>(".track")!;
+    const count = track.children.length;
+    el.querySelectorAll<HTMLButtonElement>(".nav").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const w = track.clientWidth;
+        const now = Math.round(track.scrollLeft / w);
+        const next = (now + Number(btn.dataset.dir) + count) % count;
+        track.scrollTo({ left: next * w, behavior: "smooth" });
+      });
+    });
+  });
+</script>
+
 <style>
   .media-block {
     display: flex;
@@ -86,7 +116,7 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   .pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: var(--pair-gap, 16px);
     aspect-ratio: 880 / 377;
   }
   .trio {
@@ -97,6 +127,35 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
     aspect-ratio: 880 / 440;
   }
   .trio .big { grid-row: span 2; }
+
+  .carousel { aspect-ratio: 880 / 560; }
+  .track {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    outline: none;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .slide {
+    flex: 0 0 100%;
+    height: 100%;
+    scroll-snap-align: start;
+  }
+  .nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 14%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .nav.prev { left: 0; }
+  .nav.next { right: 0; }
+  .nav:focus-visible { outline-offset: -6px; }
 
   .browser-stage {
     aspect-ratio: 880 / 560;
@@ -177,6 +236,7 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
 
   @media (max-width: 1023px) {
     .pair, .trio { gap: 6.5px; }
+    .pair { --pair-gap: 6.5px; }
     .media-block { gap: 16px; }
   }
 </style>

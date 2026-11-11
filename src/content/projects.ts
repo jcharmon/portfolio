@@ -27,7 +27,7 @@ export const projects: Project[] = [
     slug: "google-fi",
     title: "Google Fi",
     summary: "Led design for Google Fi’s launch on iPhone and every Android device.",
-    ready: false,
+    ready: true,
   },
   {
     slug: "bobbie",
