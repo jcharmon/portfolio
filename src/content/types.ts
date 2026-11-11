@@ -42,7 +42,13 @@ export interface MediaBlock {
 export interface HighlightsBlock {
   type: "highlights";
   heading: string;
-  items: { image: Picture; lead: string; text: string }[];
+  /**
+   * grid: two columns (default)
+   * scroll: one row you can scroll sideways, with arrow buttons by the heading.
+   *   Give each item a width (in pixels, as in Figma) for this one.
+   */
+  layout?: "grid" | "scroll";
+  items: { image: Picture; lead: string; text: string; width?: number }[];
 }
 
 /** Highlights as grey cards with a line icon, a big result and a short note */

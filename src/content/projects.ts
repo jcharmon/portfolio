@@ -39,7 +39,7 @@ export const projects: Project[] = [
     slug: "nextnav",
     title: "NextNav",
     summary: "Shipped the iOS and tablet apps that helped NextNav raise a $120M Series E.",
-    ready: false,
+    ready: true,
   },
   {
     slug: "radpad",

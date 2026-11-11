@@ -1,18 +1,31 @@
 ---
-/** "Highlights" section: a 2x2 grid of small picture cards with captions. */
+/**
+ * "Highlights" section: small picture cards with captions.
+ * layout "grid" = 2x2 grid. layout "scroll" = one sideways-scrolling row with arrows.
+ */
 import { Image } from "astro:assets";
 import type { HighlightsBlock } from "../content/types";
+import Icon from "./Icon.astro";
 
 interface Props { block: HighlightsBlock }
 const { block } = Astro.props;
+const scroll = block.layout === "scroll";
 ---
-<section class="highlights">
-  <h2 class="t-heading" data-reveal>{block.heading}</h2>
+<section class:list={["highlights", { scroll }]} data-highlights>
+  <div class="head" data-reveal>
+    <h2 class="t-heading">{block.heading}</h2>
+    {scroll && (
+      <div class="arrows">
+        <button type="button" class="arrow" data-dir="-1" aria-label="Previous highlight" disabled><Icon name="arrow-left" size={20} /></button>
+        <button type="button" class="arrow" data-dir="1" aria-label="Next highlight"><Icon name="arrow-left" size={20} /></button>
+      </div>
+    )}
+  </div>
   <div class="grid">
     {block.items.map((item) => (
-      <figure class="item" data-reveal>
+      <figure class="item" data-reveal style={scroll && item.width ? `--w:${item.width}` : undefined}>
         <div class="card" data-loader>
-          <Image src={item.image.src} alt={item.image.alt} widths={[440, 864]} sizes="(max-width: 1023px) calc(100vw - 32px), 432px" />
+          <Image src={item.image.src} alt={item.image.alt} widths={[480, 1080]} sizes={scroll ? `${item.width ?? 432}px` : "(max-width: 1023px) calc(100vw - 32px), 432px"} loading={scroll ? "eager" : "lazy"} />
         </div>
         <figcaption class="t-body-l">
           <strong>{item.lead}</strong> <span class="muted">{item.text}</span>
@@ -22,12 +35,60 @@ const { block } = Astro.props;
   </div>
 </section>
 
+<script>
+  document.querySelectorAll<HTMLElement>("[data-highlights].scroll").forEach((el) => {
+    const track = el.querySelector<HTMLElement>(".grid")!;
+    const [prev, next] = Array.from(el.querySelectorAll<HTMLButtonElement>(".arrow"));
+    const items = Array.from(track.children) as HTMLElement[];
+    const update = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+    };
+    const go = (dir: number) => {
+      const x = track.scrollLeft;
+      const lefts = items.map((i) => i.offsetLeft - track.offsetLeft);
+      const target = dir > 0 ? lefts.find((l) => l > x + 4) : [...lefts].reverse().find((l) => l < x - 4);
+      track.scrollTo({ left: target ?? (dir > 0 ? track.scrollWidth : 0), behavior: "smooth" });
+    };
+    prev.addEventListener("click", () => go(-1));
+    next.addEventListener("click", () => go(1));
+    track.addEventListener("scroll", update, { passive: true });
+    update();
+  });
+</script>
+
 <style>
   .highlights {
     display: flex;
     flex-direction: column;
     gap: 32px;
   }
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+  }
+  .arrows { display: flex; gap: 12px; }
+  .arrow {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--theme-border);
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  }
+  .arrow[data-dir="1"] :global(svg) { transform: scaleX(-1); }
+  .arrow:disabled { opacity: 0.35; cursor: default; }
+  @media (hover: hover) {
+    .arrow:not(:disabled):hover { background: var(--theme-surface); }
+  }
+
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -55,6 +116,21 @@ const { block } = Astro.props;
   figcaption { padding: 0 16px; }
   figcaption strong { font-weight: 600; }
 
+  /* Sideways-scrolling row */
+  .scroll .grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .scroll .grid::-webkit-scrollbar { display: none; }
+  .scroll .item {
+    flex: 0 0 auto;
+    width: calc(var(--w, 432) * 1px);
+    scroll-snap-align: start;
+  }
+  .scroll .card { aspect-ratio: auto; height: 400px; }
+
   @media (max-width: 1023px) {
     .highlights { gap: 20px; }
     .grid {
@@ -63,5 +139,14 @@ const { block } = Astro.props;
     }
     .item { gap: 16px; }
     figcaption { padding: 0; }
+    .arrows { display: none; }
+    .scroll .grid {
+      gap: 12px;
+      margin: 0 calc(var(--gutter) * -1);
+      padding: 0 var(--gutter);
+      scroll-padding: 0 var(--gutter);
+    }
+    .scroll .item { width: min(calc(var(--w, 432) * 0.7px), 80vw); }
+    .scroll .card { height: auto; aspect-ratio: var(--w, 432) / 400; }
   }
 </style>
