@@ -1,0 +1,47 @@
+---
+/** Figma "Link": underlined text with an optional trailing arrow. */
+import Icon from "./Icon.astro";
+interface Props {
+  href: string;
+  external?: boolean;
+  arrow?: boolean;
+  size?: "S" | "M";
+}
+const { href, external = false, arrow = true, size = "S" } = Astro.props;
+---
+<a
+  class:list={["text-link", size === "S" ? "t-small" : "t-body"]}
+  href={href}
+  {...(external ? { target: "_blank", rel: "noopener" } : {})}
+>
+  <span class="label"><slot /></span>
+  {arrow && <Icon name="arrow-up-right" size={20} />}
+</a>
+
+<style>
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--theme-text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .label {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color var(--dur-fast);
+  }
+  .text-link svg {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .text-link:hover .label {
+      text-decoration-color: transparent;
+    }
+    .text-link:hover svg {
+      transform: translate(2px, -2px);
+    }
+  }
+</style>

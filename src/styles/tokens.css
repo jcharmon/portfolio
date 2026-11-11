@@ -1,0 +1,98 @@
+/*
+  Design tokens, copied from the Figma file "Portfolio Refresh - One day".
+  Change a value here and it updates everywhere on the site.
+*/
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------- Theme colors (Figma: theme/*) ---------- */
+  --theme-bg: #ffffff;
+  --theme-surface: #f6f6f5;
+  --theme-surface-alt: #eeeeec;
+  --theme-text: #181818;
+  --theme-text-muted: #6b6b6b;
+  --theme-border: #e8e8e6;
+  --theme-accent: #181818;
+  --theme-scrim: rgba(0, 0, 0, 0.32);
+
+  /* ---------- Type (Figma: Site/*) ---------- */
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Display: 56 / 1.1 / -2% */
+  --type-display-size: 56px;
+  --type-display-line: 1.1;
+  --type-display-track: -0.02em;
+
+  /* Heading: 24 / 1.25 / -0.5% */
+  --type-heading-size: 24px;
+  --type-heading-line: 1.25;
+  --type-heading-track: -0.005em;
+
+  /* Body L: 20 / 1.6 / -1% */
+  --type-body-l-size: 20px;
+  --type-body-l-line: 1.6;
+  --type-body-l-track: -0.01em;
+
+  /* Body: 16 / 1.5 / -0.5% */
+  --type-body-size: 16px;
+  --type-body-line: 1.5;
+  --type-body-track: -0.005em;
+
+  /* Small: 14 / 1.45 / 0 */
+  --type-small-size: 14px;
+  --type-small-line: 1.45;
+
+  /* ---------- Shape ---------- */
+  --radius-tile: 12px;
+  --radius-card: 24px;
+  --radius-pill: 999px;
+
+  /* ---------- Layout ---------- */
+  --sidebar-width: 400px;
+  --gutter: 16px;
+  --media-max: 880px;
+  --text-max: 720px;
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-med: 250ms;
+}
+
+/* Phones and small tablets use the "Site/Mobile/*" text styles from Figma */
+@media (max-width: 1023px) {
+  :root {
+    --type-display-size: 36px; /* Mobile/Display: 36 / 1.15 */
+    --type-display-line: 1.15;
+    --type-heading-size: 20px; /* Mobile/Heading: 20 / 1.3 */
+    --type-heading-line: 1.3;
+    --type-body-l-size: 17px; /* Mobile/Body L: 17 / 1.6 */
+    --radius-card: 12px;
+  }
+}
+
+/*
+  Dark mode. Figma only has light values, so these are matched by eye:
+  same contrast steps, flipped. Follows the visitor's device setting.
+*/
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --theme-bg: #121212;
+    --theme-surface: #1c1c1b;
+    --theme-surface-alt: #262625;
+    --theme-text: #f2f2f0;
+    --theme-text-muted: #a3a3a0;
+    --theme-border: #2c2c2a;
+    --theme-accent: #f2f2f0;
+  }
+}
+:root[data-theme="dark"] {
+  --theme-bg: #121212;
+  --theme-surface: #1c1c1b;
+  --theme-surface-alt: #262625;
+  --theme-text: #f2f2f0;
+  --theme-text-muted: #a3a3a0;
+  --theme-border: #2c2c2a;
+  --theme-accent: #f2f2f0;
+}

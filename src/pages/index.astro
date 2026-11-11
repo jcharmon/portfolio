@@ -1,0 +1,114 @@
+---
+import Base from "../layouts/Base.astro";
+import MobileBar from "../components/MobileBar.astro";
+import Smiley from "../components/Smiley.astro";
+import TextLink from "../components/TextLink.astro";
+import ProjectTile from "../components/ProjectTile.astro";
+import { projects } from "../content/projects";
+import { home } from "../content/home";
+import { site } from "../content/site";
+---
+<Base>
+  <MobileBar slot="topbar" variant="top" />
+
+  <Fragment slot="sidebar">
+    <div class="side-top">
+      <Smiley />
+      <div class="intro">
+        <h1 class="t-heading">{home.greeting.map((line) => <span>{line}</span>)}</h1>
+        {home.intro.map((p) => <p class="t-body">{p}</p>)}
+      </div>
+      <div class="links">
+        <TextLink href={site.email} external>Reach out</TextLink>
+        <TextLink href={site.resume} external>Resume</TextLink>
+      </div>
+    </div>
+    <p class="t-small-strong muted">{site.location}</p>
+  </Fragment>
+
+  <div class="content">
+    <!-- Phones: intro shows above the projects -->
+    <div class="mobile-intro">
+      <div class="intro">
+        <h1 class="t-heading">{home.greeting.map((line) => <span>{line}</span>)}</h1>
+        {home.intro.map((p) => <p class="t-body">{p}</p>)}
+      </div>
+      <div class="links">
+        <TextLink href={site.email} external>Reach out</TextLink>
+        <TextLink href={site.resume} external>Resume</TextLink>
+      </div>
+    </div>
+
+    <section aria-label="Selected work" class="grid-wrap">
+      <div class="grid">
+        {projects.map((p) => <ProjectTile project={p} />)}
+      </div>
+    </section>
+
+    <footer class="mobile-footer">
+      <div class="links">
+        <TextLink href={site.email} external>Reach out</TextLink>
+        <TextLink href={site.resume} external>Resume</TextLink>
+      </div>
+      <p class="t-small-strong muted">{site.location}</p>
+    </footer>
+  </div>
+</Base>
+
+<style>
+  .side-top {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .intro h1 span { display: block; }
+  .links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .content {
+    max-width: 1040px;
+    padding: 64px 76px 120px;
+  }
+  .grid-wrap { container-type: inline-size; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  @container (min-width: 600px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px 56px;
+    }
+  }
+
+  .mobile-intro, .mobile-footer { display: none; }
+
+  @media (max-width: 1279px) {
+    .content { padding: 64px 48px 120px; }
+  }
+  @media (max-width: 1023px) {
+    .content {
+      padding: 16px var(--gutter) 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 72px;
+    }
+    .mobile-intro, .mobile-footer {
+      display: flex;
+      flex-direction: column;
+    }
+    .mobile-intro { gap: 32px; }
+    .mobile-footer { gap: 20px; padding-top: 24px; }
+  }
+  @media (max-width: 599px) {
+    .grid { gap: 48px; }
+  }
+</style>

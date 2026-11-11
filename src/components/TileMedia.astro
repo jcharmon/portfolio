@@ -1,0 +1,174 @@
+---
+/**
+ * The image inside each home-page tile (Figma: "Media / …").
+ * Built from layers (photo + dim + logo) so logos stay crisp.
+ */
+import { Image } from "astro:assets";
+import type { ProjectSlug } from "../content/projects";
+
+import opmBg from "../assets/home/opm-bg.jpg";
+import opmSeal from "../assets/home/opm-seal.png";
+import thriveBg from "../assets/home/thrive-bg.jpg";
+import thriveSymbol from "../assets/home/thrive-symbol.svg";
+import thriveWordmark from "../assets/home/thrive-wordmark.svg";
+import fiBg from "../assets/home/fi-bg.jpg";
+import fiLogo from "../assets/home/fi-logo.png";
+import bobbieBg from "../assets/home/bobbie-bg.jpg";
+import bobbieLogo from "../assets/home/bobbie-logo.png";
+import nnDesktop from "../assets/home/nextnav-desktop.png";
+import nnPhone from "../assets/home/nextnav-phone.png";
+import rpLease from "../assets/home/radpad-lease.png";
+import rpPhone from "../assets/home/radpad-phone.png";
+
+interface Props { slug: ProjectSlug }
+const { slug } = Astro.props;
+const bgWidths = [480, 832, 1248];
+const bgSizes = "(max-width: 1023px) 100vw, 416px";
+---
+<div class:list={["media", slug]}>
+  {slug === "opm" && (
+    <>
+      <Image class="bg" src={opmBg} widths={bgWidths} sizes={bgSizes} alt="" />
+      <div class="dim" style="background: rgba(0,0,0,0.5)"></div>
+      <Image class="center seal" src={opmSeal} width={352} alt="Seal of the U.S. Office of Personnel Management" />
+    </>
+  )}
+
+  {slug === "thrive" && (
+    <>
+      <Image class="bg" src={thriveBg} widths={bgWidths} sizes={bgSizes} alt="" />
+      <div class="dim" style="background: rgba(31,33,71,0.18)"></div>
+      <div class="center thrive-pill">
+        <img src={thriveSymbol.src} width="41" height="41" alt="" />
+        <img src={thriveWordmark.src} width="146" height="18" alt="Thrive Mobile" />
+      </div>
+    </>
+  )}
+
+  {slug === "google-fi" && (
+    <>
+      <Image class="bg" src={fiBg} widths={bgWidths} sizes={bgSizes} alt="" />
+      <div class="center fi-icon">
+        <Image src={fiLogo} width={200} alt="Google Fi logo" />
+      </div>
+    </>
+  )}
+
+  {slug === "bobbie" && (
+    <>
+      <Image class="bobbie-bg" src={bobbieBg} widths={[1200, 2000]} sizes="(max-width: 1023px) 400vw, 1700px" alt="" />
+      <div class="dim" style="background: rgba(0,0,0,0.28)"></div>
+      <Image class="center bobbie-logo" src={bobbieLogo} width={436} alt="Bobbie logo" />
+    </>
+  )}
+
+  {slug === "nextnav" && (
+    <>
+      <Image class="nn-desktop shot" src={nnDesktop} widths={[600, 1000]} sizes="300px" alt="NextNav tablet app" />
+      <Image class="nn-phone shot" src={nnPhone} widths={[200, 400]} sizes="100px" alt="NextNav phone app" />
+    </>
+  )}
+
+  {slug === "radpad" && (
+    <>
+      <div class="rp-lease shot"><Image src={rpLease} widths={[400, 700]} sizes="330px" alt="RadPad lease signing on desktop" /></div>
+      <div class="rp-phone shot"><Image src={rpPhone} widths={[200, 300]} sizes="120px" alt="RadPad lease signing on a phone" /></div>
+    </>
+  )}
+</div>
+
+<style>
+  .media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    container-type: inline-size;
+  }
+  .opm { background: #181818; }
+  .thrive { background: #1f2247; }
+  .google-fi { background: #edebe5; }
+  .nextnav { background: #1f2a37; }
+  .radpad { background: #1c1440; }
+
+  .bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .dim {
+    position: absolute;
+    inset: 0;
+  }
+  .center {
+    position: absolute;
+    width: max-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Sizes below are the Figma sizes at a 416px-wide tile, scaled with the tile */
+  .seal { width: 42.3cqi; height: auto; }
+
+  .thrive-pill {
+    display: flex;
+    align-items: center;
+    gap: 4cqi;
+    padding: 4.27cqi 5.7cqi;
+    background: #fff;
+    border-radius: 999px;
+    box-shadow: 0 2.85cqi 8.55cqi rgba(0, 0, 0, 0.15);
+  }
+  .thrive-pill img:first-child { width: 9.84cqi; height: auto; }
+  .thrive-pill img:last-child { width: 35cqi; height: auto; }
+
+  .fi-icon {
+    width: 31.25cqi;
+    aspect-ratio: 1;
+    background: #fff; /* app icon stays white in dark mode */
+    border-radius: 6.4cqi;
+    filter: drop-shadow(0 3cqi 3.75cqi rgba(26, 51, 128, 0.25));
+    display: grid;
+    place-items: center;
+  }
+  .fi-icon :global(img) { width: 76.66%; height: auto; }
+
+  /* Figma crops a larger collage photo down to one corner */
+  .bobbie-bg {
+    position: absolute;
+    max-width: none;
+    width: 475.75%;
+    height: 476.19%;
+    left: -168.84%;
+    top: -257.14%;
+  }
+  .bobbie-logo { width: 52.4cqi; height: auto; }
+
+  .shot {
+    position: absolute;
+    border-radius: 6px;
+    overflow: hidden;
+    object-fit: cover;
+  }
+  .nn-desktop {
+    left: 22%; top: 14.58%; width: 70.19%; height: 68.91%;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  }
+  .nn-phone {
+    left: 7.81%; top: 20.19%; width: 23.08%; height: 66.51%;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  }
+
+  .rp-lease, .rp-phone {
+    border-radius: 2px;
+    box-shadow: 0 7.5px 19px rgba(0, 0, 0, 0.18);
+  }
+  .rp-lease { top: 15.38%; right: 10.12%; bottom: -0.08%; left: 10.34%; }
+  .rp-phone { top: 37.73%; right: 5.57%; bottom: -4.7%; left: 66.02%; }
+  .rp-lease :global(img), .rp-phone :global(img) {
+    width: 100%;
+    height: auto;
+  }
+</style>

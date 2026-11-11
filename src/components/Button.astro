@@ -1,0 +1,45 @@
+---
+/** Figma "Button": pill button. Primary is filled, Secondary is outlined. */
+import Icon from "./Icon.astro";
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+  arrow?: boolean;
+  external?: boolean;
+}
+const { href, variant = "primary", arrow = false, external = false } = Astro.props;
+---
+<a
+  class:list={["button", "t-small-strong", variant]}
+  href={href}
+  {...(external ? { target: "_blank", rel: "noopener" } : {})}
+>
+  <slot />
+  {arrow && <Icon name="arrow-up-right" size={16} />}
+</a>
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--theme-text);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--dur-fast), color var(--dur-fast), opacity var(--dur-fast);
+  }
+  .primary {
+    background: var(--theme-text);
+    color: var(--theme-bg);
+  }
+  .secondary {
+    background: transparent;
+    color: var(--theme-text);
+  }
+  @media (hover: hover) {
+    .primary:hover { opacity: 0.85; }
+    .secondary:hover { background: var(--theme-surface-alt); }
+  }
+</style>

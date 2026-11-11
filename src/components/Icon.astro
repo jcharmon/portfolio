@@ -1,0 +1,33 @@
+---
+/**
+ * Icons from the Figma "Icons" set (Lucide style, 1.5px stroke).
+ * They use the current text color, so they work in light and dark mode.
+ */
+interface Props {
+  name: "arrow-left" | "arrow-up-right";
+  size?: 16 | 20 | 24;
+  class?: string;
+}
+const { name, size = 20, class: className } = Astro.props;
+const paths: Record<Props["name"], string> = {
+  "arrow-left": "M10 4.16667L4.16667 10L10 15.8333M4.16667 10H15.8333",
+  "arrow-up-right": "M14.1667 14.1667V5.83333H5.83333M14.1667 5.83333L5.83333 14.1667",
+};
+---
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 20 20"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d={paths[name]}
+    stroke="currentColor"
+    stroke-width={1.5 * (20 / size)}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

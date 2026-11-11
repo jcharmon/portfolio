@@ -1,0 +1,61 @@
+---
+/**
+ * Figma "Mobile / Top bar" and "Mobile / Back bar". Only shows on phones and
+ * small tablets. Stays stuck to the top while you scroll.
+ */
+import Smiley from "./Smiley.astro";
+import TextLink from "./TextLink.astro";
+import Icon from "./Icon.astro";
+import { site } from "../content/site";
+
+interface Props { variant: "top" | "back" }
+const { variant } = Astro.props;
+---
+<header class="mobile-bar">
+  {variant === "top" ? (
+    <>
+      <Smiley />
+      <nav class="links" aria-label="Contact">
+        <TextLink href={site.email} external>Reach out</TextLink>
+        <TextLink href={site.resume} external>Resume</TextLink>
+      </nav>
+    </>
+  ) : (
+    <a class="back t-body" href="/">
+      <Icon name="arrow-left" size={20} />
+      All work
+    </a>
+  )}
+</header>
+
+<style>
+  .mobile-bar {
+    display: none;
+  }
+  @media (max-width: 1023px) {
+    .mobile-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 var(--gutter);
+      background: color-mix(in srgb, var(--theme-bg) 92%, transparent);
+      backdrop-filter: saturate(1.4) blur(12px);
+      -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    }
+  }
+  .links {
+    display: flex;
+    gap: 24px;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--theme-text);
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+/** Figma "Tile / Work": image, then project name and one-line summary. Hover dims the image. */
+import Icon from "./Icon.astro";
+import TileMedia from "./TileMedia.astro";
+import type { Project } from "../content/projects";
+
+interface Props { project: Project }
+const { project } = Astro.props;
+const Tag = project.ready ? "a" : "div";
+---
+<Tag class:list={["tile", { link: project.ready }]} {...(project.ready ? { href: `/work/${project.slug}` } : {})}>
+  <div class="box">
+    <TileMedia slug={project.slug} />
+    <div class="hover-dim" aria-hidden="true"></div>
+  </div>
+  <div class="caption">
+    <p class="title t-body-strong">
+      <span>{project.title}</span>
+      {project.ready && <Icon name="arrow-up-right" size={20} class="arrow" />}
+    </p>
+    <p class="t-body muted">{project.summary}</p>
+  </div>
+</Tag>
+
+<style>
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .box {
+    position: relative;
+    aspect-ratio: 416 / 312;
+    border-radius: var(--radius-tile);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hover-dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transition: opacity var(--dur-med) var(--ease-out);
+  }
+  .caption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .title :global(.arrow) {
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: opacity var(--dur-fast), transform var(--dur-med) var(--ease-out);
+  }
+  .soon {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.92);
+    color: #181818;
+  }
+  @media (hover: hover) {
+    .link:hover .hover-dim { opacity: 1; }
+    .link:hover .title :global(.arrow) { opacity: 1; transform: none; }
+  }
+  .link:focus-visible .title :global(.arrow) { opacity: 1; transform: none; }
+  @media (max-width: 1023px) {
+    .box { aspect-ratio: 358 / 312; }
+  }
+</style>

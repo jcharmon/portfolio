@@ -1,0 +1,93 @@
+---
+/**
+ * The page frame used by every page: a sticky sidebar on the left (desktop)
+ * and the scrolling content on the right. On phones the sidebar is hidden and
+ * each page shows its own top bar instead.
+ */
+import "../styles/global.css";
+import { site } from "../content/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : site.title;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+  </head>
+  <body>
+    <a class="skip sr-only" href="#content">Skip to content</a>
+    <slot name="topbar" />
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="sidebar-inner">
+          <slot name="sidebar" />
+        </div>
+      </aside>
+      <main id="content" class="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
+
+<style>
+  .shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    min-height: 100vh;
+  }
+  .sidebar {
+    border-right: 1px solid var(--theme-border);
+    background: var(--theme-bg);
+  }
+  .sidebar-inner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 44px 40px 40px;
+  }
+  .main {
+    min-width: 0;
+  }
+  .skip:focus {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    width: auto;
+    height: auto;
+    clip: auto;
+    padding: 8px 12px;
+    background: var(--theme-text);
+    color: var(--theme-bg);
+    border-radius: 8px;
+    z-index: 100;
+  }
+
+  @media (max-width: 1023px) {
+    .shell {
+      display: block;
+    }
+    .sidebar {
+      display: none;
+    }
+  }
+</style>

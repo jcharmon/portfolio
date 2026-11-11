@@ -1,0 +1,165 @@
+---
+/**
+ * Template for every case study page. Feed it a content file from
+ * src/content/ and it lays everything out the same way.
+ */
+import { Image } from "astro:assets";
+import Base from "./Base.astro";
+import MobileBar from "../components/MobileBar.astro";
+import MetaList from "../components/MetaList.astro";
+import CaseMedia from "../components/CaseMedia.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import Icon from "../components/Icon.astro";
+import type { CaseStudy } from "../content/types";
+
+interface Props { study: CaseStudy }
+const { study } = Astro.props;
+---
+<Base title={study.title} description={study.summary}>
+  <MobileBar slot="topbar" variant="back" />
+
+  <Fragment slot="sidebar">
+    <div class="side-top">
+      <a class="back t-body" href="/"><Icon name="arrow-left" size={20} /> All work</a>
+      <div class="info">
+        <h1 class="t-display">{study.title}</h1>
+        <p class="t-body">{study.summary}</p>
+      </div>
+      <MetaList items={study.meta} />
+    </div>
+  </Fragment>
+
+  <div class="content">
+    <div class="hero">
+      <Image class="hero-photo" src={study.hero.photo} alt="" widths={[720, 1200, 1760]} sizes="(max-width: 1023px) calc(100vw - 32px), 880px" />
+      <div class="hero-dim" style={`background: rgba(0,0,0,${study.hero.dim})`}></div>
+      <Image class="hero-logo" src={study.hero.logo} alt={study.hero.logoAlt} width={480} />
+    </div>
+
+    <!-- On phones the sidebar is hidden, so the title and details show here -->
+    <div class="mobile-info">
+      <div class="info">
+        <h1 class="t-display">{study.title}</h1>
+        <p class="t-body">{study.summary}</p>
+      </div>
+      <MetaList items={study.meta} />
+    </div>
+
+    <div class="blocks">
+      {study.blocks.map((block) =>
+        block.type === "text" ? (
+          <section class="text-block">
+            <h2 class="t-heading">{block.heading}</h2>
+            <div class="paras t-body-l">
+              {block.paragraphs.map((p) => <p>{p}</p>)}
+            </div>
+          </section>
+        ) : (
+          <CaseMedia block={block} />
+        )
+      )}
+    </div>
+
+    <ClosingCta />
+  </div>
+</Base>
+
+<style>
+  .side-top {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    color: var(--theme-text);
+    text-decoration: none;
+  }
+  .back :global(svg) { transition: transform var(--dur-fast) var(--ease-out); }
+  @media (hover: hover) {
+    .back:hover :global(svg) { transform: translateX(-3px); }
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .content {
+    max-width: calc(var(--media-max) + 160px);
+    padding: 80px 80px 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+  }
+  .hero {
+    position: relative;
+    aspect-ratio: 880 / 600;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--theme-border);
+    overflow: hidden;
+    container-type: inline-size;
+  }
+  .hero :global(.hero-photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-dim { position: absolute; inset: 0; }
+  .hero :global(.hero-logo) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 27.27cqi;
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .mobile-info { display: none; }
+
+  .blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+  .text-block {
+    max-width: var(--text-max);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .text-block + .text-block { margin-top: 24px; }
+  .paras {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .text-block + :global(.media-block) { margin-top: 24px; }
+
+  @media (max-width: 1279px) {
+    .content { padding: 64px 48px 96px; }
+  }
+  @media (max-width: 1023px) {
+    .content {
+      padding: 8px var(--gutter) 64px;
+      gap: 48px;
+    }
+    .hero { aspect-ratio: 358 / 244; }
+    .mobile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .info { gap: 16px; }
+    .blocks { gap: 48px; }
+    .text-block { gap: 12px; }
+    .text-block + .text-block,
+    .text-block + :global(.media-block) { margin-top: 0; }
+    .paras { gap: 0; }
+  }
+</style>

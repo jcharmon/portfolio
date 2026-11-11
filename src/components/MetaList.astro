@@ -1,0 +1,19 @@
+---
+/** Figma "Meta": small grey label with the value under it (Year, Role…). */
+interface Props { items: { label: string; value: string[] }[] }
+const { items } = Astro.props;
+---
+<dl class="meta">
+  {items.map((m) => (
+    <div class="row">
+      <dt class="t-small muted">{m.label}</dt>
+      <dd class="t-body">{m.value.map((v) => <span>{v}</span>)}</dd>
+    </div>
+  ))}
+</dl>
+<style>
+  .meta { display: flex; flex-direction: column; gap: 32px; margin: 0; }
+  .row { display: flex; flex-direction: column; gap: 12px; }
+  dd { margin: 0; display: flex; flex-direction: column; }
+  @media (max-width: 1023px) { .meta { gap: 24px; } }
+</style>
