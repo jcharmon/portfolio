@@ -45,6 +45,6 @@ export const projects: Project[] = [
     slug: "radpad",
     title: "RadPad",
     summary: "Took leases and move-in payments fully online for renters and landlords.",
-    ready: false,
+    ready: true,
   },
 ];
