@@ -11,9 +11,9 @@ const { block } = Astro.props;
 const { layout, images } = block;
 const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
 ---
-<figure class="media-block">
+<figure class="media-block" data-reveal>
   {layout === "single" && (
-    <div class:list={["card single", { cropped: block.aspect }]} style={block.aspect ? `aspect-ratio: ${block.aspect}` : undefined}>
+    <div data-loader class:list={["card single", { cropped: block.aspect }]} style={block.aspect ? `aspect-ratio: ${block.aspect}` : undefined}>
       <Image src={images[0].src} alt={images[0].alt} widths={[720, 1200, 1760]} sizes={full} />
     </div>
   )}
@@ -21,21 +21,21 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   {layout === "pair" && (
     <div class="pair">
       {images.map((img) => (
-        <div class="card"><Image src={img.src} alt={img.alt} widths={[440, 880]} sizes="(max-width: 1023px) 50vw, 432px" /></div>
+        <div class="card" data-loader><Image src={img.src} alt={img.alt} widths={[440, 880]} sizes="(max-width: 1023px) 50vw, 432px" /></div>
       ))}
     </div>
   )}
 
   {layout === "one-big-two-small" && (
     <div class="trio">
-      <div class="card big"><Image src={images[0].src} alt={images[0].alt} widths={[600, 1160]} sizes="(max-width: 1023px) 66vw, 580px" /></div>
-      <div class="card"><Image src={images[1].src} alt={images[1].alt} widths={[300, 570]} sizes="(max-width: 1023px) 33vw, 284px" /></div>
-      <div class="card"><Image src={images[2].src} alt={images[2].alt} widths={[300, 570]} sizes="(max-width: 1023px) 33vw, 284px" /></div>
+      <div data-loader class="card big"><Image src={images[0].src} alt={images[0].alt} widths={[600, 1160]} sizes="(max-width: 1023px) 66vw, 580px" /></div>
+      <div class="card" data-loader><Image src={images[1].src} alt={images[1].alt} widths={[300, 570]} sizes="(max-width: 1023px) 33vw, 284px" /></div>
+      <div class="card" data-loader><Image src={images[2].src} alt={images[2].alt} widths={[300, 570]} sizes="(max-width: 1023px) 33vw, 284px" /></div>
     </div>
   )}
 
   {layout === "browser" && (
-    <div class="card browser-stage" style={`background:${block.background ?? "var(--theme-surface)"}`}>
+    <div data-loader class="card browser-stage" style={`background:${block.background ?? "var(--theme-surface)"}`}>
       <div class="browser">
         <div class="chrome">
           <img src={dotRed.src} alt="" width="9" height="9" />

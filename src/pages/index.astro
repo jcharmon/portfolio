@@ -13,27 +13,27 @@ import { site } from "../content/site";
 
   <Fragment slot="sidebar">
     <div class="side-top">
-      <Smiley />
-      <div class="intro">
+      <div data-reveal><Smiley /></div>
+      <div class="intro" data-reveal>
         <h1 class="t-heading">{home.greeting.map((line) => <span>{line}</span>)}</h1>
         {home.intro.map((p) => <p class="t-body">{p}</p>)}
       </div>
-      <div class="links">
+      <div class="links" data-reveal>
         <TextLink href={site.email} external>Reach out</TextLink>
         <TextLink href={site.resume} external>Resume</TextLink>
       </div>
     </div>
-    <p class="t-small-strong muted">{site.location}</p>
+    <p class="t-small-strong muted" data-reveal>{site.location}</p>
   </Fragment>
 
   <div class="content">
     <!-- Phones: intro shows above the projects -->
     <div class="mobile-intro">
-      <div class="intro">
+      <div class="intro" data-reveal>
         <h1 class="t-heading">{home.greeting.map((line) => <span>{line}</span>)}</h1>
         {home.intro.map((p) => <p class="t-body">{p}</p>)}
       </div>
-      <div class="links">
+      <div class="links" data-reveal>
         <TextLink href={site.email} external>Reach out</TextLink>
         <TextLink href={site.resume} external>Resume</TextLink>
       </div>
@@ -45,7 +45,7 @@ import { site } from "../content/site";
       </div>
     </section>
 
-    <footer class="mobile-footer">
+    <footer class="mobile-footer" data-reveal>
       <div class="links">
         <TextLink href={site.email} external>Reach out</TextLink>
         <TextLink href={site.resume} external>Resume</TextLink>

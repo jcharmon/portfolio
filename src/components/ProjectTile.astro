@@ -8,8 +8,8 @@ interface Props { project: Project }
 const { project } = Astro.props;
 const Tag = project.ready ? "a" : "div";
 ---
-<Tag class:list={["tile", { link: project.ready }]} {...(project.ready ? { href: `/work/${project.slug}` } : {})}>
-  <div class="box">
+<Tag data-reveal class:list={["tile", { link: project.ready }]} {...(project.ready ? { href: `/work/${project.slug}` } : {})}>
+  <div class="box" data-loader>
     <TileMedia slug={project.slug} />
     <div class="hover-dim" aria-hidden="true"></div>
   </div>

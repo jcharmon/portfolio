@@ -20,17 +20,17 @@ const { study } = Astro.props;
 
   <Fragment slot="sidebar">
     <div class="side-top">
-      <a class="back t-body" href="/"><Icon name="arrow-left" size={20} /> All work</a>
-      <div class="info">
+      <a data-reveal class="back t-body" href="/"><Icon name="arrow-left" size={20} /> All work</a>
+      <div class="info" data-reveal>
         <h1 class="t-display">{study.title}</h1>
         <p class="t-body">{study.summary}</p>
       </div>
-      <MetaList items={study.meta} />
+      <div data-reveal><MetaList items={study.meta} /></div>
     </div>
   </Fragment>
 
   <div class="content">
-    <div class="hero">
+    <div class="hero" data-reveal data-loader>
       <Image class="hero-photo" src={study.hero.photo} alt="" widths={[720, 1200, 1760]} sizes="(max-width: 1023px) calc(100vw - 32px), 880px" />
       <div class="hero-dim" style={`background: rgba(0,0,0,${study.hero.dim})`}></div>
       <Image class="hero-logo" src={study.hero.logo} alt={study.hero.logoAlt} width={480} />
@@ -38,17 +38,17 @@ const { study } = Astro.props;
 
     <!-- On phones the sidebar is hidden, so the title and details show here -->
     <div class="mobile-info">
-      <div class="info">
+      <div class="info" data-reveal>
         <h1 class="t-display">{study.title}</h1>
         <p class="t-body">{study.summary}</p>
       </div>
-      <MetaList items={study.meta} />
+      <div data-reveal><MetaList items={study.meta} /></div>
     </div>
 
     <div class="blocks">
       {study.blocks.map((block) =>
         block.type === "text" ? (
-          <section class="text-block">
+          <section class="text-block" data-reveal>
             <h2 class="t-heading">{block.heading}</h2>
             <div class="paras t-body-l">
               {block.paragraphs.map((p) => <p>{p}</p>)}
@@ -60,7 +60,7 @@ const { study } = Astro.props;
       )}
     </div>
 
-    <ClosingCta />
+    <div data-reveal><ClosingCta /></div>
   </div>
 </Base>
 

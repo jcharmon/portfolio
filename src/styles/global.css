@@ -106,3 +106,55 @@ a {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Load-in motion (see src/scripts/motion.ts) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms var(--ease-out) var(--reveal-delay, 0ms),
+    transform 700ms var(--ease-out) var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Image loader: soft shimmer until pictures arrive ---------- */
+.js [data-loader] {
+  background-color: var(--theme-surface);
+}
+.js [data-loader] > * {
+  transition: opacity 500ms var(--ease-out);
+}
+.js [data-loader]:not(.is-loaded) > * {
+  opacity: 0;
+}
+.js [data-loader]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    var(--theme-surface-alt) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  transition: opacity 400ms var(--ease-out);
+}
+.js [data-loader].is-loaded::after {
+  opacity: 0;
+  animation: none;
+}
+@keyframes shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { transform: none; }
+  .js [data-loader]::after { animation: none; }
+}
