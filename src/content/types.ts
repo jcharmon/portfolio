@@ -31,6 +31,8 @@ export interface MediaBlock {
   gap?: number;
   background?: string;
   browserUrl?: string;
+  /** Optional link shown under the caption, e.g. to a press article */
+  link?: { label: string; href: string };
   /** Bold words that start the caption */
   lead?: string;
   caption: string[];
@@ -43,7 +45,14 @@ export interface HighlightsBlock {
   items: { image: Picture; lead: string; text: string }[];
 }
 
-export type Block = TextBlock | MediaBlock | HighlightsBlock;
+/** Highlights as grey cards with a line icon, a big result and a short note */
+export interface StatCardsBlock {
+  type: "stat-cards";
+  heading: string;
+  items: { icon: ImageMetadata; title: string; text: string }[];
+}
+
+export type Block = TextBlock | MediaBlock | HighlightsBlock | StatCardsBlock;
 
 export interface CaseStudy {
   slug: string;

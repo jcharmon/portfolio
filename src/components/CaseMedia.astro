@@ -2,6 +2,7 @@
 /** A picture block in a case study, with its caption underneath. */
 import { Image } from "astro:assets";
 import type { MediaBlock } from "../content/types";
+import Icon from "./Icon.astro";
 import dotRed from "../assets/opm/dot-red.svg";
 import dotYellow from "../assets/opm/dot-yellow.svg";
 import dotGreen from "../assets/opm/dot-green.svg";
@@ -75,6 +76,11 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
         <span class="muted">{p}</span>
       </p>
     ))}
+    {block.link && (
+      <a class="ext-link" href={block.link.href} target="_blank" rel="noopener">
+        {block.link.label} <Icon name="arrow-up-right" size={20} />
+      </a>
+    )}
   </figcaption>
 </figure>
 
@@ -233,6 +239,20 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
     gap: 20px;
   }
   figcaption strong { font-weight: 600; color: var(--theme-text); }
+  .ext-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    margin-top: -4px;
+    text-decoration: none;
+    color: var(--theme-text);
+  }
+  .ext-link :global(svg) { transition: transform var(--dur-fast) var(--ease-out); }
+  @media (hover: hover) {
+    .ext-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .ext-link:hover :global(svg) { transform: translate(2px, -2px); }
+  }
 
   @media (max-width: 1023px) {
     .pair, .trio { gap: 6.5px; }

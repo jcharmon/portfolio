@@ -33,7 +33,7 @@ export const projects: Project[] = [
     slug: "bobbie",
     title: "Bobbie",
     summary: "Built a self-serve portal for busy parents and emails that drove $3.6M in year one.",
-    ready: false,
+    ready: true,
   },
   {
     slug: "nextnav",

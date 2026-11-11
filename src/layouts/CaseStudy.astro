@@ -9,6 +9,7 @@ import MobileBar from "../components/MobileBar.astro";
 import MetaList from "../components/MetaList.astro";
 import CaseMedia from "../components/CaseMedia.astro";
 import Highlights from "../components/Highlights.astro";
+import StatCards from "../components/StatCards.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import Icon from "../components/Icon.astro";
 import type { CaseStudy } from "../content/types";
@@ -67,6 +68,8 @@ const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
           </section>
         ) : block.type === "highlights" ? (
           <Highlights block={block} />
+        ) : block.type === "stat-cards" ? (
+          <StatCards block={block} />
         ) : (
           <CaseMedia block={block} />
         )

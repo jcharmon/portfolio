@@ -1,0 +1,49 @@
+---
+/** "Highlights" as a row of grey cards, each with a line icon, a big result and a short note. */
+import type { StatCardsBlock } from "../content/types";
+
+interface Props { block: StatCardsBlock }
+const { block } = Astro.props;
+---
+<section class="stat-cards highlights">
+  <h2 class="t-heading" data-reveal>{block.heading}</h2>
+  <div class="row">
+    {block.items.map((item) => (
+      <div class="card" data-reveal>
+        <img src={item.icon.src} alt="" width="80" height="80" />
+        <h3 class="t-heading">{item.title}</h3>
+        <p class="t-body muted">{item.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stat-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .card {
+    background: var(--theme-surface);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    min-height: 432px;
+  }
+  .card img { width: 80px; height: 80px; display: block; }
+  h3 { margin: 48px 0 12px; }
+  p { margin: 0; }
+
+  @media (max-width: 1023px) {
+    .stat-cards { gap: 20px; }
+    .row { grid-template-columns: 1fr; gap: 12px; }
+    .card { min-height: 0; padding: 24px; }
+    .card img { width: 64px; height: 64px; }
+    h3 { margin-top: 32px; }
+  }
+</style>
