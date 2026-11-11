@@ -4,7 +4,7 @@
 */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* ---------- Theme colors (Figma: theme/*) ---------- */
   --theme-bg: #ffffff;
@@ -70,29 +70,4 @@
     --type-body-l-size: 17px; /* Mobile/Body L: 17 / 1.6 */
     --radius-card: 12px;
   }
-}
-
-/*
-  Dark mode. Figma only has light values, so these are matched by eye:
-  same contrast steps, flipped. Follows the visitor's device setting.
-*/
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --theme-bg: #121212;
-    --theme-surface: #1c1c1b;
-    --theme-surface-alt: #262625;
-    --theme-text: #f2f2f0;
-    --theme-text-muted: #a3a3a0;
-    --theme-border: #2c2c2a;
-    --theme-accent: #f2f2f0;
-  }
-}
-:root[data-theme="dark"] {
-  --theme-bg: #121212;
-  --theme-surface: #1c1c1b;
-  --theme-surface-alt: #262625;
-  --theme-text: #f2f2f0;
-  --theme-text-muted: #a3a3a0;
-  --theme-border: #2c2c2a;
-  --theme-accent: #f2f2f0;
 }
