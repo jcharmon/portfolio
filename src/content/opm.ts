@@ -27,7 +27,7 @@ const opm: CaseStudy = {
     "Helped modernize how America’s federal workforce retires, turning a paper process that took months into a digital one measured in days.",
   meta: [
     { label: "Year", value: ["2025 – 2026"] },
-    { label: "Role", value: ["Product design", "Retirement application", "Case review tools", "User research"] },
+    { label: "Role", value: ["Product design", "User research"] },
     {
       label: "Made alongside",
       value: [
