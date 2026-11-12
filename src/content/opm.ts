@@ -29,7 +29,7 @@ const opm: CaseStudy = {
     { label: "Year", value: ["2025 – 2026"] },
     { label: "Role", value: ["Product design", "User research"] },
     {
-      label: "Made alongside",
+      label: "I didn’t do it alone",
       value: [
         "Joe Gebbia, Yat Choi, Dennis Li, Gabe Valdivia, Marimar Cabrero, the entire OPM leadership team and several team members across the OPM team.",
       ],

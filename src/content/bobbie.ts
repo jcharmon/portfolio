@@ -27,7 +27,7 @@ const bobbie: CaseStudy = {
       value: ["Founding UX designer", "Design direction and leadership", "Product strategy", "UXR / UX / UI design"],
     },
     {
-      label: "Made with",
+      label: "I didn’t do it alone",
       value: [
         "Laura Modi, Lindsay Monroe, Elieke Kierns, Jennifer Kelly, Jenna Mersch, Human Design Agency, Angeline Giammona, the Bobbie executive team and brand support from Herman Scheer.",
       ],
