@@ -22,7 +22,7 @@ const radpad: CaseStudy = {
     { label: "Year", value: ["2016"] },
     { label: "Role", value: ["Design lead", "Product strategy", "User research", "UX / UI design", "OOH design"] },
     {
-      label: "I didn’t do it alone",
+      label: "Teamwork made it possible",
       value: [
         "Tyler Galpin (Creative Director), Matt Miller (Designer), Jonathan Eppers (CEO) and the RadPad engineering team.",
       ],

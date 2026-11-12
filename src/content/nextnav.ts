@@ -23,7 +23,7 @@ const nextnav: CaseStudy = {
   meta: [
     { label: "Year", value: ["2021"] },
     { label: "Role", value: ["Design lead", "UXR / UX / UI design", "Design system"] },
-    { label: "I didn’t do it alone", value: ["TM, John Ashenden and the NextNav leadership team."] },
+    { label: "Teamwork made it possible", value: ["TM, John Ashenden and the NextNav leadership team."] },
   ],
   hero: {
     kind: "image",

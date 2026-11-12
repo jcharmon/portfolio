@@ -33,7 +33,7 @@ const googleFi: CaseStudy = {
     { label: "Year", value: ["2018"] },
     { label: "Role", value: ["Design lead", "Design mentorship", "UXR / UX / UI design", "Creative direction"] },
     {
-      label: "I didn’t do it alone",
+      label: "Teamwork made it possible",
       value: [
         "Jay Wong, Jamie Kim, Drew Shimomura, Shannon Liu, Alyx Ryan, Nick Hioitis, Marcia Jung and the Google Fi leadership, Eng, Product, Ops and Marketing teams.",
       ],
