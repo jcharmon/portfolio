@@ -56,6 +56,19 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
     </div>
   )}
 
+  {layout === "scrolling-browser" && (
+    <div class="card scroll-stage" data-loader style={`background:${block.background ?? "#eaeaec"}`}>
+      <div class="sb">
+        <div class="sb-window">
+          <div class="sb-page">
+            <Image src={images[0].src} alt={images[0].alt} widths={[760, 1293]} sizes="(max-width: 1023px) 90vw, 760px" />
+          </div>
+          <img class="sb-header" src={images[1].src.src} alt="" width={images[1].src.width} height={images[1].src.height} />
+        </div>
+      </div>
+    </div>
+  )}
+
   {layout === "browser" && (
     <div data-loader class="card browser-stage" style={`background:${block.background ?? "var(--theme-surface)"}`}>
       <div class="browser">
@@ -235,6 +248,49 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   @media (max-width: 1023px) {
     .dots { gap: 4px; }
     .dot { width: 5px; height: 5px; }
+  }
+
+  /* Browser window that scrolls a long page by itself (Figma: Card · Plans page) */
+  .scroll-stage {
+    aspect-ratio: 880 / 560;
+    border: 1px solid var(--theme-border);
+    container-type: inline-size;
+  }
+  .sb { --u: calc(100cqi / 880); position: absolute; inset: 0; }
+  .sb-window {
+    position: absolute;
+    left: calc(var(--u) * 59);
+    top: calc(var(--u) * 52);
+    width: calc(var(--u) * 760);
+    height: calc(var(--u) * 454);
+    border-radius: calc(var(--u) * 12);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 calc(var(--u) * 16) calc(var(--u) * 40) rgba(0, 0, 0, 0.22);
+  }
+  .sb-page {
+    position: absolute;
+    left: 0;
+    top: calc(var(--u) * 36);
+    width: 100%;
+    animation: sb-scroll 49.5s linear infinite;
+  }
+  .scroll-stage .sb-page :global(img) { width: 100%; height: auto; display: block; }
+  .scroll-stage .sb-window .sb-header {
+    position: absolute;
+    object-fit: fill;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+  }
+  @keyframes sb-scroll {
+    0%, 3.03% { transform: translateY(0); animation-timing-function: ease-in-out; }
+    91.92%, 95.96% { transform: translateY(calc(var(--u) * -1990)); animation-timing-function: ease-in-out; }
+    100% { transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sb-page { animation: none; }
   }
 
   .browser-stage {

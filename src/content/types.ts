@@ -19,8 +19,10 @@ export interface MediaBlock {
    * one-big-two-small: one large picture with two stacked on the right
    * browser: a browser window with a second card on top (needs 2 images)
    * carousel: a slideshow you can click through (any number of images)
+   * scrolling-browser: a browser window that slowly scrolls a long page by
+   *   itself (image 1 = the full page, image 2 = the pinned top bar)
    */
-  layout: "single" | "pair" | "one-big-two-small" | "browser" | "carousel";
+  layout: "single" | "pair" | "one-big-two-small" | "browser" | "carousel" | "scrolling-browser";
   images: Picture[];
   /**
    * Crop the picture to this shape, e.g. "880 / 560". Leave out to show it whole.

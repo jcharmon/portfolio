@@ -10,7 +10,8 @@ import hlEveryPhone from "../assets/google-fi/highlight-every-phone.jpg";
 import hlIosBeta from "../assets/google-fi/highlight-ios-beta.jpg";
 import hlSimKit from "../assets/google-fi/highlight-sim-kit.jpg";
 import hlSignUps from "../assets/google-fi/highlight-sign-ups.jpg";
-import marketingSite from "../assets/google-fi/marketing-site.jpg";
+import plansPage from "../assets/google-fi/plans-page-full.jpg";
+import browserHeader from "../assets/google-fi/browser-header.png";
 import signUp1 from "../assets/google-fi/sign-up-1.jpg";
 import signUp2 from "../assets/google-fi/sign-up-2.jpg";
 import signUp3 from "../assets/google-fi/sign-up-3.jpg";
@@ -64,7 +65,7 @@ const googleFi: CaseStudy = {
     },
     {
       type: "text",
-      heading: "Why it’s hard",
+      heading: "Why it was hard",
       paragraphs: [
         "Fi had only ever worked on a handful of Google phones. Opening it to every Android phone and iPhone meant a simple setup for everyone, from brand-new customers to families switching devices and bringing their numbers. With little documentation from earlier versions, we pieced together how it all worked as we went, and left better records for the next team.",
       ],
@@ -80,8 +81,8 @@ const googleFi: CaseStudy = {
         },
         {
           image: { src: hlIosBeta, alt: "Google Fi running on an iPhone" },
-          lead: "Launched iOS in beta.",
-          text: "With no Apple carrier deal, I used usability studies to make the case for an honest beta launch.",
+          lead: "Set honest expectations.",
+          text: "With no Apple carrier deal, I used usability studies to make the case to leadership for a beta launch.",
         },
         {
           image: { src: hlSimKit, alt: "The redesigned Google Fi SIM kit" },
@@ -97,8 +98,11 @@ const googleFi: CaseStudy = {
     },
     {
       type: "media",
-      layout: "single",
-      images: [{ src: marketingSite, alt: "The Google Fi plans page" }],
+      layout: "scrolling-browser",
+      images: [
+        { src: plansPage, alt: "The Google Fi plans page, scrolling from top to bottom" },
+        { src: browserHeader, alt: "" },
+      ],
       lead: "Marketing site.",
       caption: [
         "A refreshed plans page that explains Flexible and Unlimited in plain language, so people can choose a plan before they ever sign up.",
