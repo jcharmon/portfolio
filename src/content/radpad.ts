@@ -12,7 +12,6 @@ import feeSummary from "../assets/radpad/fee-summary.jpg";
 import sendingTheLease from "../assets/radpad/sending-the-lease.jpg";
 import confirmDetails from "../assets/radpad/confirm-details.jpg";
 import payment from "../assets/radpad/payment.jpg";
-import oohCampaigns from "../assets/radpad/ooh-campaigns.jpg";
 
 const radpad: CaseStudy = {
   slug: "radpad",
@@ -89,15 +88,6 @@ const radpad: CaseStudy = {
       lead: "Signing and move-in.",
       caption: [
         "Renters confirm their details, sign, and pay first month’s rent and deposit by debit or credit card in one flow.",
-      ],
-    },
-    {
-      type: "media",
-      layout: "single",
-      images: [{ src: oohCampaigns, alt: "RadPad billboards and mailers around Los Angeles" }],
-      lead: "Taking it to the streets.",
-      caption: [
-        "I designed out-of-home campaigns, from billboards around LA to mailers that brought new landlords onto RadPad.",
       ],
     },
   ],
