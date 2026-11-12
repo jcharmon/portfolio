@@ -10,6 +10,7 @@ import MetaList from "../components/MetaList.astro";
 import CaseMedia from "../components/CaseMedia.astro";
 import Highlights from "../components/Highlights.astro";
 import StatCards from "../components/StatCards.astro";
+import Principles from "../components/Principles.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import Icon from "../components/Icon.astro";
 import type { CaseStudy } from "../content/types";
@@ -70,6 +71,8 @@ const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
           <Highlights block={block} />
         ) : block.type === "stat-cards" ? (
           <StatCards block={block} />
+        ) : block.type === "principles" ? (
+          <Principles block={block} />
         ) : (
           <CaseMedia block={block} />
         )
@@ -157,6 +160,7 @@ const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
   }
   .text-block + :global(.media-block),
   .text-block + :global(.highlights),
+  .text-block + :global(.principles),
   :global(.highlights) + :global(.media-block) { margin-top: 24px; }
   .intro { max-width: var(--text-max); }
 
@@ -180,6 +184,7 @@ const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
     .text-block + .text-block,
     .text-block + :global(.media-block),
     .text-block + :global(.highlights),
+    .text-block + :global(.principles),
     :global(.highlights) + :global(.media-block) { margin-top: 0; }
     .paras { gap: 0; }
   }

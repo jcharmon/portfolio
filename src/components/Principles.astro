@@ -1,0 +1,70 @@
+---
+/** A grey card holding a white list of principles: name on the left, meaning and an example on the right. */
+import type { PrinciplesBlock } from "../content/types";
+
+interface Props { block: PrinciplesBlock }
+const { block } = Astro.props;
+---
+<section class="principles" data-reveal>
+  <div class="sheet">
+    <p class="label">{block.label}</p>
+    <dl>
+      {block.items.map((item) => (
+        <div class="row">
+          <dt>{item.name}</dt>
+          <dd>
+            <p class="text">{item.text}</p>
+            <p class="practice"><span>In practice:</span> {item.practice}</p>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .principles {
+    background: #ededf2;
+    border-radius: var(--radius-card);
+    padding: 40px;
+  }
+  .sheet {
+    background: #fff;
+    border-radius: 20px;
+    padding: 12px 36px;
+  }
+  .label {
+    margin: 0;
+    padding: 20px 0 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5b5f7a;
+  }
+  dl { margin: 0; }
+  .row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 1px solid #e3e4ec;
+  }
+  dt {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #1f2247;
+  }
+  dd { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .text { margin: 0; font-size: 16px; line-height: 1.5; color: #1f2247; }
+  .practice { margin: 0; font-size: 14px; line-height: 1.45; color: #5b5f7a; }
+  .practice span { font-weight: 500; }
+
+  @media (max-width: 1023px) {
+    .principles { padding: 12px; }
+    .sheet { padding: 4px 20px; border-radius: 10px; }
+    .label { padding: 16px 0 12px; }
+    .row { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
+    dt { font-size: 18px; }
+    .text { font-size: 15px; }
+  }
+</style>

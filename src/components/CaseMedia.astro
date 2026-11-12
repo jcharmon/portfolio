@@ -57,7 +57,14 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   )}
 
   {layout === "scrolling-browser" && (
-    <div class="card scroll-stage" data-loader style={`background:${block.background ?? "#eaeaec"}`}>
+    <div class="card scroll-stage" data-loader style={[
+      `background:${block.background ?? "#eaeaec"}`,
+      `--sb-left:${block.scrollPage?.windowLeft ?? 59}`,
+      `--sb-top:${block.scrollPage?.windowTop ?? 52}`,
+      `--sb-page-top:${block.scrollPage?.pageTop ?? 36}`,
+      `--sb-dist:${block.scrollPage?.distance ?? 1990}`,
+      `--sb-dur:${block.scrollPage?.seconds ?? 49.5}s`,
+    ].join(";")}>
       <div class="sb">
         <div class="sb-window">
           <div class="sb-page">
@@ -259,8 +266,8 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   .sb { --u: calc(100cqi / 880); position: absolute; inset: 0; }
   .sb-window {
     position: absolute;
-    left: calc(var(--u) * 59);
-    top: calc(var(--u) * 52);
+    left: calc(var(--u) * var(--sb-left));
+    top: calc(var(--u) * var(--sb-top));
     width: calc(var(--u) * 760);
     height: calc(var(--u) * 454);
     border-radius: calc(var(--u) * 12);
@@ -271,9 +278,9 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   .sb-page {
     position: absolute;
     left: 0;
-    top: calc(var(--u) * 36);
+    top: calc(var(--u) * var(--sb-page-top));
     width: 100%;
-    animation: sb-scroll 49.5s linear infinite;
+    animation: sb-scroll var(--sb-dur) linear infinite;
   }
   .scroll-stage .sb-page :global(img) { width: 100%; height: auto; display: block; }
   .scroll-stage .sb-window .sb-header {
@@ -286,7 +293,7 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   }
   @keyframes sb-scroll {
     0%, 3.03% { transform: translateY(0); animation-timing-function: ease-in-out; }
-    91.92%, 95.96% { transform: translateY(calc(var(--u) * -1990)); animation-timing-function: ease-in-out; }
+    91.92%, 95.96% { transform: translateY(calc(var(--u) * var(--sb-dist) * -1)); animation-timing-function: ease-in-out; }
     100% { transform: translateY(0); }
   }
   @media (prefers-reduced-motion: reduce) {

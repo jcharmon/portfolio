@@ -33,6 +33,11 @@ export interface MediaBlock {
   gap?: number;
   background?: string;
   browserUrl?: string;
+  /**
+   * scrolling-browser only: where the window sits in the card and how the page
+   * scrolls, in Figma pixels (the card is 880 wide). Leave out for the defaults.
+   */
+  scrollPage?: { windowLeft?: number; windowTop?: number; pageTop?: number; distance?: number; seconds?: number };
   /** Optional link shown under the caption, e.g. to a press article */
   link?: { label: string; href: string };
   /** Bold words that start the caption */
@@ -60,7 +65,14 @@ export interface StatCardsBlock {
   items: { icon: ImageMetadata; title: string; text: string }[];
 }
 
-export type Block = TextBlock | MediaBlock | HighlightsBlock | StatCardsBlock;
+/** A card listing principles: a name, what it means, and an example */
+export interface PrinciplesBlock {
+  type: "principles";
+  label: string;
+  items: { name: string; text: string; practice: string }[];
+}
+
+export type Block = TextBlock | MediaBlock | HighlightsBlock | StatCardsBlock | PrinciplesBlock;
 
 export interface CaseStudy {
   slug: string;
