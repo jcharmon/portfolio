@@ -36,6 +36,16 @@ const Tag = project.ready ? "a" : "div";
     border-radius: var(--radius-tile);
     overflow: hidden;
     isolation: isolate;
+    /* Hover lift: the card rises a few pixels and casts a soft shadow */
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    transition:
+      transform 450ms var(--ease-out),
+      box-shadow 450ms var(--ease-out);
+  }
+  .box > :global(:first-child) {
+    transition:
+      opacity 500ms var(--ease-out),
+      transform 700ms var(--ease-out);
   }
   .hover-dim {
     position: absolute;
@@ -70,9 +80,18 @@ const Tag = project.ready ? "a" : "div";
   }
   @media (hover: hover) {
     .link:hover .hover-dim { opacity: 1; }
+    .link:hover .box {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.22);
+    }
+    .link:hover .box > :global(:first-child) { transform: scale(1.025); }
     .link:hover .title :global(.arrow) { opacity: 1; transform: none; }
   }
   .link:focus-visible .title :global(.arrow) { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .link:hover .box,
+    .link:hover .box > :global(:first-child) { transform: none; }
+  }
   @media (max-width: 1023px) {
     .box { aspect-ratio: 358 / 312; }
   }
