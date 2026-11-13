@@ -8,7 +8,6 @@ import type { CaseStudy } from "./types";
 import hero from "../assets/nextnav/hero.jpg";
 import hlSeriesE from "../assets/nextnav/highlight-series-e.jpg";
 import hlResearch from "../assets/nextnav/highlight-research.jpg";
-import hlDesignSystem from "../assets/nextnav/highlight-design-system.jpg";
 import hlRelationships from "../assets/nextnav/highlight-relationships.jpg";
 import incidents from "../assets/nextnav/incidents.jpg";
 import helpAlerts from "../assets/nextnav/help-alerts.jpg";
@@ -66,12 +65,6 @@ const nextnav: CaseStudy = {
           text: "Special ops and first responders have unconventional procedures. Through detailed research, we unlocked their workflow...",
         },
         {
-          width: 320,
-          image: { src: hlDesignSystem, alt: "The NextNav sign in screen" },
-          lead: "Built a design system for stress.",
-          text: "Large tap targets and a color scheme that reads in a dark command center or bright sun.",
-        },
-        {
           width: 536,
           image: { src: hlRelationships, alt: "Diagrams of the object structure, the new incident object and the new map" },
           lead: "Mapped out each relationship.",
@@ -110,9 +103,9 @@ const nextnav: CaseStudy = {
       type: "media",
       layout: "single",
       images: [{ src: designLibrary, alt: "Pages from the NextNav design library" }],
-      lead: "Design library.",
+      lead: "Built a design system for stress.",
       caption: [
-        "We documented every component, from buttons and type to map markers and their states, so engineers could build fast and the team could keep scaling after launch.",
+        "Large tap targets and a color scheme that reads in a dark command center or bright sun. We documented every component, from buttons and type to map markers and their states, so engineers could build fast and the team could keep scaling after launch.",
       ],
     },
   ],
