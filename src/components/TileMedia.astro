@@ -17,8 +17,7 @@ import bobbieBg from "../assets/home/bobbie-bg.jpg";
 import bobbieLogo from "../assets/home/bobbie-logo.png";
 import nnDesktop from "../assets/home/nextnav-desktop.png";
 import nnPhone from "../assets/home/nextnav-phone.png";
-import rpLease from "../assets/home/radpad-lease.png";
-import rpPhone from "../assets/home/radpad-phone.png";
+import rpLogo from "../assets/home/radpad-logo.jpg";
 
 interface Props { slug: ProjectSlug }
 const { slug } = Astro.props;
@@ -70,10 +69,7 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
   )}
 
   {slug === "radpad" && (
-    <>
-      <div class="rp-lease shot"><Image src={rpLease} widths={[400, 700]} sizes="330px" alt="RadPad lease signing on desktop" /></div>
-      <div class="rp-phone shot"><Image src={rpPhone} widths={[200, 300]} sizes="120px" alt="RadPad lease signing on a phone" /></div>
-    </>
+    <Image class="bg rp-logo" src={rpLogo} widths={bgWidths} sizes={bgSizes} alt="RadPad logo" />
   )}
 </div>
 
@@ -88,7 +84,8 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
   .thrive { background: #1f2247; }
   .google-fi { background: #edebe5; }
   .nextnav { background: #1f2a37; }
-  .radpad { background: #1c1440; }
+  .radpad { background: #fab83e; }
+  .rp-logo { object-fit: contain; }
 
   .bg {
     position: absolute;
@@ -161,14 +158,4 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
   }
 
-  .rp-lease, .rp-phone {
-    border-radius: 2px;
-    box-shadow: 0 7.5px 19px rgba(0, 0, 0, 0.18);
-  }
-  .rp-lease { top: 15.38%; right: 10.12%; bottom: -0.08%; left: 10.34%; }
-  .rp-phone { top: 37.73%; right: 5.57%; bottom: -4.7%; left: 66.02%; }
-  .rp-lease :global(img), .rp-phone :global(img) {
-    width: 100%;
-    height: auto;
-  }
 </style>
