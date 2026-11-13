@@ -15,8 +15,7 @@ import fiBg from "../assets/home/fi-bg.jpg";
 import fiLogo from "../assets/home/fi-logo.png";
 import bobbieBg from "../assets/home/bobbie-bg.jpg";
 import bobbieLogo from "../assets/home/bobbie-logo.png";
-import nnDesktop from "../assets/home/nextnav-desktop.png";
-import nnPhone from "../assets/home/nextnav-phone.png";
+import nnThumb from "../assets/home/nextnav-thumb.jpg";
 import rpLogo from "../assets/home/radpad-logo.jpg";
 
 interface Props { slug: ProjectSlug }
@@ -62,10 +61,7 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
   )}
 
   {slug === "nextnav" && (
-    <>
-      <Image class="nn-desktop shot" src={nnDesktop} widths={[600, 1000]} sizes="300px" alt="NextNav tablet app" />
-      <Image class="nn-phone shot" src={nnPhone} widths={[200, 400]} sizes="100px" alt="NextNav phone app" />
-    </>
+    <Image class="bg" src={nnThumb} widths={bgWidths} sizes={bgSizes} alt="NextNav logo over a firefighter in gear" />
   )}
 
   {slug === "radpad" && (
@@ -143,19 +139,5 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
   }
   .bobbie-logo { width: 52.4cqi; height: auto; }
 
-  .shot {
-    position: absolute;
-    border-radius: 6px;
-    overflow: hidden;
-    object-fit: cover;
-  }
-  .nn-desktop {
-    left: 22%; top: 14.58%; width: 70.19%; height: 68.91%;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-  }
-  .nn-phone {
-    left: 7.81%; top: 20.19%; width: 23.08%; height: 66.51%;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
-  }
 
 </style>
