@@ -54,7 +54,7 @@ const radpad: CaseStudy = {
       images: [{ src: leaseBuilder, alt: "The RadPad lease builder" }],
       lead: "Building the RadPad lease.",
       caption: [
-        "The goal was a customizable lease that landlords could trust and renters could actually understand. Landlords set the rent, deposit and terms in a few steps, with plain-language help explaining what each choice meant, and signing was handled through DocuSign.",
+        "The goal was a customizable lease that landlords could trust and renters could actually understand. Landlords set the rent, deposit and terms in a few steps, with signing handled through DocuSign. Plain-language help and smart defaults meant anyone could create a solid lease without having to be an expert.",
       ],
     },
     {
