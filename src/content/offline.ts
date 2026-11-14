@@ -73,14 +73,14 @@ export const offline = {
       alt: "A boy in a bucket hat slurping a long udon noodle at a sushi restaurant",
       kind: "photo",
       title: "Sushi date",
-      text: "Sushi date with my oldest kiddo. Slurping the noodles is part of the fun.",
+      text: "One-on-one time with my oldest kiddo.",
     },
     {
       image: meAndMyBoys,
       alt: "Two young boys piled on their mom's back on the couch, all smiling",
       kind: "photo",
       title: "Me and my boys",
-      text: "Me and my boys. Any spot on the couch can turn into a dogpile.",
+      text: "Weekends at home with my two boys.",
     },
     {
       image: newestAddition,
@@ -94,14 +94,14 @@ export const offline = {
       alt: "A selfie of a mom cheek to cheek with her smiling baby girl",
       kind: "photo",
       title: "Me and Blake",
-      text: "Me and Blake, the girl of the crew.",
+      text: "Me and Blake, our baby girl.",
     },
     {
       image: surfing,
       alt: "Surfing a boat wake while holding a toddler in a life jacket, throwing a peace sign",
       kind: "photo",
       title: "Surfing",
-      text: "Surfing the wake with a little co-pilot. Peace signs are required.",
+      text: "Out on the lake, surfing with one of my boys.",
     },
     {
       image: positiveHappyKind,
