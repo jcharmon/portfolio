@@ -13,11 +13,15 @@ import favoritePeople from "../assets/offline/01-favorite-people.jpg";
 import halfMarathonTraining from "../assets/offline/02-half-marathon-training.jpg";
 import dallasHalf from "../assets/offline/03-dallas-half-marathon.png";
 import upForAnything from "../assets/offline/04-up-for-anything.jpg";
-import worthTheClimb from "../assets/offline/05-worth-the-climb.jpg";
-import positiveHappyKind from "../assets/offline/06-positive-happy-kind.jpg";
-import leica from "../assets/offline/07-leica-q3.png";
-import icedCoffee from "../assets/offline/08-iced-coffee.png";
-import chucks from "../assets/offline/09-chucks.png";
+import sushiDate from "../assets/offline/05-sushi-date.jpg";
+import meAndMyBoys from "../assets/offline/06-me-and-my-boys.jpg";
+import newestAddition from "../assets/offline/07-newest-addition.jpg";
+import meAndBlake from "../assets/offline/08-me-and-blake.jpg";
+import surfing from "../assets/offline/09-surfing.jpg";
+import positiveHappyKind from "../assets/offline/10-positive-happy-kind.jpg";
+import leica from "../assets/offline/11-leica-q3.png";
+import icedCoffee from "../assets/offline/12-iced-coffee.png";
+import chucks from "../assets/offline/13-chucks.png";
 
 export interface OfflineSlide {
   image: ImageMetadata;
@@ -33,7 +37,7 @@ export const offline = {
     title: "Meet me offline",
     summary: "Learn a little more about me.",
     /** The three stacked photos on the tile, back to front */
-    photos: [halfMarathonTraining, worthTheClimb, upForAnything],
+    photos: [halfMarathonTraining, surfing, upForAnything],
   },
   slides: [
     {
@@ -65,11 +69,39 @@ export const offline = {
       text: "Give me a slope, a trail or something I’ve never tried before. I’ll say yes and figure it out on the way.",
     },
     {
-      image: worthTheClimb,
-      alt: "Two people on a cliff above the ocean and a city",
+      image: sushiDate,
+      alt: "A boy in a bucket hat slurping a long udon noodle at a sushi restaurant",
       kind: "photo",
-      title: "Worth the climb",
-      text: "Some of my favorite moments are at the top of something, catching my breath with good people.",
+      title: "Sushi date",
+      text: "Sushi date with my oldest kiddo. Slurping the noodles is part of the fun.",
+    },
+    {
+      image: meAndMyBoys,
+      alt: "Two young boys piled on their mom's back on the couch, all smiling",
+      kind: "photo",
+      title: "Me and my boys",
+      text: "Me and my boys. Any spot on the couch can turn into a dogpile.",
+    },
+    {
+      image: newestAddition,
+      alt: "A family in a hospital room with a newborn, two older brothers making silly faces",
+      kind: "photo",
+      title: "Our newest addition",
+      text: "Welcoming our newest addition to the crew.",
+    },
+    {
+      image: meAndBlake,
+      alt: "A selfie of a mom cheek to cheek with her smiling baby girl",
+      kind: "photo",
+      title: "Me and Blake",
+      text: "Me and Blake, the girl of the crew.",
+    },
+    {
+      image: surfing,
+      alt: "Surfing a boat wake while holding a toddler in a life jacket, throwing a peace sign",
+      kind: "photo",
+      title: "Surfing",
+      text: "Surfing the wake with a little co-pilot. Peace signs are required.",
     },
     {
       image: positiveHappyKind,
