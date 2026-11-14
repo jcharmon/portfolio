@@ -4,7 +4,7 @@ interface Props { href?: string; label?: string }
 const { href = "/", label = "Jordan Samson, home" } = Astro.props;
 ---
 <a class="smiley" href={href} aria-label={label}>
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+  <svg width="30" height="30" viewBox="0 0 28 28" fill="none" aria-hidden="true">
     <path d="M14 27.25C21.3178 27.25 27.25 21.3178 27.25 14C27.25 6.68223 21.3178 0.75 14 0.75C6.68223 0.75 0.75 6.68223 0.75 14C0.75 21.3178 6.68223 27.25 14 27.25Z" fill="var(--theme-bg)" stroke="currentColor" stroke-width="1.5"/>
     <path d="M10 13.25C10.9665 13.25 11.75 12.4665 11.75 11.5C11.75 10.5335 10.9665 9.75 10 9.75C9.0335 9.75 8.25 10.5335 8.25 11.5C8.25 12.4665 9.0335 13.25 10 13.25Z" fill="currentColor"/>
     <path d="M18 13.25C18.9665 13.25 19.75 12.4665 19.75 11.5C19.75 10.5335 18.9665 9.75 18 9.75C17.0335 9.75 16.25 10.5335 16.25 11.5C16.25 12.4665 17.0335 13.25 18 13.25Z" fill="currentColor"/>
@@ -15,8 +15,8 @@ const { href = "/", label = "Jordan Samson, home" } = Astro.props;
 <style>
   .smiley {
     display: inline-flex;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     color: var(--theme-text);
     border-radius: 50%;
   }
