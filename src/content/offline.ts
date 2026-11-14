@@ -38,14 +38,14 @@ export const offline = {
   slides: [
     {
       image: favoritePeople,
-      alt: "A family of three smiling on a beach",
+      alt: "A family of five smiling together in their kitchen",
       kind: "photo",
       title: "My favorite people",
       text: "My family and friends are the most important part of my life. Most weekends you’ll find us outside, making plans or making a mess.",
     },
     {
       image: halfMarathonTraining,
-      alt: "Three runners in race bibs cheering after a run",
+      alt: "Jordan cheering with a finisher medal after the Austin Half Marathon",
       kind: "photo",
       title: "Half marathon training",
       text: "I’m always up for an adventure. Lately that means early miles, race bibs and a lot of stretching.",
