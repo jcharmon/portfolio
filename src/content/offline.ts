@@ -21,7 +21,6 @@ import surfing from "../assets/offline/09-surfing.jpg";
 import positiveHappyKind from "../assets/offline/10-positive-happy-kind.jpg";
 import leica from "../assets/offline/11-leica-q3.png";
 import icedCoffee from "../assets/offline/12-iced-coffee.png";
-import chucks from "../assets/offline/13-chucks.png";
 
 export interface OfflineSlide {
   image: ImageMetadata;
@@ -123,13 +122,6 @@ export const offline = {
       kind: "object",
       title: "Iced coffee, everyday",
       text: "You can always find me with an iced coffee, even on the coldest day of the year. No milk, no sugar, lots of ice.",
-    },
-    {
-      image: chucks,
-      alt: "A black high-top Converse sneaker",
-      kind: "object",
-      title: "Chucks, most days",
-      text: "Classic black high-tops, a little beat up. I keep it pretty casual, so if you run into me, there's a good chance I'm wearing these.",
     },
   ] satisfies OfflineSlide[],
 };
