@@ -4,21 +4,36 @@ import Icon from "./Icon.astro";
 import TileMedia from "./TileMedia.astro";
 import type { Project } from "../content/projects";
 
-interface Props { project: Project }
+/**
+ * Pass a project, or (for a tile that isn't a case study) a title, summary, href
+ * and the tile picture as children.
+ */
+interface Props {
+  project?: Project;
+  title?: string;
+  summary?: string;
+  href?: string;
+  /** Darken the picture on hover (default true) */
+  dim?: boolean;
+}
 const { project } = Astro.props;
-const Tag = project.ready ? "a" : "div";
+const title = project?.title ?? Astro.props.title;
+const summary = project?.summary ?? Astro.props.summary;
+const href = project ? (project.ready ? `/work/${project.slug}` : undefined) : Astro.props.href;
+const Tag = href ? "a" : "div";
+const dim = Astro.props.dim ?? true;
 ---
-<Tag data-reveal class:list={["tile", { link: project.ready }]} {...(project.ready ? { href: `/work/${project.slug}` } : {})}>
+<Tag data-reveal class:list={["tile", { link: !!href }]} {...(href ? { href } : {})}>
   <div class="box" data-loader>
-    <TileMedia slug={project.slug} />
-    <div class="hover-dim" aria-hidden="true"></div>
+    {project ? <TileMedia slug={project.slug} /> : <slot />}
+    {dim && <div class="hover-dim" aria-hidden="true"></div>}
   </div>
   <div class="caption">
     <p class="title t-body-strong">
-      <span>{project.title}</span>
-      {project.ready && <Icon name="arrow-up-right" size={20} class="arrow" />}
+      <span>{title}</span>
+      {href && <Icon name="arrow-up-right" size={20} class="arrow" />}
     </p>
-    <p class="t-body muted">{project.summary}</p>
+    <p class="t-body muted">{summary}</p>
   </div>
 </Tag>
 

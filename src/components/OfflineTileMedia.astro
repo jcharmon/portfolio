@@ -1,0 +1,72 @@
+---
+/**
+ * Tile picture for "Meet me offline" (Figma: Media / Meet me offline).
+ * Three stacked, tilted photos that fan out a little on hover.
+ * Positions are the Figma ones on a 416 x 312 tile.
+ */
+import { Image } from "astro:assets";
+import { offline } from "../content/offline";
+
+const [back, middle, front] = offline.tile.photos;
+---
+<div class="offline-media">
+  <div class="stage">
+    <div class="photo p1"><Image src={back} widths={[240, 480]} sizes="220px" alt="" /></div>
+    <div class="photo p2"><Image src={middle} widths={[240, 480]} sizes="220px" alt="" /></div>
+    <div class="photo p3"><Image src={front} widths={[240, 480]} sizes="220px" alt="" /></div>
+  </div>
+</div>
+
+<style>
+  .offline-media {
+    position: absolute;
+    inset: 0;
+    background: #eeeeec;
+    container-type: inline-size;
+    display: flex;
+    align-items: center;
+  }
+  /* A 416 x 312 drawing area, scaled with the tile and centered top to bottom */
+  .stage {
+    --u: calc(100cqi / 416);
+    position: relative;
+    width: 100%;
+    aspect-ratio: 416 / 312;
+  }
+  .photo {
+    position: absolute;
+    width: calc(var(--u) * 220);
+    height: calc(var(--u) * 164);
+    border-radius: calc(var(--u) * 16);
+    overflow: hidden;
+    transform-origin: 0 0;
+    box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 28) calc(var(--u) * -4) rgba(0, 0, 0, 0.45);
+    transition:
+      left 300ms var(--ease-out),
+      top 300ms var(--ease-out),
+      transform 300ms var(--ease-out),
+      box-shadow 300ms var(--ease-out);
+  }
+  .photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Figma rotates counter-clockwise, CSS clockwise, so the signs flip */
+  .p1 { left: calc(var(--u) * 126); top: calc(var(--u) * 76); transform: rotate(-9.4deg); }
+  .p2 { left: calc(var(--u) * 87); top: calc(var(--u) * 54); transform: rotate(11.3deg); }
+  .p3 { left: calc(var(--u) * 103); top: calc(var(--u) * 104); transform: rotate(0deg); }
+
+  @media (hover: hover) {
+    :global(.link:hover) .photo {
+      box-shadow: 0 calc(var(--u) * 14.4) calc(var(--u) * 32) calc(var(--u) * -4) rgba(0, 0, 0, 0.45);
+    }
+    :global(.link:hover) .p1 { left: calc(var(--u) * 137); transform: rotate(-12deg); }
+    :global(.link:hover) .p2 { left: calc(var(--u) * 77); top: calc(var(--u) * 47); transform: rotate(14deg); }
+    :global(.link:hover) .p3 { top: calc(var(--u) * 106); transform: rotate(1deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo { transition: none; }
+  }
+</style>

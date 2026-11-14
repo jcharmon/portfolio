@@ -4,14 +4,16 @@
  * They use the current text color.
  */
 interface Props {
-  name: "arrow-left" | "arrow-up-right";
+  name: "arrow-left" | "arrow-right" | "arrow-up-right" | "close";
   size?: 16 | 20 | 24;
   class?: string;
 }
 const { name, size = 20, class: className } = Astro.props;
 const paths: Record<Props["name"], string> = {
   "arrow-left": "M10 4.16667L4.16667 10L10 15.8333M4.16667 10H15.8333",
+  "arrow-right": "M10 4.16667L15.8333 10L10 15.8333M15.8333 10H4.16667",
   "arrow-up-right": "M14.1667 14.1667V5.83333H5.83333M14.1667 5.83333L5.83333 14.1667",
+  close: "M15 5L5 15M5 5L15 15",
 };
 ---
 <svg
