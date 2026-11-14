@@ -1,6 +1,6 @@
 ---
 /** Figma "Case study / Closing CTA". Sits at the end of every case study. */
-import Button from "./Button.astro";
+import TextLink from "./TextLink.astro";
 import { site } from "../content/site";
 interface Props {
   title?: string;
@@ -8,7 +8,7 @@ interface Props {
 }
 const {
   title = "This is just a snapshot.",
-  text = "I’d love to walk you through the full story, from early research to what shipped.",
+  text = "I’d love to walk you through the full story, from start to finish.",
 } = Astro.props;
 ---
 <section class="cta">
@@ -17,8 +17,8 @@ const {
     <p class="t-body muted">{text}</p>
   </div>
   <div class="actions">
-    <Button href={site.email} arrow external>Reach out</Button>
-    <Button href="/" variant="secondary">See all work</Button>
+    <TextLink href={site.email} external>Reach out</TextLink>
+    <TextLink href="/" arrow={false}>See all work</TextLink>
   </div>
 </section>
 
@@ -38,11 +38,11 @@ const {
     gap: 8px;
   }
   .text p {
-    max-width: 435px;
+    max-width: 480px;
   }
   .actions {
     display: flex;
-    gap: 12px;
+    gap: 24px;
     flex-wrap: wrap;
   }
   @media (max-width: 1279px) {
