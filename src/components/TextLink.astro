@@ -7,7 +7,7 @@ interface Props {
   arrow?: boolean;
   size?: "S" | "M";
 }
-const { href, external = false, arrow = true, size = "S" } = Astro.props;
+const { href, external = false, arrow = true, size = "M" } = Astro.props;
 ---
 <a
   class:list={["text-link", size === "S" ? "t-small" : "t-body"]}
