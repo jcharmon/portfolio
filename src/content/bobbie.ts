@@ -12,7 +12,6 @@ import iconTeam from "../assets/bobbie/icon-team.svg";
 import accountPortal from "../assets/bobbie/account-portal.jpg";
 import onboardingQuiz from "../assets/bobbie/onboarding-quiz.jpg";
 import emailCampaigns from "../assets/bobbie/email-campaigns.jpg";
-import howIsFeeding from "../assets/bobbie/how-is-feeding-going.jpg";
 import motherlode from "../assets/bobbie/motherlode.jpg";
 
 const bobbie: CaseStudy = {
@@ -100,19 +99,6 @@ const bobbie: CaseStudy = {
       caption: [
         "Welcome series, cart reminders, newsletters and more. Email was one of our biggest growth channels.",
       ],
-    },
-    {
-      type: "media",
-      layout: "single",
-      images: [{ src: howIsFeeding, alt: "The How is feeding going? campaign site" }],
-      lead: "How is feeding going?",
-      caption: [
-        "A campaign asking a more inclusive question for every parent, however they feed. I helped design and launch the site where parents share their stories.",
-      ],
-      link: {
-        label: "Read about the campaign",
-        href: "https://www.thebump.com/news/bobbie-inclusive-baby-feeding-campaign",
-      },
     },
     {
       type: "media",
