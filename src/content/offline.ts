@@ -18,7 +18,7 @@ import newestAddition from "../assets/offline/07-newest-addition.jpg";
 import meAndBlake from "../assets/offline/08-me-and-blake.jpg";
 import surfing from "../assets/offline/09-surfing.jpg";
 import positiveHappyKind from "../assets/offline/10-positive-happy-kind.jpg";
-import leica from "../assets/offline/11-leica-q3.png";
+import leica from "../assets/offline/11-leica-q3.jpg";
 import icedCoffee from "../assets/offline/12-iced-coffee.png";
 
 export interface OfflineSlide {
@@ -78,7 +78,7 @@ export const offline = {
       alt: "A family in a hospital room with a newborn, two older brothers making silly faces",
       kind: "photo",
       title: "Our newest addition",
-      text: "Welcoming our newest addition to the crew.",
+      text: "Blake completed our family of five. With two older brothers, a girl was a fun surprise.",
     },
     {
       image: meAndBlake,
@@ -103,10 +103,10 @@ export const offline = {
     },
     {
       image: leica,
-      alt: "A Leica Q3 camera",
-      kind: "object",
+      alt: "Jordan holding a Leica Q3 camera up to take a photo",
+      kind: "photo",
       title: "LEICA Q3",
-      text: "Photography is my favorite hobby. The Q comes almost everywhere with me, and it’s taught me to slow down, notice the light and look for the small details. Those same habits show up in my design work.",
+      text: "Photography is my favorite hobby. The Q comes almost everywhere with me, and it’s taught me to slow down.",
     },
     {
       image: icedCoffee,
