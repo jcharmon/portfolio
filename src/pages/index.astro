@@ -80,12 +80,12 @@ import { site } from "../content/site";
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 40px;
   }
   @container (min-width: 600px) {
     .grid {
       grid-template-columns: 1fr 1fr;
-      gap: 64px 56px;
+      gap: 48px 40px;
     }
   }
 
@@ -99,7 +99,7 @@ import { site } from "../content/site";
       padding: 16px var(--gutter) 48px;
       display: flex;
       flex-direction: column;
-      gap: 72px;
+      gap: 56px;
     }
     .mobile-intro, .mobile-footer {
       display: flex;
@@ -109,6 +109,6 @@ import { site } from "../content/site";
     .mobile-footer { gap: 20px; padding-top: 24px; }
   }
   @media (max-width: 599px) {
-    .grid { gap: 48px; }
+    .grid { gap: 40px; }
   }
 </style>
