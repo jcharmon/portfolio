@@ -15,7 +15,6 @@ import upForAnything from "../assets/offline/04-up-for-anything.jpg";
 import sushiDate from "../assets/offline/05-sushi-date.jpg";
 import meAndMyBoys from "../assets/offline/06-me-and-my-boys.jpg";
 import newestAddition from "../assets/offline/07-newest-addition.jpg";
-import meAndBlake from "../assets/offline/08-me-and-blake.jpg";
 import surfing from "../assets/offline/09-surfing.jpg";
 import positiveHappyKind from "../assets/offline/10-positive-happy-kind.jpg";
 import leica from "../assets/offline/11-leica-q3.jpg";
@@ -79,13 +78,6 @@ export const offline = {
       kind: "photo",
       title: "Our newest addition",
       text: "Blake completed our family of five. With two older brothers, a girl was a fun surprise.",
-    },
-    {
-      image: meAndBlake,
-      alt: "A selfie of a mom cheek to cheek with her smiling baby girl",
-      kind: "photo",
-      title: "Me and Blake",
-      text: "Me and Blake, our baby girl.",
     },
     {
       image: surfing,
