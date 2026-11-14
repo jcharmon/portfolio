@@ -11,7 +11,6 @@ import type { ImageMetadata } from "astro";
 
 import favoritePeople from "../assets/offline/01-favorite-people.jpg";
 import halfMarathonTraining from "../assets/offline/02-half-marathon-training.jpg";
-import dallasHalf from "../assets/offline/03-dallas-half-marathon.png";
 import upForAnything from "../assets/offline/04-up-for-anything.jpg";
 import sushiDate from "../assets/offline/05-sushi-date.jpg";
 import meAndMyBoys from "../assets/offline/06-me-and-my-boys.jpg";
@@ -52,13 +51,6 @@ export const offline = {
       kind: "photo",
       title: "Half marathon training",
       text: "I’m always up for an adventure. Lately that means early miles, race bibs and a lot of stretching.",
-    },
-    {
-      image: dallasHalf,
-      alt: "A Dallas Half Marathon finisher medal",
-      kind: "object",
-      title: "Dallas Half Marathon",
-      text: "13.1 miles through my hometown. Every early training run was worth it for that finish line.",
     },
     {
       image: upForAnything,
