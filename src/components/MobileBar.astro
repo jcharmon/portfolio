@@ -11,7 +11,7 @@ import { site } from "../content/site";
 interface Props { variant: "top" | "back" }
 const { variant } = Astro.props;
 ---
-<header class:list={["mobile-bar", `bar-${variant}`]}>
+<header class:list={["mobile-bar", `bar-${variant}`, { "links-hidden": variant === "back" }]}>
   {variant === "top" ? (
     <>
       <Smiley />
@@ -21,10 +21,15 @@ const { variant } = Astro.props;
       </nav>
     </>
   ) : (
-    <a class="back t-body" href="/">
-      <Icon name="arrow-left" size={20} />
-      All work
-    </a>
+    <>
+      <a class="back t-body" href="/">
+        <Icon name="arrow-left" size={20} />
+        All work
+      </a>
+      <nav class="links" aria-label="Contact">
+        <TextLink href={site.email} external>Reach out</TextLink>
+      </nav>
+    </>
   )}
 </header>
 
@@ -45,6 +50,14 @@ const { variant } = Astro.props;
       },
       { rootMargin: "-56px 0px 0px 0px" }
     ).observe(trigger);
+  }
+
+  /* Case studies on phones: "Reach out" slides in on the right once you start scrolling */
+  const backBar = document.querySelector<HTMLElement>(".mobile-bar.bar-back");
+  if (backBar) {
+    const update = () => backBar.classList.toggle("links-hidden", window.scrollY < 120);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
   }
 </script>
 
@@ -73,19 +86,19 @@ const { variant } = Astro.props;
   }
 
   /* Slide-in for the home page links (phones only, since the bar is phones only) */
-  .mobile-bar.bar-top {
+  .mobile-bar {
     box-shadow: 0 1px 0 transparent;
     transition: box-shadow 300ms var(--ease-out);
   }
-  .mobile-bar.bar-top:not(.links-hidden) { box-shadow: 0 1px 0 var(--theme-border); }
-  .bar-top .links > :global(*) {
+  .mobile-bar:not(.links-hidden) { box-shadow: 0 1px 0 var(--theme-border); }
+  .links > :global(*) {
     transition:
       opacity 420ms var(--ease-out),
       transform 520ms cubic-bezier(0.3, 1.35, 0.5, 1),
       filter 420ms var(--ease-out);
   }
-  .bar-top .links > :global(*:nth-child(2)) { transition-delay: 70ms; }
-  .bar-top.links-hidden .links > :global(*) {
+  .links > :global(*:nth-child(2)) { transition-delay: 70ms; }
+  .links-hidden .links > :global(*) {
     opacity: 0;
     transform: translateY(-10px);
     filter: blur(4px);
@@ -94,7 +107,7 @@ const { variant } = Astro.props;
     transition-delay: 0ms;
   }
   @media (prefers-reduced-motion: reduce) {
-    .bar-top .links > :global(*) { transform: none !important; filter: none !important; }
+    .links > :global(*) { transform: none !important; filter: none !important; }
   }
   .back {
     display: inline-flex;

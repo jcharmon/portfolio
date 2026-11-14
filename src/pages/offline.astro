@@ -34,7 +34,7 @@ const title = `${offline.tile.title} · ${site.name}`;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={offline.tile.summary} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -288,12 +288,13 @@ const title = `${offline.tile.title} · ${site.name}`;
 
   @media (max-width: 767px) {
     .viewer {
-      --w: min(calc(100vw - 48px), calc((100dvh - 360px) * 4 / 3));
-      --cy: calc(88px + var(--h) / 2);
+      --w: min(calc(100vw - 48px), calc((100dvh - 400px) * 4 / 3));
+      --top: calc(32px + env(safe-area-inset-top, 0px));
+      --cy: calc(var(--top) + 84px + var(--h) / 2);
     }
     .ghosts { display: none; }
-    .close { left: 16px; top: 16px; }
-    .controls { right: 16px; top: 16px; gap: 8px; }
+    .close { left: 16px; top: var(--top); }
+    .controls { right: 16px; top: var(--top); gap: 8px; }
     .slide.photo { border-radius: 14px; }
     .captions { top: calc(var(--cy) + var(--h) / 2 + 28px); }
     .title { font-size: 24px; }
