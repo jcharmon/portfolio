@@ -289,8 +289,9 @@ const title = `${offline.tile.title} · ${site.name}`;
   @media (max-width: 767px) {
     .viewer {
       --w: min(calc(100vw - 48px), calc((100dvh - 400px) * 4 / 3));
-      --top: calc(32px + env(safe-area-inset-top, 0px));
-      --cy: calc(var(--top) + 84px + var(--h) / 2);
+      --top: calc(16px + env(safe-area-inset-top, 0px));
+      /* buttons (44px tall), then 52px of space, then the photo */
+      --cy: calc(var(--top) + 44px + 52px + var(--h) / 2);
     }
     .ghosts { display: none; }
     .close { left: 16px; top: var(--top); }
