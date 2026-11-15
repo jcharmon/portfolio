@@ -20,7 +20,7 @@ export const projects: Project[] = [
   {
     slug: "thrive",
     title: "Thrive Mobile",
-    summary: "Helping lead design for a wireless carrier built around health.",
+    summary: "Established the design team and led the rebrand of a wireless carrier built around health.",
     ready: true,
   },
   {
