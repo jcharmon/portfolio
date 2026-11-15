@@ -40,6 +40,13 @@ export interface MediaBlock {
    * scrolls, in Figma pixels (the card is 880 wide). Leave out for the defaults.
    */
   scrollPage?: { windowLeft?: number; windowTop?: number; pageTop?: number; distance?: number; seconds?: number };
+  /**
+   * single only: a looping video laid over part of the picture, e.g. a phone
+   * screen. src is a file in public/videos. clip is the area that shows it and
+   * frame is where the video itself sits, both [left, top, width, height] in
+   * Figma pixels on the 880 x 560 card.
+   */
+  video?: { src: string; poster?: string; clip: [number, number, number, number]; frame: [number, number, number, number] };
   /** Optional link shown under the caption, e.g. to a press article */
   link?: { label: string; href: string };
   /** Bold words that start the caption */

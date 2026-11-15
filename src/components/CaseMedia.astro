@@ -16,6 +16,18 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   {layout === "single" && (
     <div data-loader class:list={["card single", { cropped: block.aspect }]} style={block.aspect ? `aspect-ratio: ${block.aspect}` : undefined}>
       <Image src={images[0].src} alt={images[0].alt} widths={[720, 1200, 1760]} sizes={full} />
+      {block.video && (
+        <div class="vid-layer" aria-hidden="true">
+          <div class="vid-clip" style={`--x:${block.video.clip[0]};--y:${block.video.clip[1]};--w:${block.video.clip[2]};--h:${block.video.clip[3]}`}>
+            <video
+              src={block.video.src}
+              poster={block.video.poster}
+              style={`--x:${block.video.frame[0] - block.video.clip[0]};--y:${block.video.frame[1] - block.video.clip[1]};--w:${block.video.frame[2]};--h:${block.video.frame[3]}`}
+              autoplay muted loop playsinline preload="metadata"
+            ></video>
+          </div>
+        </div>
+      )}
     </div>
   )}
 
@@ -168,6 +180,19 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   }
   .single :global(img) { height: auto; }
   .single.cropped :global(img) { height: 100%; }
+
+  /* Looping video over part of a single picture (card is 880 x 560 in Figma) */
+  .vid-layer { position: absolute; inset: 0; container-type: inline-size; pointer-events: none; }
+  .vid-clip, .vid-clip video {
+    --u: calc(100cqi / 880);
+    position: absolute;
+    left: calc(var(--u) * var(--x));
+    top: calc(var(--u) * var(--y));
+    width: calc(var(--u) * var(--w));
+    height: calc(var(--u) * var(--h));
+  }
+  .vid-clip { overflow: hidden; background: #f2f4f5; }
+  .vid-clip video { --u: calc(100cqi / 880); object-fit: cover; display: block; }
 
   .pair {
     display: grid;

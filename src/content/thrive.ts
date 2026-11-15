@@ -76,6 +76,12 @@ const thrive: CaseStudy = {
       type: "media",
       layout: "single",
       images: [{ src: esimActivation, alt: "Three eSIM setup screens, ending with the member's new phone number" }],
+      video: {
+        src: "/videos/thrive-esim.mp4",
+        poster: "/videos/thrive-esim-poster.jpg",
+        clip: [349.7, 205.7, 181.4, 187.5],
+        frame: [346.7, 205.7, 187.5, 187.5],
+      },
       lead: "eSIM activation.",
       caption: [
         "We unlocked a whole new market for Thrive by letting members bring their own phone. Setting up a phone used to take a lot of hand-holding, so we designed a self-serve eSIM setup anyone can finish in a few simple steps.",
