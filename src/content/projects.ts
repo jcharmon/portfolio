@@ -20,7 +20,7 @@ export const projects: Project[] = [
   {
     slug: "thrive",
     title: "Thrive Mobile",
-    summary: "Established the design team and led the rebrand of a wireless carrier built around health.",
+    summary: "Founded the design team and rebranded a wireless carrier built around health.",
     ready: true,
   },
   {
@@ -38,7 +38,7 @@ export const projects: Project[] = [
   {
     slug: "nextnav",
     title: "NextNav",
-    summary: "Shipped the iOS and tablet apps that helped NextNav raise a $120M Series E.",
+    summary: "Partnered with NextNav to bring their 3D location technology to life, helping them raise a $120M Series E.",
     ready: true,
   },
   {
