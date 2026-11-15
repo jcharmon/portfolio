@@ -21,8 +21,10 @@ export interface MediaBlock {
    * carousel: a slideshow you can click through (any number of images)
    * scrolling-browser: a browser window that slowly scrolls a long page by
    *   itself (image 1 = the full page, image 2 = the pinned top bar)
+   * sliding-phones: a row of phones that slides left one phone at a time,
+   *   then rewinds (image 1 = the whole row, exported 2x from Figma)
    */
-  layout: "single" | "pair" | "one-big-two-small" | "browser" | "carousel" | "scrolling-browser";
+  layout: "single" | "pair" | "one-big-two-small" | "browser" | "carousel" | "scrolling-browser" | "sliding-phones";
   images: Picture[];
   /**
    * Crop the picture to this shape, e.g. "880 / 560". Leave out to show it whole.

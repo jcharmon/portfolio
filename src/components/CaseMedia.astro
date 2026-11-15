@@ -76,6 +76,16 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
     </div>
   )}
 
+  {layout === "sliding-phones" && (
+    <div class="card phones-stage" data-loader style={`background:${block.background ?? "#ededf2"}`}>
+      <div class="ps">
+        <div class="ps-row">
+          <Image src={images[0].src} alt={images[0].alt} widths={[1400, 2400, 4220]} sizes="(max-width: 1023px) 240vw, 2110px" />
+        </div>
+      </div>
+    </div>
+  )}
+
   {layout === "browser" && (
     <div data-loader class="card browser-stage" style={`background:${block.background ?? "var(--theme-surface)"}`}>
       <div class="browser">
@@ -298,6 +308,35 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
   }
   @media (prefers-reduced-motion: reduce) {
     .sb-page { animation: none; }
+  }
+
+  /* Row of phones that slides left, then rewinds (Figma: Card · Enrollment flow) */
+  .phones-stage {
+    aspect-ratio: 880 / 560;
+    border: 1px solid var(--theme-border);
+    container-type: inline-size;
+  }
+  .ps { --u: calc(100cqi / 880); position: absolute; inset: 0; }
+  .ps-row {
+    position: absolute;
+    left: calc(var(--u) * -33);
+    top: calc(var(--u) * 46);
+    width: calc(var(--u) * 2110);
+    animation: ps-slide 14.4s linear infinite;
+  }
+  .phones-stage .ps-row :global(img) { width: 100%; height: auto; display: block; }
+  @keyframes ps-slide {
+    0%, 11.111% { transform: translateX(0); animation-timing-function: ease-in-out; }
+    16.667%, 22.222% { transform: translateX(calc(var(--u) * -194)); animation-timing-function: ease-in-out; }
+    27.778%, 33.333% { transform: translateX(calc(var(--u) * -388)); animation-timing-function: ease-in-out; }
+    38.889%, 44.444% { transform: translateX(calc(var(--u) * -582)); animation-timing-function: ease-in-out; }
+    50%, 55.556% { transform: translateX(calc(var(--u) * -776)); animation-timing-function: ease-in-out; }
+    61.111%, 66.667% { transform: translateX(calc(var(--u) * -970)); animation-timing-function: ease-in-out; }
+    72.222%, 83.333% { transform: translateX(calc(var(--u) * -1164)); animation-timing-function: ease-in-out; }
+    94.444%, 100% { transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ps-row { animation: none; }
   }
 
   .browser-stage {

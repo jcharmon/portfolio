@@ -8,7 +8,7 @@ import type { CaseStudy } from "./types";
 import hero from "../assets/thrive/hero.jpg";
 import marketingPage from "../assets/thrive/marketing-page-full.jpg";
 import browserHeader from "../assets/thrive/browser-header.png";
-import enrollment from "../assets/thrive/enrollment.jpg";
+import enrollmentRow from "../assets/thrive/enrollment-row.jpg";
 import esimActivation from "../assets/thrive/esim-activation.jpg";
 import healthCheckIns from "../assets/thrive/health-check-ins.jpg";
 import thriveGuide from "../assets/thrive/thrive-guide.jpg";
@@ -65,8 +65,8 @@ const thrive: CaseStudy = {
     },
     {
       type: "media",
-      layout: "single",
-      images: [{ src: enrollment, alt: "Three enrollment screens: checking if you qualify, reviewing your order and a confirmation" }],
+      layout: "sliding-phones",
+      images: [{ src: enrollmentRow, alt: "Thrive's enrollment flow, one phone screen at a time: checking if you qualify, confirming details, choosing a plan and phone, and the confirmation" }],
       lead: "A new enrollment flow that lifted sign-ups 65%.",
       caption: [
         "Signing up took about seven minutes, needed a phone call to get a sponsor code, and small typos led to failed eligibility checks. We made it fully self-serve, caught errors as people typed and built the Lifeline application right into the flow.",
