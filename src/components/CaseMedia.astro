@@ -51,7 +51,7 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
           {images.map((_, i) => <span class:list={["dot", { on: i === 0 }]}></span>)}
         </div>
         <button class="nav prev" type="button" aria-label="Previous slide" data-dir="-1" disabled><Icon name="arrow-left" size={20} /></button>
-        <button class="nav next" type="button" aria-label="Next slide" data-dir="1"><Icon name="arrow-left" size={20} /></button>
+        <button class="nav next" type="button" aria-label="Next slide" data-dir="1"><Icon name="arrow-right" size={20} /></button>
       </div>
     </div>
   )}
@@ -239,19 +239,19 @@ const full = "(max-width: 1023px) calc(100vw - 32px), 880px";
     border: 0;
     padding: 0;
     border-radius: var(--radius-pill);
-    background: transparent;
-    color: var(--theme-text);
+    /* Same round button as the Meet me offline viewer */
+    background: #ededed;
+    color: #181818;
     cursor: pointer;
     transition: background var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
   }
   .nav.prev { left: calc(var(--u) * 60); transform: translate(-50%, -50%); }
   .nav.next { left: calc(var(--u) * 820); transform: translate(-50%, -50%); }
-  .nav.next :global(svg) { transform: scaleX(-1); }
   .nav:disabled { opacity: 0.3; cursor: default; }
   @media (hover: hover) {
-    .nav:not(:disabled):hover { background: var(--theme-surface-alt); }
+    .nav:not(:disabled):hover { background: #e2e2e2; }
   }
-  .nav:not(:disabled):active { background: var(--theme-border); }
+  .nav:not(:disabled):active { background: #d8d8d8; }
   @media (max-width: 1023px) {
     .dots { gap: 4px; }
     .dot { width: 5px; height: 5px; }
