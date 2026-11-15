@@ -2,7 +2,7 @@
 export const home = {
   greeting: ["Hi, I’m Jordan!", "Thanks for stopping by."],
   intro: [
-    "I’m a happy and hardworking design leader. I find what’s broken, untangle it with the right people and follow through with care and craft. Check out a snapshot of 12+ years designing for startups, agencies and big teams.",
+    "I’m a happy and hardworking design leader. I work inside teams to untangle hard problems and follow through with care and craft. Check out a snapshot of 12+ years designing for startups, agencies and big teams.",
     "Always looking to work on new projects with good people.",
   ],
   moreWork: {
