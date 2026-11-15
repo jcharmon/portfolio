@@ -48,8 +48,8 @@ export const offline = {
       image: halfMarathonTraining,
       alt: "Jordan cheering with a finisher medal after the Austin Half Marathon",
       kind: "photo",
-      title: "Half marathon training",
-      text: "I’m always up for an adventure. Lately that means early miles, race bibs and a lot of stretching.",
+      title: "Half marathon, round two",
+      text: "I’m currently training for my second half marathon.",
     },
     {
       image: upForAnything,
