@@ -42,7 +42,7 @@ export const offline = {
       alt: "A family of five smiling together in their kitchen",
       kind: "photo",
       title: "My favorite people",
-      text: "My family and friends are the most important part of my life. Most weekends you’ll find us outside, making plans or making a mess.",
+      text: "My family and friends are the most important part of my life. I live in Dallas, Texas with my husband and three kids. Most weekends you’ll find us at a kid’s sports game, at a BBQ with friends or just hanging out at home.",
     },
     {
       image: halfMarathonTraining,
