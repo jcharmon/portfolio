@@ -34,7 +34,7 @@ export const offline = {
     title: "Meet me offline",
     summary: "Learn a little more about me.",
     /** The three stacked photos on the tile, back to front */
-    photos: [halfMarathonTraining, surfing, upForAnything],
+    photos: [halfMarathonTraining, surfing, favoritePeople],
   },
   slides: [
     {
