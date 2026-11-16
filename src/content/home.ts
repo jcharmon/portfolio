@@ -7,6 +7,6 @@ export const home = {
   ],
   moreWork: {
     title: "More work",
-    text: "A glance of other things I’m working on and have designed.",
+    text: "A glance of other things I’ve worked on. Some just ideas and others fully shipped products.",
   },
 };
