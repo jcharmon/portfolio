@@ -69,7 +69,7 @@ export const moreWork: MoreWorkItem[][] = [
         description:
           "Boombox helps teams find and book activities together. I led design as the company moved from public fitness classes to private team experiences, covering navigation, experience pages, booking, payments and dashboards. This flow takes a team from an event page to a sent request.",
         credits:
-          "Credit: Jenny Johannesson, Tyler Galpin, Ivy Son, Henry Wu, Blake Hudelson and the Boombox team. Photos in the mocks are placeholders.",
+          "Made with: Jenny Johannesson, Tyler Galpin, Ivy Son, Henry Wu, Blake Hudelson and the Boombox team. Photos in the mocks are placeholders.",
         slides: [
           {
             kind: "scroll",
@@ -121,7 +121,7 @@ export const moreWork: MoreWorkItem[][] = [
         title: "Vibe brand presentation",
         description:
           "Vibe, the brand presentation for Uncle Juzzy’s, an Israeli street food restaurant that never opened. It covers what sets it apart, its personality, its mission and three visual concepts to pick from.",
-        credits: "Credits: Becca Rabinowitz",
+        credits: "Made with: Becca Rabinowitz",
         slides: [
           { kind: "image", src: "s-vibe-1.jpg", alt: "Cover: Vibe" },
           { kind: "image", src: "s-vibe-2.jpg", alt: "Let’s recap: differentiators, personality, mission" },
@@ -161,7 +161,7 @@ export const moreWork: MoreWorkItem[][] = [
         project: "Uncle Juzzy’s",
         title: "Staff tee",
         description: "A mockup of the Uncle Juzzy’s staff tee, with the menu printed big on the back.",
-        credits: "Credits: Becca Rabinowitz",
+        credits: "Made with: Becca Rabinowitz",
         slides: [{ kind: "image", src: "s-tee-1.jpg", alt: "Two cooks wearing the staff tee in a kitchen" }],
       },
     },
@@ -213,7 +213,7 @@ export const moreWork: MoreWorkItem[][] = [
         title: "Making a decades-old brand feel new",
         description:
           "As Acura's agency of record, Mullen set out to elevate the brand while staying true to what it always stood for. As an art director, I made magazine ads for the TLX, MDX and RLX launches, plus social and digital campaigns, sponsored events like Sundance, New Yorker Fest and Jazz Fest, and concepts for TV and radio.",
-        credits: "With Jon Willard, Stanley Chen, Natasha Hugeback, Tedd Wood and Tim Semple.",
+        credits: "Made with: Jon Willard, Stanley Chen, Natasha Hugeback, Tedd Wood and Tim Semple.",
         slides: [
           { kind: "image", src: "s-acura-1.jpg", alt: "TLX spread: built to drive, then built to race" },
           { kind: "image", src: "s-acura-2.jpg", alt: "MDX ad: The daring are never done" },
