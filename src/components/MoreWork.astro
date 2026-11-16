@@ -485,14 +485,14 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     flex-direction: column;
     align-items: center;
     gap: 36px;
-    padding: 8px 24px 64px;
+    padding: 48px 24px 64px;
     overflow-y: auto;
     overflow-x: hidden;
   }
   .stage {
     width: min(720px, 100%);
     display: grid;
-    align-items: center;
+    align-items: start; /* every picture starts at the same height */
   }
   /* All pictures share one spot; the script slides the others out to the sides */
   .slide {
@@ -557,7 +557,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
   @media (max-width: 699px) {
     .bar { padding: 16px; }
     /* 24px sides (like Meet me offline) so the next and previous pictures peek in */
-    .body { padding: 0 24px 48px; gap: 24px; }
+    .body { padding: 36px 24px 48px; gap: 24px; }
     .slide :global(.slide-media) { border-radius: 14px; }
   }
 
