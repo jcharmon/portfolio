@@ -51,6 +51,7 @@ export const moreWork: MoreWorkItem[][] = [
       title: "Boombox",
       description: "Booking flow for hosted team events.",
       size: [285, 212],
+      dots: true,
       media: {
         kind: "scroll",
         scroll: {
@@ -112,19 +113,25 @@ export const moreWork: MoreWorkItem[][] = [
     },
     {
       title: "Uncle Juzzy’s",
-      description: "Brand for a restaurant that never opened.",
+      description: "Vibe brand presentation for a restaurant that never opened.",
       size: [285, 175],
       media: { kind: "image", src: "tile-juzzy-brand.jpg" },
       popup: {
         project: "Uncle Juzzy’s",
-        title: "Restaurant brand",
+        title: "Vibe brand presentation",
         description:
-          "A brand for Uncle Juzzy’s, an Israeli street food restaurant that never opened: the mission, personality, what set it apart and an early visual concept.",
+          "Vibe, the brand presentation for Uncle Juzzy’s, an Israeli street food restaurant that never opened. It covers what sets it apart, its personality, its mission and three visual concepts to pick from.",
         slides: [
-          { kind: "image", src: "s-juzzy-brand-1.jpg", alt: "Rough Cut visual concept with a collage of references" },
-          { kind: "image", src: "s-juzzy-brand-2.jpg", alt: "The Uncle Juzzy’s mission" },
-          { kind: "image", src: "s-juzzy-brand-3.jpg", alt: "Brand personality" },
-          { kind: "image", src: "s-juzzy-brand-4.jpg", alt: "Key differentiators" },
+          { kind: "image", src: "s-vibe-1.jpg", alt: "Cover: Vibe" },
+          { kind: "image", src: "s-vibe-2.jpg", alt: "Let’s recap: differentiators, personality, mission" },
+          { kind: "image", src: "s-vibe-3.jpg", alt: "Key differentiators: understated, nostalgic, done the right way" },
+          { kind: "image", src: "s-vibe-4.jpg", alt: "Who we are and who we’re not" },
+          { kind: "image", src: "s-vibe-5.jpg", alt: "The Uncle Juzzy’s mission" },
+          { kind: "image", src: "s-vibe-6.jpg", alt: "Visual concepts: let’s pick a direction" },
+          { kind: "image", src: "s-vibe-7.jpg", alt: "Concept 01: Rough Cut" },
+          { kind: "image", src: "s-vibe-8.jpg", alt: "Concept 02: Color & Chaos" },
+          { kind: "image", src: "s-vibe-9.jpg", alt: "Concept 03: Contemporary Nostalgia" },
+          { kind: "image", src: "s-vibe-10.jpg", alt: "Thank you" },
         ],
       },
     },
@@ -139,19 +146,6 @@ export const moreWork: MoreWorkItem[][] = [
         description:
           "Built Jawnt’s full sign-up flow and card management experience for GoCard, a transit card people use to ride the bus.",
         slides: [{ kind: "image", src: "s-jawnt-1.jpg", alt: "Three GoCard sign-up screens in phones" }],
-      },
-    },
-    {
-      title: "RadPad",
-      description: "Emails for renters and landlords.",
-      size: [285, 200],
-      media: { kind: "image", src: "tile-radpad.jpg" },
-      popup: {
-        project: "RadPad",
-        title: "Emails for renters and landlords",
-        description:
-          "Emails for RadPad, a rental marketplace: rent payout summaries for landlords, a referral gift, and a welcome email that explains how it all works.",
-        slides: [{ kind: "image", src: "s-radpad-1.jpg", alt: "Three RadPad emails side by side" }],
       },
     },
   ],
@@ -227,8 +221,21 @@ export const moreWork: MoreWorkItem[][] = [
         ],
       },
     },
+    {
+      title: "RadPad",
+      description: "Emails for renters and landlords.",
+      size: [285, 200],
+      media: { kind: "image", src: "tile-radpad.jpg" },
+      popup: {
+        project: "RadPad",
+        title: "Emails for renters and landlords",
+        description:
+          "Emails for RadPad, a rental marketplace: rent payout summaries for landlords, a referral gift, and a welcome email that explains how it all works.",
+        slides: [{ kind: "image", src: "s-radpad-1.jpg", alt: "Three RadPad emails side by side" }],
+      },
+    },
     { title: "Coming soon", description: "", size: [285, 338], soonImage: "s-lk-2.jpg" },
-    { title: "Coming soon", description: "", size: [285, 214], soonImage: "s-juzzy-brand-1.jpg" },
+    { title: "Coming soon", description: "", size: [285, 214], soonImage: "s-vibe-8.jpg" },
   ],
   // Column 3
   [
