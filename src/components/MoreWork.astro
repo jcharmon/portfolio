@@ -120,7 +120,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
         <div class="body">
           <div class="stage">
             {p.slides.map((s, i) => (
-              <figure class="slide" data-slide={i} hidden={i !== 0}>
+              <figure class:list={["slide", { "is-active": i === 0 }]} data-slide={i} aria-hidden={i === 0 ? "false" : "true"}>
                 {s.kind === "image" && (
                   <Image src={img(s.src)} alt={s.alt} widths={[720, 1440]} sizes="(max-width: 799px) 92vw, 720px" loading="lazy" class="slide-media" />
                 )}
@@ -217,12 +217,26 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     const slides = [...dlg.querySelectorAll<HTMLElement>("[data-slide]")];
     const current = dlg.querySelector("[data-current]");
     let at = 0;
-    const show = (n: number) => {
-      at = (n + slides.length) % slides.length;
+    // Like Meet me offline: the current picture in the middle, the ones before and after
+    // peeking in small at the sides (Figma: 520px from center at 720 wide, 36% size).
+    const n = slides.length;
+    const show = (to: number, instant = false) => {
+      at = (to + n) % n;
       slides.forEach((s, i) => {
-        s.hidden = i !== at;
+        let d = i - at;
+        if (d > n / 2) d -= n;
+        if (d < -n / 2) d += n;
+        if (n === 2 && d !== 0) d = 1; // with two pictures, the other one waits on the right
+        const a = Math.abs(d);
+        s.style.setProperty("--f", String(a === 0 ? 0 : Math.sign(d) * (0.7222 + (a - 1) * 0.4167)));
+        s.style.setProperty("--s", a === 0 ? "1" : "0.3611");
+        s.style.setProperty("--o", a === 0 ? "1" : a === 1 ? "0.35" : "0");
+        s.classList.toggle("is-active", a === 0);
+        s.classList.toggle("is-near", a === 1);
+        s.classList.toggle("no-anim", instant || a > 2);
+        s.setAttribute("aria-hidden", a === 0 ? "false" : "true");
         const v = s.querySelector("video");
-        if (v) i === at ? v.play().catch(() => {}) : v.pause();
+        if (v) a === 0 ? v.play().catch(() => {}) : v.pause();
       });
       slides[at].querySelectorAll<HTMLElement>("[data-scroll]").forEach(startScroll);
       if (current) current.textContent = String(at + 1);
@@ -232,8 +246,9 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
       // Focus the popup itself so the close button doesn't show a focus ring on open
       dlg.focus();
       document.documentElement.classList.add("no-scroll");
-      show(0);
+      show(0, true);
     });
+    slides.forEach((s, i) => s.addEventListener("click", () => { if (i !== at) show(i); }));
     dlg.querySelector("[data-close]")?.addEventListener("click", () => dlg.close());
     dlg.querySelector("[data-prev]")?.addEventListener("click", () => show(at - 1));
     dlg.querySelector("[data-next]")?.addEventListener("click", () => show(at + 1));
@@ -253,11 +268,6 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
         const fast = Date.now() - t0 < 600;
         if (Math.abs(dx) > Math.abs(dy) * 1.2 && (Math.abs(dx) > 60 || (fast && Math.abs(dx) > 30))) {
           show(dx < 0 ? at + 1 : at - 1);
-          const s = slides[at];
-          if (!reduce) s.animate(
-            [{ transform: `translateX(${dx < 0 ? 40 : -40}px)`, opacity: 0 }, { transform: "none", opacity: 1 }],
-            { duration: 220, easing: "ease-out" },
-          );
         }
       }, { passive: true });
     }
@@ -477,11 +487,30 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     gap: 36px;
     padding: 8px 24px 64px;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .stage {
     width: min(720px, 100%);
+    display: grid;
+    align-items: center;
   }
-  .slide { margin: 0; }
+  /* All pictures share one spot; the script slides the others out to the sides */
+  .slide {
+    --f: 0;
+    --s: 1;
+    --o: 1;
+    grid-area: 1 / 1;
+    margin: 0;
+    opacity: var(--o);
+    transform: translateX(calc(var(--f) * 100%)) scale(var(--s));
+    transition:
+      transform 450ms cubic-bezier(0.42, 0, 0.58, 1),
+      opacity 450ms cubic-bezier(0.42, 0, 0.58, 1);
+  }
+  .slide:not(.is-active) { cursor: pointer; }
+  .slide:not(.is-active):not(.is-near) { pointer-events: none; }
+  .slide.is-active { z-index: 1; }
+  .slide.no-anim { transition: none; }
   .viewer { touch-action: pan-y; }
   .viewer:focus { outline: none; }
   .icon-btn:focus:not(:focus-visible) { outline: none; }
@@ -527,12 +556,14 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
 
   @media (max-width: 699px) {
     .bar { padding: 16px; }
-    .body { padding: 0 16px 48px; gap: 24px; }
+    /* 24px sides (like Meet me offline) so the next and previous pictures peek in */
+    .body { padding: 0 24px 48px; gap: 24px; }
     .slide :global(.slide-media) { border-radius: 14px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .tile, .viewer[open] { transition: none; animation: none; }
+    .slide { transition: opacity 150ms linear; }
   }
 </style>
 
