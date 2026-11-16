@@ -239,6 +239,26 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
       if (e.key === "ArrowLeft") show(at - 1);
       if (e.key === "ArrowRight") show(at + 1);
     });
+    // Phones: swipe left or right anywhere in the popup to change pictures
+    if (slides.length > 1) {
+      let x0 = 0, y0 = 0, t0 = 0;
+      dlg.addEventListener("touchstart", (e) => {
+        x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now();
+      }, { passive: true });
+      dlg.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - x0;
+        const dy = e.changedTouches[0].clientY - y0;
+        const fast = Date.now() - t0 < 600;
+        if (Math.abs(dx) > Math.abs(dy) * 1.2 && (Math.abs(dx) > 60 || (fast && Math.abs(dx) > 30))) {
+          show(dx < 0 ? at + 1 : at - 1);
+          const s = slides[at];
+          if (!reduce) s.animate(
+            [{ transform: `translateX(${dx < 0 ? 40 : -40}px)`, opacity: 0 }, { transform: "none", opacity: 1 }],
+            { duration: 220, easing: "ease-out" },
+          );
+        }
+      }, { passive: true });
+    }
     // Click on the empty background closes it
     dlg.addEventListener("click", (e) => {
       if (e.target === dlg || (e.target as HTMLElement).classList.contains("body")) dlg.close();
@@ -460,6 +480,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     width: min(720px, 100%);
   }
   .slide { margin: 0; }
+  .viewer { touch-action: pan-y; }
   .slide :global(.slide-media) {
     display: block;
     width: 100%;
