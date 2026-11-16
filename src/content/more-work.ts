@@ -34,7 +34,6 @@ export interface MoreWorkItem {
   size: Size;
   media?: TileMedia; // leave out for a blurred "Coming soon" tile
   soonImage?: string; // picture to blur on a "Coming soon" tile
-  dots?: boolean; // show the "more images" dots (only when the picture doesn't already have them)
   popup?: {
     project: string;
     title: string;
@@ -51,7 +50,6 @@ export const moreWork: MoreWorkItem[][] = [
       title: "Boombox",
       description: "Booking flow for hosted team events.",
       size: [285, 212],
-      dots: true,
       media: {
         kind: "scroll",
         scroll: {
@@ -194,7 +192,7 @@ export const moreWork: MoreWorkItem[][] = [
             scroll: {
               base: "base-corona-slide.jpg",
               page: "page-corona.jpg",
-              window: { x: 49, y: 68, w: 622, h: 416 },
+              window: { x: 50, y: 68, w: 620, h: 416 },
               pageHeight: 1849.61,
               keys: [[1.5, 0], [25.5, -1431.6], [27.5, -1431.6], [29.5, 0]],
               loop: 31,
@@ -207,7 +205,6 @@ export const moreWork: MoreWorkItem[][] = [
       title: "Acura",
       description: "Magazine ads for the TLX, MDX and RLX launches at Mullen.",
       size: [285, 214],
-      dots: true,
       media: { kind: "cycle", srcs: ["s-acura-1.jpg", "s-acura-2.jpg", "s-acura-3.jpg", "s-acura-4.jpg"], every: 0.45 },
       popup: {
         project: "Acura · Mullen",

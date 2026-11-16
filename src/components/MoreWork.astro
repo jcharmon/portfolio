@@ -82,7 +82,11 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
                   </div>
                 </>
               )}
-              {item.dots && <span class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></span>}
+              {(item.popup?.slides.length ?? 0) > 1 && (
+                <span class="dots" aria-hidden="true">
+                  {item.popup!.slides.map((_, i) => <i class={i === 0 ? "on" : undefined}></i>)}
+                </span>
+              )}
               {!soon && (
                 <span class="hover" aria-hidden="true">
                   <span class="t-body-strong">{item.title}</span>
@@ -203,11 +207,15 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     if (reduce) return;
     const imgs = [...el.querySelectorAll("img")];
     const every = parseFloat(el.dataset.cycle!) * 1000;
+    // The tile's dots follow the picture that is showing
+    const dots = [...(el.parentElement?.querySelectorAll(".dots i") ?? [])];
     let i = 0;
     setInterval(() => {
       imgs[i].style.opacity = "0";
+      dots[i]?.classList.remove("on");
       i = (i + 1) % imgs.length;
       imgs[i].style.opacity = "1";
+      dots[i]?.classList.add("on");
     }, every);
   });
 
@@ -370,6 +378,8 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     z-index: 1;
   }
   .dots i {
+    flex: none;
+    transition: width 150ms ease, background 150ms ease;
     width: 6px;
     height: 6px;
     border-radius: 99px;
