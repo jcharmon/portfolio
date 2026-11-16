@@ -121,6 +121,7 @@ export const moreWork: MoreWorkItem[][] = [
         title: "Vibe brand presentation",
         description:
           "Vibe, the brand presentation for Uncle Juzzy’s, an Israeli street food restaurant that never opened. It covers what sets it apart, its personality, its mission and three visual concepts to pick from.",
+        credits: "Credits: Becca Rabinowitz",
         slides: [
           { kind: "image", src: "s-vibe-1.jpg", alt: "Cover: Vibe" },
           { kind: "image", src: "s-vibe-2.jpg", alt: "Let’s recap: differentiators, personality, mission" },
