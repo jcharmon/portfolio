@@ -251,6 +251,7 @@ export const moreWork: MoreWorkItem[][] = [
         title: "Kitchen display system",
         description:
           "A kitchen display system for busy lines. Orders flow to the right station, timers keep tickets moving and cooks bump orders with a single tap.",
+        credits: "Made with: Lukas Pfeiffer and the Local Kitchens leadership team.",
         slides: [
           { kind: "image", src: "s-lk-1.jpg", alt: "The kitchen display showing orders by station" },
           { kind: "image", src: "s-lk-2.jpg", alt: "Time in the kitchen: photos of the line and the display in use" },
