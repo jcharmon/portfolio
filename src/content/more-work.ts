@@ -69,7 +69,7 @@ export const moreWork: MoreWorkItem[][] = [
         description:
           "Boombox helps teams find and book activities together. I led design as the company moved from public fitness classes to private team experiences, covering navigation, experience pages, booking, payments and dashboards. This flow takes a team from an event page to a sent request.",
         credits:
-          "Design lead, 2020. With Jenny Johannesson, Tyler Galpin, Ivy Son, Henry Wu, Blake Hudelson and the Boombox team. Photos in the mocks are placeholders.",
+          "Credit: Jenny Johannesson, Tyler Galpin, Ivy Son, Henry Wu, Blake Hudelson and the Boombox team. Photos in the mocks are placeholders.",
         slides: [
           {
             kind: "scroll",
