@@ -268,6 +268,7 @@ export const moreWork: MoreWorkItem[][] = [
         title: "Mobile website",
         description:
           "The mobile site for Uncle Juzzy’s, with ordering up front, the menu and everything you need to find the restaurant.",
+        credits: "Made with: Becca Rabinowitz",
         slides: [{ kind: "image", src: "s-juzzy-mobile-1.jpg", alt: "The Uncle Juzzy’s home page in a phone" }],
       },
     },
