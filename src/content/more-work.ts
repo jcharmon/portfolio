@@ -59,7 +59,7 @@ export const moreWork: MoreWorkItem[][] = [
           page: "page-boombox.jpg",
           window: { x: 16, y: 16, w: 253.33, h: 179.8, radius: 6 },
           pageHeight: 767.92,
-          keys: [[1.5, 0], [38.5, -588.12], [41, -588.12], [45, 0]],
+          keys: [[1.5, 0], [38.5, -586.5], [41, -586.5], [45, 0]],
           loop: 46.5,
         },
       },
@@ -80,7 +80,7 @@ export const moreWork: MoreWorkItem[][] = [
               page: "page-boombox.jpg",
               window: { x: 0, y: 0, w: 720, h: 511 },
               pageHeight: 2182.5,
-              keys: [[1.5, 0], [31.5, -1671.5], [33.5, -1671.5], [35.5, 0]],
+              keys: [[1.5, 0], [31.5, -1669.5], [33.5, -1669.5], [35.5, 0]],
               loop: 37,
             },
           },
@@ -174,9 +174,9 @@ export const moreWork: MoreWorkItem[][] = [
         scroll: {
           base: "base-corona-tile.jpg",
           page: "page-corona.jpg",
-          window: { x: 25.4, y: 41.42, w: 234.53, h: 296.58 },
+          window: { x: 24.6, y: 41.42, w: 236.13, h: 296.58 },
           pageHeight: 699.67,
-          keys: [[1.5, 0], [25.5, -403.09], [27.5, -403.09], [29.5, 0]],
+          keys: [[1.5, 0], [25.5, -401.5], [27.5, -401.5], [29.5, 0]],
           loop: 31,
         },
       },
@@ -185,6 +185,7 @@ export const moreWork: MoreWorkItem[][] = [
         title: "National COVID portal",
         description:
           "Rethinking the national COVID portal with the White House. We simplified the structure so people could quickly find testing, vaccines, treatment and financial help in one place.",
+        credits: "Made with: Matthew Miller, Tyler Galpin and Shaun Modi.",
         slides: [
           {
             kind: "scroll",
@@ -193,9 +194,9 @@ export const moreWork: MoreWorkItem[][] = [
             scroll: {
               base: "base-corona-slide.jpg",
               page: "page-corona.jpg",
-              window: { x: 50, y: 68, w: 620, h: 416 },
+              window: { x: 49, y: 68, w: 622, h: 416 },
               pageHeight: 1849.61,
-              keys: [[1.5, 0], [25.5, -1433.61], [27.5, -1433.61], [29.5, 0]],
+              keys: [[1.5, 0], [25.5, -1431.6], [27.5, -1431.6], [29.5, 0]],
               loop: 31,
             },
           },
@@ -241,19 +242,6 @@ export const moreWork: MoreWorkItem[][] = [
   // Column 3
   [
     {
-      title: "Uncle Juzzy’s",
-      description: "Mobile website with ordering up front.",
-      size: [285, 338],
-      media: { kind: "video", src: "/more-work/juzzy-mobile-tile.mp4", poster: "/more-work/juzzy-mobile-tile-poster.jpg" },
-      popup: {
-        project: "Uncle Juzzy’s",
-        title: "Mobile website",
-        description:
-          "The mobile site for Uncle Juzzy’s, with ordering up front, the menu and everything you need to find the restaurant.",
-        slides: [{ kind: "image", src: "s-juzzy-mobile-1.jpg", alt: "The Uncle Juzzy’s home page in a phone" }],
-      },
-    },
-    {
       title: "Local Kitchens",
       description: "Kitchen display system for busy lines.",
       size: [285, 214],
@@ -270,10 +258,33 @@ export const moreWork: MoreWorkItem[][] = [
       },
     },
     {
+      title: "Uncle Juzzy’s",
+      description: "Mobile website with ordering up front.",
+      size: [285, 338],
+      media: { kind: "video", src: "/more-work/juzzy-mobile-tile.mp4", poster: "/more-work/juzzy-mobile-tile-poster.jpg" },
+      popup: {
+        project: "Uncle Juzzy’s",
+        title: "Mobile website",
+        description:
+          "The mobile site for Uncle Juzzy’s, with ordering up front, the menu and everything you need to find the restaurant.",
+        slides: [{ kind: "image", src: "s-juzzy-mobile-1.jpg", alt: "The Uncle Juzzy’s home page in a phone" }],
+      },
+    },
+    {
       title: "Loud Mouths Run Club",
       description: "Logo and merch for an Austin and Dallas run club.",
       size: [285, 285],
       media: { kind: "image", src: "tile-loud-mouths.jpg" },
+      popup: {
+        project: "Loud Mouths Run Club",
+        title: "Logo and merch",
+        description:
+          "A logo for Loud Mouths, a run club in Austin and Dallas. The running mouth says it all: show up, be loud and just get out there.",
+        slides: [
+          { kind: "image", src: "s-loud-mouths-1.jpg", alt: "The Loud Mouths Run Club logo: a running mouth with ATX and DTX" },
+          { kind: "image", src: "s-loud-mouths-2.jpg", alt: "The logo printed on a cream crewneck sweatshirt" },
+        ],
+      },
     },
     { title: "Coming soon", description: "", size: [285, 260], soonImage: "s-acura-3.jpg" },
     { title: "Coming soon", description: "", size: [285, 214], soonImage: "s-tee-1.jpg" },
