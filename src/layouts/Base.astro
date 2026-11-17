@@ -44,6 +44,20 @@ const pageTitle = title ? `${title} · ${site.name}` : site.title;
     <script>
       import { startMotion } from "../scripts/motion";
       startMotion();
+
+      // Looping videos: Safari (especially iPhones in Low Power Mode) can refuse to
+      // autoplay and shows a play button instead. Keep asking them to play, and
+      // retry on the first tap or scroll, which Safari counts as permission.
+      const loops = () => [...document.querySelectorAll<HTMLVideoElement>("video[autoplay]")];
+      const playAll = () => loops().forEach((v) => {
+        v.muted = true;
+        if (v.paused) v.play().catch(() => {});
+      });
+      playAll();
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) playAll(); });
+      for (const ev of ["touchstart", "pointerdown", "scroll", "keydown"]) {
+        window.addEventListener(ev, playAll, { passive: true, once: true });
+      }
     </script>
   </body>
 </html>

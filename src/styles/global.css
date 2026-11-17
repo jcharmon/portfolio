@@ -158,3 +158,7 @@ a {
   .js [data-reveal] { transform: none; }
   .js [data-loader]::after { animation: none; }
 }
+
+/* Never show Safari's big play button on looping videos; they play by themselves */
+video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+video::-webkit-media-controls { display: none !important; }
