@@ -129,7 +129,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
                   <Image src={img(s.src)} alt={s.alt} widths={[720, 1440]} sizes="(max-width: 799px) 92vw, 720px" loading="lazy" class="slide-media" />
                 )}
                 {s.kind === "video" && (
-                  <div class="slide-media video-wrap" style={`background:${s.background}`}>
+                  <div class:list={["slide-media video-wrap", { whole: s.size }]} style={`background:${s.background}${s.size ? `;aspect-ratio:${s.size[0]} / ${s.size[1]}` : ""}`}>
                     <video src={s.src} poster={s.poster} muted loop playsinline preload="none" aria-label={s.alt} />
                   </div>
                 )}
@@ -552,6 +552,13 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     display: block;
     /* The video has the tile's rounded corners baked in (dark); clip them away */
     clip-path: inset(0 round 5% / 4.3%);
+  }
+  /* A video that fills its slide edge to edge (not a phone) */
+  .video-wrap.whole video {
+    left: 0;
+    transform: none;
+    width: 100%;
+    clip-path: none;
   }
   .caption {
     width: min(560px, 100%);

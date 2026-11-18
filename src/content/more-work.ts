@@ -25,7 +25,7 @@ export type TileMedia =
 
 export type Slide =
   | { kind: "image"; src: string; alt: string }
-  | { kind: "video"; src: string; poster: string; background: string; alt: string }
+  | { kind: "video"; src: string; poster: string; background: string; alt: string; size?: Size } // size = whole video shown at that shape (no phone corners)
   | { kind: "scroll"; scroll: Scroll; size: Size; alt: string };
 
 export interface MoreWorkItem {
@@ -285,7 +285,28 @@ export const moreWork: MoreWorkItem[][] = [
         ],
       },
     },
-    { title: "Coming soon", description: "", size: [285, 260], soonImage: "s-acura-3.jpg" },
+    {
+      title: "Vooma",
+      description: "Outlook add-in that turns quote emails into priced replies.",
+      size: [285, 260],
+      media: { kind: "video", src: "/more-work/vooma-tile.mp4", poster: "/more-work/vooma-tile-poster.jpg" },
+      popup: {
+        project: "Vooma",
+        title: "Quoting Outlook add-in",
+        description:
+          "Freight quote requests land in reps’ inboxes all day, and every slow reply loses business. I designed Vooma’s Outlook add-in to sit beside the email, pull out the route and load details, price it with the customer’s own rate tools and draft the reply in one click.",
+        slides: [
+          {
+            kind: "video",
+            src: "/more-work/vooma-popup.mp4",
+            poster: "/more-work/vooma-popup-poster.jpg",
+            background: "#0b3b3e",
+            size: [1440, 1044],
+            alt: "The Vooma add-in beside a pickup request email in Outlook, opening the route and details and scrolling to the rate and quote history",
+          },
+        ],
+      },
+    },
     { title: "Coming soon", description: "", size: [285, 214], soonImage: "s-tee-1.jpg" },
   ],
 ];
