@@ -300,7 +300,7 @@ export const moreWork: MoreWorkItem[][] = [
             kind: "video",
             src: "/more-work/vooma-popup.mp4",
             poster: "/more-work/vooma-popup-poster.jpg",
-            background: "#0b3b3e",
+            background: "#000000",
             size: [1440, 1044],
             alt: "The Vooma add-in beside a pickup request email in Outlook, opening the route and details and scrolling to the rate and quote history",
           },
