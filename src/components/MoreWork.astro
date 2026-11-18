@@ -257,6 +257,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     };
     btn.addEventListener("click", () => {
       dlg.showModal();
+      dlg.scrollTop = 0;
       // Focus the popup itself so the close button doesn't show a focus ring on open
       dlg.focus();
       document.documentElement.classList.add("no-scroll");
@@ -460,6 +461,9 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
   .viewer[open] {
     display: flex;
     flex-direction: column;
+    /* The whole popup scrolls, so pictures slide up under the buttons instead of being cut off */
+    overflow-y: auto;
+    overflow-x: hidden;
     animation: viewer-in 300ms var(--ease-out);
   }
   @keyframes viewer-in {
@@ -502,8 +506,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     align-items: center;
     gap: 36px;
     padding: 48px 24px 64px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   .stage {
     width: min(720px, 100%);
