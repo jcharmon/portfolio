@@ -288,7 +288,7 @@ export const moreWork: MoreWorkItem[][] = [
     {
       title: "Vooma",
       description: "Outlook add-in that turns quote emails into priced replies.",
-      size: [285, 260],
+      size: [285, 207],
       media: { kind: "video", src: "/more-work/vooma-tile.mp4", poster: "/more-work/vooma-tile-poster.jpg" },
       popup: {
         project: "Vooma",
