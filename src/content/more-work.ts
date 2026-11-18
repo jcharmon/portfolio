@@ -39,6 +39,7 @@ export interface MoreWorkItem {
     title: string;
     description: string;
     credits?: string;
+    link?: { label: string; href: string }; // optional link out, shown under the description
     slides: Slide[];
   };
 }
@@ -295,6 +296,8 @@ export const moreWork: MoreWorkItem[][] = [
         title: "Quoting Outlook add-in",
         description:
           "Freight quote requests land in reps’ inboxes all day, and every slow reply loses business. I designed Vooma’s Outlook add-in to sit beside the email, pull out the route and load details, price it with the customer’s own rate tools and draft the reply in one click.",
+        credits: "Made with: Jesse Buckingham, Mike Carter and Michael Parlato.",
+        link: { label: "vooma.com", href: "https://www.vooma.com/" },
         slides: [
           {
             kind: "video",

@@ -5,6 +5,7 @@
  * Words and pictures: src/content/more-work.ts
  */
 import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
 import type { ImageMetadata } from "astro";
 import { moreWork, type Scroll, type MoreWorkItem } from "../content/more-work";
 
@@ -148,6 +149,11 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
             <p class="t-small muted project">{p.project}</p>
             <h3 class="t-heading">{p.title}</h3>
             <p class="t-body muted">{p.description}</p>
+            {p.link && (
+              <a class="t-body ext-link" href={p.link.href} target="_blank" rel="noopener">
+                {p.link.label} <Icon name="arrow-up-right" size={18} />
+              </a>
+            )}
             {p.credits && <p class="t-small muted credits">{p.credits}</p>}
           </div>
         </div>
@@ -570,6 +576,18 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
   }
   .caption .project { letter-spacing: 0.02em; }
   .caption .credits { margin-top: 6px; }
+  .ext-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--theme-text);
+  }
+  .ext-link :global(svg) { transition: transform var(--dur-fast) var(--ease-out); }
+  @media (hover: hover) {
+    .ext-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .ext-link:hover :global(svg) { transform: translate(2px, -2px); }
+  }
 
   @media (max-width: 699px) {
     .bar { padding: 16px; }
