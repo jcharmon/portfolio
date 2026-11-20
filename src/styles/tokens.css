@@ -44,8 +44,8 @@
   --type-small-line: 1.45;
 
   /* ---------- Shape ---------- */
-  --radius-tile: 24px;
-  --radius-card: 24px;
+  --radius-tile: 12px; /* same as the More work tiles */
+  --radius-card: 12px; /* one radius for every picture and card on the site */
   --radius-pill: 999px;
 
   /* ---------- Layout ---------- */
