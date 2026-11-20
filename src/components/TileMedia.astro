@@ -33,7 +33,7 @@ const widths = [480, 832, 1248];
 const sizes = "(max-width: 1023px) 100vw, 416px";
 ---
 <div class:list={["media", slug]}>
-  <Image class="bg" src={tile.src} widths={widths} sizes={sizes} alt={tile.alt} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} />
+  <Image class="bg" src={tile.src} widths={widths} sizes={sizes} alt={tile.alt} quality={92} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} />
 </div>
 
 <style>
