@@ -16,9 +16,17 @@ import nextnav from "../assets/home/tile-nextnav.jpg";
 import radpad from "../assets/home/tile-radpad.jpg";
 import googleFi from "../assets/home/tile-google-fi.jpg";
 
-const tiles: Record<ProjectSlug, { src: ImageMetadata; alt: string }> = {
+/**
+ * zoom: the tile starts zoomed in on its top-left corner and zooms out on hover
+ * to show the whole board (Thrive). The number is how far it's zoomed in.
+ */
+const tiles: Record<ProjectSlug, { src: ImageMetadata; alt: string; zoom?: number }> = {
   opm: { src: opm, alt: "OPM logo over a records room, with the new insurance elections screen in a browser" },
-  thrive: { src: thrive, alt: "Thrive Mobile logo over an older couple laughing, with the Thrive app on a phone" },
+  thrive: {
+    src: thrive,
+    alt: "Thrive Mobile brand board: the My plan screen, the Thrive app icon on a home screen, the Thrive Guide AI chat, the logo, an ad and app icons",
+    zoom: 1.4,
+  },
   bobbie: { src: bobbie, alt: "Bobbie logo over a mother feeding her baby, with the Bobbie order screen on a phone" },
   "google-fi": { src: googleFi, alt: "Google Fi logo over a man laughing on a call, with the Google Fi app on a phone and the sign-up page in a browser" },
   nextnav: { src: nextnav, alt: "NextNav logo over a city at night, with the NextNav map on a phone" },
@@ -29,10 +37,11 @@ interface Props { slug: ProjectSlug; eager?: boolean }
 const { slug, eager = false } = Astro.props;
 const tile = tiles[slug];
 // Tile is 416px wide on desktop and up to the full screen width on phones
-const widths = [480, 832, 1248];
-const sizes = "(max-width: 1023px) 100vw, 416px";
+// A zoomed tile shows part of the picture larger, so it needs a sharper file
+const widths = tile.zoom ? [832, 1248, 1664] : [480, 832, 1248];
+const sizes = tile.zoom ? `(max-width: 1023px) ${Math.round(100 * tile.zoom)}vw, ${Math.round(416 * tile.zoom)}px` : "(max-width: 1023px) 100vw, 416px";
 ---
-<div class:list={["media", slug]}>
+<div class:list={["media", slug, { zoom: tile.zoom }]} style={tile.zoom ? `--zoom: ${tile.zoom}` : undefined}>
   <Image class="bg" src={tile.src} widths={widths} sizes={sizes} alt={tile.alt} quality={92} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} />
 </div>
 
@@ -49,5 +58,18 @@ const sizes = "(max-width: 1023px) 100vw, 416px";
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  /* Zoomed tile: starts on the top-left of the board, zooms out on hover */
+  .zoom .bg {
+    transform: scale(var(--zoom));
+    transform-origin: 0 0;
+    transition: transform 900ms var(--ease-out);
+  }
+  @media (hover: hover) {
+    :global(.link:hover) .zoom .bg,
+    :global(.link:focus-visible) .zoom .bg { transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .zoom .bg { transition: none; }
   }
 </style>
