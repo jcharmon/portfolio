@@ -45,7 +45,7 @@ const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
           <Image class="hero-logo" src={hero.logo} alt={hero.logoAlt} width={480} />
         </>
       ) : (
-        <Image class="hero-photo" src={hero.image} alt={hero.alt} widths={[720, 1200, 1760]} sizes={heroSizes} loading="eager" />
+        <Image class="hero-photo" src={hero.image} alt={hero.alt} widths={[720, 1200, 1760]} sizes={heroSizes} quality={92} loading="eager" />
       )}
     </div>
 
