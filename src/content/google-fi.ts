@@ -5,7 +5,7 @@
  */
 import type { CaseStudy } from "./types";
 
-import hero from "../assets/google-fi/hero.jpg";
+import hero from "../assets/google-fi/hero-e1.jpg";
 import hlEveryPhone from "../assets/google-fi/highlight-every-phone.jpg";
 import hlIosBeta from "../assets/google-fi/highlight-ios-beta.jpg";
 import hlSimKit from "../assets/google-fi/highlight-sim-kit.jpg";
@@ -43,7 +43,7 @@ const googleFi: CaseStudy = {
   hero: {
     kind: "image",
     image: hero,
-    alt: "Two people on a sofa using their phones, with the Google Fi app icon",
+    alt: "A man laughing on a phone call, next to the Google Fi app on a phone and the sign-up page in a browser",
   },
   blocks: [
     {

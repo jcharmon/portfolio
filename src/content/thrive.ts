@@ -5,7 +5,7 @@
  */
 import type { CaseStudy } from "./types";
 
-import hero from "../assets/thrive/hero.jpg";
+import hero from "../assets/thrive/hero-e1.jpg";
 import marketingPage from "../assets/thrive/marketing-page-full.jpg";
 import browserHeader from "../assets/thrive/browser-header.png";
 import enrollmentRow from "../assets/thrive/enrollment-row.jpg";
@@ -32,7 +32,7 @@ const thrive: CaseStudy = {
   hero: {
     kind: "image",
     image: hero,
-    alt: "A mother and her baby taking a selfie, with the Thrive Mobile logo",
+    alt: "An older couple laughing at a phone, next to the Thrive Mobile app on a phone",
   },
   blocks: [
     {

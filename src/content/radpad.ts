@@ -5,7 +5,7 @@
  */
 import type { CaseStudy } from "./types";
 
-import hero from "../assets/radpad/hero.jpg";
+import hero from "../assets/radpad/hero-e1.jpg";
 import leaseBuilder from "../assets/radpad/lease-builder.jpg";
 import bankAccount from "../assets/radpad/bank-account.jpg";
 import feeSummary from "../assets/radpad/fee-summary.jpg";
@@ -31,7 +31,7 @@ const radpad: CaseStudy = {
   hero: {
     kind: "image",
     image: hero,
-    alt: "The RadPad lease signing screen on web and a renter’s phone",
+    alt: "A sunny living room, next to the RadPad lease signing screen in a browser",
   },
   blocks: [
     {

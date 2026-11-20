@@ -5,8 +5,7 @@
  */
 import type { CaseStudy } from "./types";
 
-import hero from "../assets/opm/hero-bg.jpg";
-import heroSeal from "../assets/opm/opm-seal.png";
+import hero from "../assets/opm/hero-e1.jpg";
 import mapping1 from "../assets/opm/mapping-1.jpg";
 import mapping2 from "../assets/opm/mapping-2.jpg";
 import mapping3 from "../assets/opm/mapping-3.jpg";
@@ -36,11 +35,9 @@ const opm: CaseStudy = {
     },
   ],
   hero: {
-    kind: "logo-over-photo",
-    photo: hero,
-    logo: heroSeal,
-    logoAlt: "Seal of the U.S. Office of Personnel Management",
-    dim: 0.5,
+    kind: "image",
+    image: hero,
+    alt: "A records room full of paper retirement files, next to the new OPM insurance elections screen",
   },
   blocks: [
     {

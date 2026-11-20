@@ -5,7 +5,7 @@
  */
 import type { CaseStudy } from "./types";
 
-import hero from "../assets/nextnav/hero.jpg";
+import hero from "../assets/nextnav/hero-e1.jpg";
 import hlSeriesE from "../assets/nextnav/highlight-series-e.jpg";
 import hlResearch from "../assets/nextnav/highlight-research.jpg";
 import hlRelationships from "../assets/nextnav/highlight-relationships.jpg";
@@ -27,7 +27,7 @@ const nextnav: CaseStudy = {
   hero: {
     kind: "image",
     image: hero,
-    alt: "The NextNav app on a laptop and a phone",
+    alt: "A city at night with 3D floor-level locations, next to the NextNav map on a phone",
   },
   blocks: [
     {
