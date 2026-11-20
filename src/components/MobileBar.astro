@@ -16,7 +16,7 @@ const { variant } = Astro.props;
     <>
       <Smiley />
       <nav class="links" aria-label="Contact">
-        <TextLink href={site.email} external>Reach out</TextLink>
+        <TextLink href={site.email} external>Let’s talk</TextLink>
         <TextLink href={site.resume} external>Resume</TextLink>
       </nav>
     </>
@@ -27,7 +27,7 @@ const { variant } = Astro.props;
         All work
       </a>
       <nav class="links" aria-label="Contact">
-        <TextLink href={site.email} external>Reach out</TextLink>
+        <TextLink href={site.email} external>Let’s talk</TextLink>
       </nav>
     </>
   )}
@@ -35,7 +35,7 @@ const { variant } = Astro.props;
 
 <script>
   /*
-   * Home page on phones: the bar's "Reach out" and "Resume" links stay hidden
+   * Home page on phones: the bar's "Let’s talk" and "Resume" links stay hidden
    * while the same links in the intro are on screen, then slide in once you
    * scroll past them (and slide away again if you scroll back up).
    */
@@ -52,7 +52,7 @@ const { variant } = Astro.props;
     ).observe(trigger);
   }
 
-  /* Case studies on phones: "Reach out" slides in on the right once you start scrolling */
+  /* Case studies on phones: "Let’s talk" slides in on the right once you start scrolling */
   const backBar = document.querySelector<HTMLElement>(".mobile-bar.bar-back");
   if (backBar) {
     const update = () => backBar.classList.toggle("links-hidden", window.scrollY < 120);

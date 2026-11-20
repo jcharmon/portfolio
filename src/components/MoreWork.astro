@@ -1,7 +1,9 @@
 ---
 /**
- * Figma "More work": 3 columns of small tiles (2 on phones). Each tile can open a popup
- * with slides and a caption. Tiles without media show a blurred "Coming soon" picture.
+ * Figma "More work · Mixed spans": rows on a 3-column grid, where each piece spans 1, 2 or 3
+ * columns and always shows whole. Each tile can open a popup with slides and a caption.
+ * Tiles without media show a blurred "Coming soon" picture (desktop only).
+ * Phones: wide pieces go full width; the small ones between them pair up in 2 columns.
  * Words and pictures: src/content/more-work.ts
  */
 import { Image } from "astro:assets";
@@ -24,7 +26,15 @@ const { title, text } = Astro.props;
 
 const FW = 285.333; // Figma tile width
 let n = 0;
-const items = moreWork.map((col) => col.map((item) => ({ item, id: `mw-${++n}` })));
+const rows = moreWork.map((row) =>
+  row.map((cell) => ({ span: cell.span, tiles: cell.tiles.map((item) => ({ item, id: `mw-${++n}` })) })),
+);
+const allTiles = rows.flat().flatMap((c) => c.tiles);
+
+// Picture sizes for a tile that spans 1, 2 or 3 columns (sharp on retina screens)
+const sizesFor = (span: number) =>
+  span === 1 ? "(max-width: 699px) 50vw, 300px" : `(max-width: 699px) 100vw, ${span === 2 ? 600 : 900}px`;
+const widthsFor = (span: number) => (span === 1 ? [300, 600] : span === 2 ? [600, 1200] : [900, 1800]);
 
 // Percent helpers so everything scales with the tile
 const pct = (v: number, of: number) => `${((v / of) * 100).toFixed(4)}%`;
@@ -42,66 +52,73 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     <p class="t-body muted">{text}</p>
   </header>
 
-  <div class="cols">
-    {items.map((col) => (
-      <div class="col">
-        {col.map(({ item, id }) => {
-          const ratio = `${item.size[0]} / ${item.size[1]}`;
-          const soon = !item.media;
-          const Tag = item.popup ? "button" : "div";
-          return (
-            <Tag
-              class:list={["tile", { soon, clickable: !!item.popup }]}
-              style={`aspect-ratio:${ratio}`}
-              data-reveal
-              {...(item.popup ? { type: "button", "data-open": id, "aria-label": label(item) } : {})}
-            >
-              {soon && (
-                <>
-                  <Image src={img(item.soonImage!)} alt="" widths={[200, 400]} sizes="300px" class="soon-img" />
-                  <span class="soon-pill t-small-strong">Coming soon</span>
-                </>
-              )}
-              {item.media?.kind === "image" && (
-                <Image src={img(item.media.src)} alt="" widths={[300, 571]} sizes="(max-width: 699px) 50vw, 300px" class="fill" />
-              )}
-              {item.media?.kind === "video" && (
-                <video class="fill" src={item.media.src} poster={item.media.poster} autoplay muted loop playsinline preload="metadata" aria-hidden="true" />
-              )}
-              {item.media?.kind === "cycle" && (
-                <div class="cycle fill" data-cycle={item.media.every}>
-                  {item.media.srcs.map((s, i) => (
-                    <Image src={img(s)} alt="" widths={[300, 600]} sizes="(max-width: 699px) 50vw, 300px" class="fill" style={i ? "opacity:0" : ""} />
-                  ))}
-                </div>
-              )}
-              {item.media?.kind === "scroll" && (
-                <>
-                  <Image src={img(item.media.scroll.base)} alt="" widths={[300, 571]} sizes="(max-width: 699px) 50vw, 300px" class="fill" />
-                  <div class="win" style={scrollStyle(item.media.scroll, FW, (item.size[1] / item.size[0]) * FW)}>
-                    <Image src={img(item.media.scroll.page)} alt="" widths={[300, 600]} sizes="(max-width: 699px) 50vw, 300px" class="page" data-scroll={scrollData(item.media.scroll)} />
-                  </div>
-                </>
-              )}
-              {(item.popup?.slides.length ?? 0) > 1 && (
-                <span class="dots" aria-hidden="true">
-                  {item.popup!.slides.map((_, i) => <i class={i === 0 ? "on" : undefined}></i>)}
-                </span>
-              )}
-              {!soon && (
-                <span class="hover" aria-hidden="true">
-                  <span class="t-body-strong">{item.title}</span>
-                  <span class="t-small">{item.description}</span>
-                </span>
-              )}
-            </Tag>
-          );
-        })}
+  <div class="rows">
+    {rows.map((row) => (
+      <div class="row">
+        {row.map((cell) => (
+          <div class="cell" data-span={cell.span} style={`--span:${cell.span}`}>
+            {cell.tiles.map(({ item, id }) => {
+              const ratio = `${item.size[0]} / ${item.size[1]}`;
+              const soon = !item.media;
+              const Tag = item.popup ? "button" : "div";
+              const sizes = sizesFor(cell.span);
+              const widths = widthsFor(cell.span);
+              return (
+                <Tag
+                  class:list={["tile", { soon, grow: item.grow, clickable: !!item.popup }]}
+                  style={item.grow ? undefined : `aspect-ratio:${ratio}`}
+                  data-reveal
+                  {...(item.popup ? { type: "button", "data-open": id, "aria-label": label(item) } : {})}
+                >
+                  {soon && (
+                    <>
+                      <Image src={img(item.soonImage!)} alt="" widths={[200, 400]} sizes="300px" class="soon-img" />
+                      <span class="soon-pill t-small-strong">Coming soon</span>
+                    </>
+                  )}
+                  {item.media?.kind === "image" && (
+                    <Image src={img(item.media.src)} alt="" widths={widths} sizes={sizes} quality={90} class="fill" />
+                  )}
+                  {item.media?.kind === "video" && (
+                    <video class="fill" src={item.media.src} poster={item.media.poster} autoplay muted loop playsinline preload="metadata" aria-hidden="true" />
+                  )}
+                  {item.media?.kind === "cycle" && (
+                    <div class="cycle fill" data-cycle={item.media.every}>
+                      {item.media.srcs.map((s, i) => (
+                        <Image src={img(s)} alt="" widths={widths} sizes={sizes} class="fill" style={i ? "opacity:0" : ""} />
+                      ))}
+                    </div>
+                  )}
+                  {item.media?.kind === "scroll" && (
+                    <>
+                      <Image src={img(item.media.scroll.base)} alt="" widths={widths} sizes={sizes} quality={90} class="fill" />
+                      <div class="win" style={scrollStyle(item.media.scroll, FW, (item.size[1] / item.size[0]) * FW)}>
+                        <Image src={img(item.media.scroll.page)} alt="" widths={widths} sizes={sizes} class="page" data-scroll={scrollData(item.media.scroll)} />
+                      </div>
+                    </>
+                  )}
+                  {(item.popup?.slides.length ?? 0) > 1 && (
+                    <span class="dots" aria-hidden="true">
+                      {item.popup!.slides.map((_, i) => <i class={i === 0 ? "on" : undefined}></i>)}
+                    </span>
+                  )}
+                  {!soon && (
+                    <span class="hover" aria-hidden="true">
+                      <span class="t-body-strong">{item.title}</span>
+                      <span class="t-small">{item.description}</span>
+                    </span>
+                  )}
+                </Tag>
+              );
+            })}
+          </div>
+        ))}
       </div>
     ))}
   </div>
+  <div class="phone-list" aria-hidden="true" hidden></div>
 
-  {items.flat().filter(({ item }) => item.popup).map(({ item, id }) => {
+  {allTiles.filter(({ item }) => item.popup).map(({ item, id }) => {
     const p = item.popup!;
     const many = p.slides.length > 1;
     return (
@@ -165,12 +182,14 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
 <script>
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Phones: re-deal the 3 columns into 2 balanced ones, putting "Coming soon" tiles last.
-  // On wider screens the tiles go back to their Figma columns.
-  const colsEl = document.querySelector<HTMLElement>(".more-work .cols");
-  if (colsEl) {
-    const cols = [...colsEl.querySelectorAll<HTMLElement>(":scope > .col")];
-    const home = cols.map((c) => [...c.children] as HTMLElement[]);
+  // Phones: wide pieces go full width, and the small tiles between them pair up in two
+  // balanced columns. "Coming soon" tiles stay hidden. Wider screens use the rows as built.
+  const section = document.querySelector<HTMLElement>(".more-work");
+  const rowsEl = section?.querySelector<HTMLElement>(".rows");
+  const list = section?.querySelector<HTMLElement>(".phone-list");
+  if (section && rowsEl && list) {
+    const cells = [...rowsEl.querySelectorAll<HTMLElement>(".cell")];
+    const home = cells.map((c) => [...c.children] as HTMLElement[]);
     const height = (t: HTMLElement) => {
       const [w, h] = (t.style.aspectRatio || "1 / 1").split("/").map(Number);
       return h / w;
@@ -178,18 +197,39 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     const phone = window.matchMedia("(max-width: 699px)");
     const layout = () => {
       if (phone.matches) {
-        const rows = Math.max(...home.map((c) => c.length));
-        const order: HTMLElement[] = [];
-        for (let r = 0; r < rows; r++) home.forEach((c) => c[r] && order.push(c[r]));
-        const sorted = [...order.filter((t) => !t.classList.contains("soon")), ...order.filter((t) => t.classList.contains("soon"))];
+        let pair: HTMLElement[] | null = null;
         const h = [0, 0];
-        for (const t of sorted) {
-          const i = h[0] <= h[1] ? 0 : 1;
-          cols[i].append(t);
-          h[i] += height(t);
-        }
+        cells.forEach((cell, i) => {
+          const wide = Number(cell.dataset.span) > 1;
+          for (const t of home[i]) {
+            if (t.classList.contains("soon")) continue;
+            if (wide) {
+              list.append(t);
+              pair = null;
+              continue;
+            }
+            if (!pair) {
+              const p = document.createElement("div");
+              p.className = "pair";
+              pair = [document.createElement("div"), document.createElement("div")];
+              pair.forEach((c) => (c.className = "pair-col"));
+              p.append(...pair);
+              list.append(p);
+              h[0] = h[1] = 0;
+            }
+            const k = h[0] <= h[1] ? 0 : 1;
+            pair[k].append(t);
+            h[k] += height(t);
+          }
+        });
+        list.hidden = false;
+        list.removeAttribute("aria-hidden");
+        rowsEl.hidden = true;
       } else {
-        home.forEach((tiles, i) => cols[i].append(...tiles));
+        home.forEach((tiles, i) => cells[i].append(...tiles));
+        list.replaceChildren();
+        list.hidden = true;
+        rowsEl.hidden = false;
       }
     };
     layout();
@@ -308,23 +348,54 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
   }
 
   /* ---------- Grid ---------- */
-  .cols {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    align-items: start;
-  }
-  .col {
+  .rows {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  /* A cell spans 1, 2 or 3 columns and stacks its tiles. Cells in a row share one height,
+     so a lone tile stretches a hair if its neighbor's stack is a pixel taller. */
+  .cell {
+    grid-column: span var(--span);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+  .cell > .tile:only-child { flex: 1 0 auto; }
+  /* "Coming soon" fills whatever is left of its stack */
+  .tile.grow {
+    flex: 1 1 0;
+    min-height: 64px;
+  }
+  .rows[hidden], .phone-list[hidden] { display: none; }
+  .phone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .phone-list :global(.pair) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .phone-list :global(.pair-col) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
   @media (max-width: 699px) {
-    /* Phones: two columns. The script deals the tiles into the first two
-       columns (shortest column first, "Coming soon" last). */
-    .cols { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .col { gap: 12px; }
-    .col:empty { display: none; }
+    /* Without the script: one column, everything full width */
+    .row { grid-template-columns: 1fr; gap: 12px; }
+    .rows, .cell { gap: 12px; }
+    .cell { grid-column: auto; }
+    .soon { display: none; }
   }
 
   .tile {
@@ -370,8 +441,8 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
 
   .dots {
     position: absolute;
-    right: calc(12 / 285.333 * 100cqi);
-    bottom: calc(12 / 285.333 * 100cqi);
+    right: 12px;
+    bottom: 12px;
     display: flex;
     gap: 4px;
     align-items: center;
