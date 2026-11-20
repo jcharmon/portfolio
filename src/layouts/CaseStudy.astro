@@ -118,9 +118,18 @@ const heroSizes = "(max-width: 1023px) calc(100vw - 32px), 880px";
     position: relative;
     aspect-ratio: 880 / 600;
     border-radius: var(--radius-card);
-    border: 1px solid var(--theme-border);
     overflow: hidden;
     container-type: inline-size;
+  }
+  /* Same light edge as the home tiles, drawn on top of the picture */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
   }
   .hero :global(.hero-photo) {
     position: absolute;
