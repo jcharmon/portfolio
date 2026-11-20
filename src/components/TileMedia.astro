@@ -25,15 +25,15 @@ const tiles: Record<ProjectSlug, { src: ImageMetadata; alt: string }> = {
   radpad: { src: radpad, alt: "RadPad logo over a sunny living room, with the lease signing screen in a browser" },
 };
 
-interface Props { slug: ProjectSlug }
-const { slug } = Astro.props;
+interface Props { slug: ProjectSlug; eager?: boolean }
+const { slug, eager = false } = Astro.props;
 const tile = tiles[slug];
 // Tile is 416px wide on desktop and up to the full screen width on phones
 const widths = [480, 832, 1248];
 const sizes = "(max-width: 1023px) 100vw, 416px";
 ---
 <div class:list={["media", slug]}>
-  <Image class="bg" src={tile.src} widths={widths} sizes={sizes} alt={tile.alt} />
+  <Image class="bg" src={tile.src} widths={widths} sizes={sizes} alt={tile.alt} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} />
 </div>
 
 <style>
