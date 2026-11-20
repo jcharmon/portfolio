@@ -135,19 +135,6 @@ export const moreWork: MoreWorkItem[][] = [
         ],
       },
     },
-    {
-      title: "Jawnt",
-      description: "GoCard transit card sign-up and management.",
-      size: [285, 338],
-      media: { kind: "image", src: "tile-jawnt-phones.jpg" },
-      popup: {
-        project: "Jawnt",
-        title: "GoCard sign-up and management",
-        description:
-          "Built Jawnt’s full sign-up flow and card management experience for GoCard, a transit card people use to ride the bus.",
-        slides: [{ kind: "image", src: "s-jawnt-1.jpg", alt: "Three GoCard sign-up screens in phones" }],
-      },
-    },
   ],
   // Column 2
   [
