@@ -213,15 +213,12 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     if (reduce) return;
     const imgs = [...el.querySelectorAll("img")];
     const every = parseFloat(el.dataset.cycle!) * 1000;
-    // The tile's dots follow the picture that is showing
-    const dots = [...(el.parentElement?.querySelectorAll(".dots i") ?? [])];
+    // The tile's dots stay still (Jordan found them moving distracting)
     let i = 0;
     setInterval(() => {
       imgs[i].style.opacity = "0";
-      dots[i]?.classList.remove("on");
       i = (i + 1) % imgs.length;
       imgs[i].style.opacity = "1";
-      dots[i]?.classList.add("on");
     }, every);
   });
 
