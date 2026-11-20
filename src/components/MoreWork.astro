@@ -616,7 +616,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 22px;
+    border-radius: var(--radius-card);
     overflow: hidden;
     box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.12);
     /* Same subtle border as the tiles */
@@ -678,7 +678,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     .bar { padding: 16px; }
     /* 24px sides (like Meet me offline) so the next and previous pictures peek in */
     .body { padding: 36px 24px 48px; gap: 24px; }
-    .slide :global(.slide-media) { border-radius: 14px; }
+    .slide :global(.slide-media) { border-radius: var(--radius-card); }
   }
 
   @media (prefers-reduced-motion: reduce) {
