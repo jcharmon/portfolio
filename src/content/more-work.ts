@@ -43,6 +43,7 @@ export interface MoreWorkItem {
     credits?: string;
     link?: { label: string; href: string }; // optional link out, shown under the description
     slides: Slide[];
+    start?: number; // which slide opens first (0 = the first); match it to the tile's picture
   };
 }
 
@@ -79,15 +80,16 @@ const items = {
       slides: [
         {
           kind: "scroll",
-          size: [720, 511],
+          size: [720, 535],
           alt: "The Boombox event page, scrolling from top to bottom",
+          // Same dark frame as the tile (tile numbers × 720 / 285.333)
           scroll: {
-            base: "",
+            base: "base-boombox-wide.jpg",
             page: "page-boombox.jpg",
-            window: { x: 0, y: 0, w: 720, h: 511 },
-            pageHeight: 2182.5,
-            keys: [[1.5, 0], [31.5, -1669.5], [33.5, -1669.5], [35.5, 0]],
-            loop: 37,
+            window: { x: 40.37, y: 40.37, w: 639.25, h: 453.71, radius: 15 },
+            pageHeight: 1937.8,
+            keys: [[1.5, 0], [38.5, -1480], [41, -1480], [45, 0]],
+            loop: 46.5,
           },
         },
         { kind: "image", src: "s-boombox-2.jpg", alt: "Picking a date and time for the event" },
@@ -107,17 +109,18 @@ const items = {
       description:
         "Vibe, the brand presentation for Uncle Juzzy’s, an Israeli street food restaurant that never opened. It covers what sets it apart, its personality, its mission and three visual concepts to pick from.",
       credits: "Made with: Becca Rabinowitz",
+      start: 6, // Rough Cut, the slide shown on the tile
       slides: [
-        { kind: "image", src: "s-vibe-1.jpg", alt: "Cover: Vibe" },
-        { kind: "image", src: "s-vibe-2.jpg", alt: "Let’s recap: differentiators, personality, mission" },
-        { kind: "image", src: "s-vibe-3.jpg", alt: "Key differentiators: understated, nostalgic, done the right way" },
-        { kind: "image", src: "s-vibe-4.jpg", alt: "Who we are and who we’re not" },
-        { kind: "image", src: "s-vibe-5.jpg", alt: "The Uncle Juzzy’s mission" },
-        { kind: "image", src: "s-vibe-6.jpg", alt: "Visual concepts: let’s pick a direction" },
-        { kind: "image", src: "s-vibe-7.jpg", alt: "Concept 01: Rough Cut" },
-        { kind: "image", src: "s-vibe-8.jpg", alt: "Concept 02: Color & Chaos" },
-        { kind: "image", src: "s-vibe-9.jpg", alt: "Concept 03: Contemporary Nostalgia" },
-        { kind: "image", src: "s-vibe-10.jpg", alt: "Thank you" },
+        { kind: "image", src: "s-vibe-1-table.jpg", alt: "Cover: Vibe" },
+        { kind: "image", src: "s-vibe-2-table.jpg", alt: "Let’s recap: differentiators, personality, mission" },
+        { kind: "image", src: "s-vibe-3-table.jpg", alt: "Key differentiators: understated, nostalgic, done the right way" },
+        { kind: "image", src: "s-vibe-4-table.jpg", alt: "Who we are and who we’re not" },
+        { kind: "image", src: "s-vibe-5-table.jpg", alt: "The Uncle Juzzy’s mission" },
+        { kind: "image", src: "s-vibe-6-table.jpg", alt: "Visual concepts: let’s pick a direction" },
+        { kind: "image", src: "s-vibe-7-table.jpg", alt: "Concept 01: Rough Cut" },
+        { kind: "image", src: "s-vibe-8-table.jpg", alt: "Concept 02: Color & Chaos" },
+        { kind: "image", src: "s-vibe-9-table.jpg", alt: "Concept 03: Contemporary Nostalgia" },
+        { kind: "image", src: "s-vibe-10-table.jpg", alt: "Thank you" },
       ],
     },
   },
@@ -175,7 +178,7 @@ const items = {
   acura: {
     title: "Acura",
     description: "Magazine ads for the TLX, MDX and RLX launches at Mullen.",
-    size: [285, 214],
+    size: [1440, 960], // the ads' own shape, so the magazines show whole
     media: { kind: "cycle", srcs: ["s-acura-1.jpg", "s-acura-2.jpg", "s-acura-3.jpg", "s-acura-4.jpg"], every: 0.8 },
     popup: {
       project: "Acura · Mullen",
@@ -203,7 +206,7 @@ const items = {
         "A kitchen display system for busy lines. Orders flow to the right station, timers keep tickets moving and cooks bump orders with a single tap.",
       credits: "Made with: Lukas Pfeiffer and the Local Kitchens leadership team.",
       slides: [
-        { kind: "image", src: "s-lk-1.jpg", alt: "The kitchen display showing orders by station" },
+        { kind: "image", src: "s-lk-1-kitchen.jpg", alt: "The kitchen display showing orders by station, in a restaurant kitchen" },
         { kind: "image", src: "s-lk-2.jpg", alt: "Time in the kitchen: photos of the line and the display in use" },
       ],
     },

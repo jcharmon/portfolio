@@ -122,14 +122,14 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     const p = item.popup!;
     const many = p.slides.length > 1;
     return (
-      <dialog class="viewer" tabindex="-1" id={id} aria-label={`${p.project}: ${p.title}`}>
+      <dialog class="viewer" tabindex="-1" id={id} data-start={p.start ?? 0} aria-label={`${p.project}: ${p.title}`}>
         <div class="bar">
           <button class="icon-btn" type="button" data-close aria-label="Close">
             <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
           </button>
           {many && (
             <div class="nav">
-              <span class="t-small muted counter" aria-live="polite"><span data-current>1</span> / {p.slides.length}</span>
+              <span class="t-small muted counter" aria-live="polite"><span data-current>{(p.start ?? 0) + 1}</span> / {p.slides.length}</span>
               <button class="icon-btn" type="button" data-prev aria-label="Previous image">
                 <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M15 9H3m5-5L3 9l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
               </button>
@@ -142,7 +142,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
         <div class="body">
           <div class="stage">
             {p.slides.map((s, i) => (
-              <figure class:list={["slide", { "is-active": i === 0 }]} data-slide={i} aria-hidden={i === 0 ? "false" : "true"}>
+              <figure class:list={["slide", { "is-active": i === (p.start ?? 0) }]} data-slide={i} aria-hidden={i === (p.start ?? 0) ? "false" : "true"}>
                 {s.kind === "image" && (
                   <Image src={img(s.src)} alt={s.alt} widths={[720, 1440]} sizes="(max-width: 799px) 92vw, 720px" loading="lazy" class="slide-media" />
                 )}
@@ -297,7 +297,7 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
       // Focus the popup itself so the close button doesn't show a focus ring on open
       dlg.focus();
       document.documentElement.classList.add("no-scroll");
-      show(0, true);
+      show(Number(dlg.dataset.start) || 0, true);
     });
     slides.forEach((s, i) => s.addEventListener("click", () => { if (i !== at) show(i); }));
     dlg.querySelector("[data-close]")?.addEventListener("click", () => dlg.close());
@@ -427,9 +427,10 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
   }
   .fill {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    /* 1px past every edge, so the page never peeks through a sub-pixel gap */
+    inset: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
     object-fit: cover;
     display: block;
   }
