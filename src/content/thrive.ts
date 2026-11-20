@@ -32,7 +32,7 @@ const thrive: CaseStudy = {
   hero: {
     kind: "image",
     image: hero,
-    alt: "An older couple laughing at a phone, next to the Thrive Mobile app on a phone",
+    alt: "Thrive Mobile brand board: the My plan screen, people on their phones, the logo, the Thrive Guide AI chat, a doctor, the Thrive app icon on a home screen and an ad",
   },
   blocks: [
     {
