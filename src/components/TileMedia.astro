@@ -1,72 +1,39 @@
 ---
 /**
- * The image inside each home-page tile (Figma: "Media / …").
- * Built from layers (photo + dim + logo) so logos stay crisp.
+ * The picture inside each home-page tile.
+ * Each one is a single image exported from Figma at 3x
+ * (page "Website", Components section, "Media / <Project> · E1 tile").
+ * To swap a picture: export the new one from Figma at 3x as JPG and
+ * replace the file in src/assets/home/ with the same name.
  */
 import { Image } from "astro:assets";
 import type { ProjectSlug } from "../content/projects";
 
-import opmBg from "../assets/home/opm-bg.jpg";
-import opmSeal from "../assets/home/opm-seal.png";
-import thriveBg from "../assets/home/thrive-bg.jpg";
-import thriveSymbol from "../assets/home/thrive-symbol.svg";
-import thriveWordmark from "../assets/home/thrive-wordmark.svg";
-import fiBg from "../assets/home/fi-bg.jpg";
-import fiLogo from "../assets/home/fi-logo.png";
-import bobbieBg from "../assets/home/bobbie-bg.jpg";
-import bobbieLogo from "../assets/home/bobbie-logo.png";
-import nnThumb from "../assets/home/nextnav-thumb.jpg";
-import rpLogo from "../assets/home/radpad-logo.jpg";
+import opm from "../assets/home/tile-opm.jpg";
+import thrive from "../assets/home/tile-thrive.jpg";
+import bobbie from "../assets/home/tile-bobbie.jpg";
+import nextnav from "../assets/home/tile-nextnav.jpg";
+import radpad from "../assets/home/tile-radpad.jpg";
+import googleFi from "../assets/home/tile-google-fi.jpg";
+
+const tiles: Record<ProjectSlug, { src: ImageMetadata; alt: string }> = {
+  opm: { src: opm, alt: "OPM logo over a records room, with the new insurance elections screen in a browser" },
+  thrive: { src: thrive, alt: "Thrive Mobile logo over an older couple laughing, with the Thrive app on a phone" },
+  bobbie: { src: bobbie, alt: "Bobbie logo over a mother feeding her baby, with the Bobbie order screen on a phone" },
+  "google-fi": { src: googleFi, alt: "Google Fi logo over a man laughing on a call, with the Google Fi app on a phone and the sign-up page in a browser" },
+  nextnav: { src: nextnav, alt: "NextNav logo over a city at night, with the NextNav map on a phone" },
+  radpad: { src: radpad, alt: "RadPad logo over a sunny living room, with the lease signing screen in a browser" },
+};
 
 interface Props { slug: ProjectSlug }
 const { slug } = Astro.props;
-const bgWidths = [480, 832, 1248];
-const bgSizes = "(max-width: 1023px) 100vw, 416px";
+const tile = tiles[slug];
+// Tile is 416px wide on desktop and up to the full screen width on phones
+const widths = [480, 832, 1248];
+const sizes = "(max-width: 1023px) 100vw, 416px";
 ---
 <div class:list={["media", slug]}>
-  {slug === "opm" && (
-    <>
-      <Image class="bg" src={opmBg} widths={bgWidths} sizes={bgSizes} alt="" />
-      <div class="dim" style="background: rgba(0,0,0,0.5)"></div>
-      <Image class="center seal" src={opmSeal} width={352} alt="Seal of the U.S. Office of Personnel Management" />
-    </>
-  )}
-
-  {slug === "thrive" && (
-    <>
-      <Image class="bg" src={thriveBg} widths={bgWidths} sizes={bgSizes} alt="" />
-      <div class="dim" style="background: rgba(31,33,71,0.18)"></div>
-      <div class="center thrive-pill">
-        <img src={thriveSymbol.src} width="41" height="41" alt="" />
-        <img src={thriveWordmark.src} width="146" height="18" alt="Thrive Mobile" />
-      </div>
-    </>
-  )}
-
-  {slug === "google-fi" && (
-    <>
-      <Image class="bg" src={fiBg} widths={bgWidths} sizes={bgSizes} alt="" />
-      <div class="center fi-icon">
-        <Image src={fiLogo} width={200} alt="Google Fi logo" />
-      </div>
-    </>
-  )}
-
-  {slug === "bobbie" && (
-    <>
-      <Image class="bobbie-bg" src={bobbieBg} widths={[1200, 2000]} sizes="(max-width: 1023px) 400vw, 1700px" alt="" />
-      <div class="dim" style="background: rgba(0,0,0,0.28)"></div>
-      <Image class="center bobbie-logo" src={bobbieLogo} width={436} alt="Bobbie logo" />
-    </>
-  )}
-
-  {slug === "nextnav" && (
-    <Image class="bg" src={nnThumb} widths={bgWidths} sizes={bgSizes} alt="NextNav logo over a firefighter in gear" />
-  )}
-
-  {slug === "radpad" && (
-    <Image class="bg rp-logo" src={rpLogo} widths={bgWidths} sizes={bgSizes} alt="RadPad logo" />
-  )}
+  <Image class="bg" src={tile.src} widths={widths} sizes={sizes} alt={tile.alt} />
 </div>
 
 <style>
@@ -76,13 +43,6 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
     overflow: hidden;
     container-type: inline-size;
   }
-  .opm { background: #181818; }
-  .thrive { background: #1f2247; }
-  .google-fi { background: #edebe5; }
-  .nextnav { background: #1f2a37; }
-  .radpad { background: #fab83e; }
-  .rp-logo { object-fit: contain; }
-
   .bg {
     position: absolute;
     inset: 0;
@@ -90,54 +50,4 @@ const bgSizes = "(max-width: 1023px) 100vw, 416px";
     height: 100%;
     object-fit: cover;
   }
-  .dim {
-    position: absolute;
-    inset: 0;
-  }
-  .center {
-    position: absolute;
-    width: max-content;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  /* Sizes below are the Figma sizes at a 416px-wide tile, scaled with the tile */
-  .seal { width: 42.3cqi; height: auto; }
-
-  .thrive-pill {
-    display: flex;
-    align-items: center;
-    gap: 4cqi;
-    padding: 4.27cqi 5.7cqi;
-    background: #fff;
-    border-radius: 999px;
-    box-shadow: 0 2.85cqi 8.55cqi rgba(0, 0, 0, 0.15);
-  }
-  .thrive-pill img:first-child { width: 9.84cqi; height: auto; }
-  .thrive-pill img:last-child { width: 35cqi; height: auto; }
-
-  .fi-icon {
-    width: 31.25cqi;
-    aspect-ratio: 1;
-    background: #fff; /* app icon stays white in dark mode */
-    border-radius: 6.4cqi;
-    filter: drop-shadow(0 3cqi 3.75cqi rgba(26, 51, 128, 0.25));
-    display: grid;
-    place-items: center;
-  }
-  .fi-icon :global(img) { width: 76.66%; height: auto; }
-
-  /* Figma crops a larger collage photo down to one corner */
-  .bobbie-bg {
-    position: absolute;
-    max-width: none;
-    width: 475.75%;
-    height: 476.19%;
-    left: -168.84%;
-    top: -257.14%;
-  }
-  .bobbie-logo { width: 52.4cqi; height: auto; }
-
-
 </style>

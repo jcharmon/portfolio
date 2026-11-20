@@ -5,7 +5,7 @@
  */
 import type { CaseStudy } from "./types";
 
-import hero from "../assets/bobbie/hero.jpg";
+import hero from "../assets/bobbie/hero-e1.jpg";
 import iconSales from "../assets/bobbie/icon-sales.svg";
 import iconEmail from "../assets/bobbie/icon-email.svg";
 import iconTeam from "../assets/bobbie/icon-team.svg";
@@ -35,7 +35,7 @@ const bobbie: CaseStudy = {
   hero: {
     kind: "image",
     image: hero,
-    alt: "Bobbie organic infant formula",
+    alt: "A mother feeding her baby, next to the Bobbie order screen on a phone",
   },
   blocks: [
     {
