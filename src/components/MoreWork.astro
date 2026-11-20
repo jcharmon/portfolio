@@ -277,7 +277,6 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
         let d = i - at;
         if (d > n / 2) d -= n;
         if (d < -n / 2) d += n;
-        if (n === 2 && d !== 0) d = 1; // with two pictures, the other one waits on the right
         const a = Math.abs(d);
         s.style.setProperty("--f", String(a === 0 ? 0 : Math.sign(d) * (0.7222 + (a - 1) * 0.4167)));
         s.style.setProperty("--s", a === 0 ? "1" : "0.3611");
@@ -367,7 +366,8 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     gap: 16px;
     min-width: 0;
   }
-  .cell > .tile:only-child { flex: 1 0 auto; }
+  /* The last tile in a cell stretches to the row's height (trims a hair off its edges) */
+  .cell > .tile:last-child { flex: 1 0 auto; }
   /* "Coming soon" fills whatever is left of its stack */
   .tile.grow {
     flex: 1 1 0;
@@ -415,6 +415,16 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     transition: transform 450ms var(--ease-out), box-shadow 450ms var(--ease-out);
   }
   .tile.clickable { cursor: pointer; }
+  /* Subtle border on every tile, so light edges don't melt into the page */
+  .tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: inherit;
+    pointer-events: none;
+  }
   .fill {
     position: absolute;
     inset: 0;
@@ -608,6 +618,9 @@ const label = (i: MoreWorkItem) => (i.popup ? `${i.title}: ${i.description} Open
     border-radius: 22px;
     overflow: hidden;
     box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.12);
+    /* Same subtle border as the tiles */
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
   }
   .scroll-slide {
     position: relative;

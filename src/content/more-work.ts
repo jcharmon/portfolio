@@ -96,27 +96,6 @@ const items = {
       ],
     },
   },
-  gocardApp: {
-    title: "GoCard",
-    description: "Mobile web app for card holders.",
-    size: [285, 338],
-    media: { kind: "video", src: "/more-work/gocard-tile.mp4", poster: "/more-work/gocard-tile-poster.jpg" },
-    popup: {
-      project: "GoCard",
-      title: "Mobile card app",
-      description:
-        "A mobile web app for GoCard holders. Check your balance, see recent activity and get help, all from your phone.",
-      slides: [
-        {
-          kind: "video",
-          src: "/more-work/gocard-tile.mp4",
-          poster: "/more-work/gocard-tile-poster.jpg",
-          background: "#f6f3ea",
-          alt: "The GoCard home screen opening a card's details",
-        },
-      ],
-    },
-  },
   juzzyBrand: {
     title: "Uncle Juzzy’s",
     description: "Vibe brand presentation for a restaurant that never opened.",
@@ -164,7 +143,7 @@ const items = {
       scroll: {
         base: "base-corona-tile.jpg",
         page: "page-corona.jpg",
-        window: { x: 24.6, y: 41.42, w: 236.13, h: 296.58 },
+        window: { x: 25.4, y: 41.42, w: 234.5, h: 296.58 },
         pageHeight: 699.67,
         keys: [[1.5, 0], [25.5, -401.5], [27.5, -401.5], [29.5, 0]],
         loop: 31,
@@ -197,7 +176,7 @@ const items = {
     title: "Acura",
     description: "Magazine ads for the TLX, MDX and RLX launches at Mullen.",
     size: [285, 214],
-    media: { kind: "cycle", srcs: ["s-acura-1.jpg", "s-acura-2.jpg", "s-acura-3.jpg", "s-acura-4.jpg"], every: 0.45 },
+    media: { kind: "cycle", srcs: ["s-acura-1.jpg", "s-acura-2.jpg", "s-acura-3.jpg", "s-acura-4.jpg"], every: 0.8 },
     popup: {
       project: "Acura · Mullen",
       title: "Making a decades-old brand feel new",
@@ -210,19 +189,6 @@ const items = {
         { kind: "image", src: "s-acura-3.jpg", alt: "TLX ad: An encore you didn’t see coming" },
         { kind: "image", src: "s-acura-4.jpg", alt: "RLX spread: Yes, we are there yet" },
       ],
-    },
-  },
-  radpad: {
-    title: "RadPad",
-    description: "Emails for renters and landlords.",
-    size: [285, 200],
-    media: { kind: "image", src: "tile-radpad.jpg" },
-    popup: {
-      project: "RadPad",
-      title: "Emails for renters and landlords",
-      description:
-        "Emails for RadPad, a rental marketplace: rent payout summaries for landlords, a referral gift, and a welcome email that explains how it all works.",
-      slides: [{ kind: "image", src: "s-radpad-1.jpg", alt: "Three RadPad emails side by side" }],
     },
   },
   localKitchens: {
@@ -256,27 +222,11 @@ const items = {
       slides: [{ kind: "image", src: "s-juzzy-mobile-1.jpg", alt: "The Uncle Juzzy’s home page in a phone" }],
     },
   },
-  loudMouths: {
-    title: "Loud Mouths Run Club",
-    description: "Logo and merch for an Austin and Dallas run club.",
-    size: [285, 285],
-    media: { kind: "image", src: "tile-loud-mouths.jpg" },
-    popup: {
-      project: "Loud Mouths Run Club",
-      title: "Logo and merch",
-      description:
-        "A logo for Loud Mouths, a run club in Austin and Dallas. The running mouth says it all: show up, be loud and just get out there.",
-      slides: [
-        { kind: "image", src: "s-loud-mouths-1.jpg", alt: "The Loud Mouths Run Club logo: a running mouth with ATX and DTX" },
-        { kind: "image", src: "s-loud-mouths-2.jpg", alt: "The logo printed on a cream crewneck sweatshirt" },
-      ],
-    },
-  },
   vooma: {
     title: "Vooma",
     description: "Outlook add-in that turns quote emails into priced replies.",
-    size: [285, 207],
-    media: { kind: "video", src: "/more-work/vooma-tile.mp4", poster: "/more-work/vooma-tile-poster.jpg" },
+    size: [1591, 1153],
+    media: { kind: "image", src: "tile-vooma.jpg" },
     popup: {
       project: "Vooma",
       title: "Quoting Outlook add-in",
@@ -286,12 +236,9 @@ const items = {
       link: { label: "vooma.com", href: "https://www.vooma.com/" },
       slides: [
         {
-          kind: "video",
-          src: "/more-work/vooma-popup.mp4",
-          poster: "/more-work/vooma-popup-poster.jpg",
-          background: "#000000",
-          size: [1440, 1044],
-          alt: "The Vooma add-in beside a pickup request email in Outlook, opening the route and details and scrolling to the rate and quote history",
+          kind: "image",
+          src: "tile-vooma.jpg",
+          alt: "The Vooma add-in beside a pickup request email in Outlook, showing the route, details and rate",
         },
       ],
     },
@@ -318,22 +265,29 @@ const soon = (soonImage: string): MoreWorkItem => ({ title: "Coming soon", descr
 /**
  * The grid, row by row (Figma "More work · Mixed spans", grid 878:9068).
  * Each row has cells that span 1, 2 or 3 of the 3 columns. A cell with more than one
- * tile stacks them. Pictures always show whole, at their own shape.
- * A tile that spans 2 or 3 columns uses a sharper picture or video (set below with `...items.x, media`).
+ * tile stacks them, and the last tile in a cell stretches to fill the row's height.
+ * Pictures show whole at their own shape (a stretched last tile trims a little off its edges).
+ * Tiles that span 2 or 3 columns use sharper pictures (`...items.x, media`).
  */
 export const moreWork: Row[] = [
   [{ span: 3, tiles: [gocardStaggered] }],
   [
-    { span: 2, tiles: [{ ...items.vooma, size: [1440, 1044], media: { kind: "video", src: "/more-work/vooma-popup.mp4", poster: "/more-work/vooma-popup-poster.jpg" } }] },
-    { span: 1, tiles: [items.boombox, items.radpad] },
+    { span: 2, tiles: [items.vooma] },
+    { span: 1, tiles: [soon("s-lk-2.jpg")] },
   ],
   [
-    { span: 1, tiles: [items.juzzyMobile] },
-    { span: 1, tiles: [items.gocardApp] },
-    { span: 1, tiles: [{ ...soon("s-lk-2.jpg"), size: [285, 338], grow: false }] },
+    { span: 1, tiles: [soon("s-vibe-8.jpg")] },
+    {
+      span: 2,
+      tiles: [{ ...items.boombox, media: { ...items.boombox.media, scroll: { ...items.boombox.media.scroll, base: "base-boombox-wide.jpg" } } }],
+    },
   ],
   [
-    { span: 1, tiles: [items.localKitchens, soon("s-vibe-8.jpg")] },
+    { span: 2, tiles: [{ ...items.localKitchens, media: { kind: "image", src: "tile-local-kitchens-wide.jpg" } }] },
+    { span: 1, tiles: [soon("s-tee-1.jpg")] },
+  ],
+  [
+    { span: 1, tiles: [soon("s-vibe-6.jpg")] },
     { span: 2, tiles: [items.acura] },
   ],
   [
@@ -341,7 +295,7 @@ export const moreWork: Row[] = [
       span: 2,
       tiles: [{ ...items.corona, media: { ...items.corona.media, scroll: { ...items.corona.media.scroll, base: "base-corona-wide.jpg" } } }],
     },
-    { span: 1, tiles: [items.loudMouths, items.juzzyTee, soon("s-tee-1.jpg")] },
+    { span: 1, tiles: [items.juzzyMobile, items.juzzyTee] },
   ],
   [{ span: 3, tiles: [{ ...items.juzzyBrand, media: { kind: "image", src: "tile-juzzy-brand-wide.jpg" } }] }],
 ];
