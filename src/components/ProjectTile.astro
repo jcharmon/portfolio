@@ -15,6 +15,8 @@ interface Props {
   href?: string;
   /** Darken the picture on hover (default true) */
   dim?: boolean;
+  /** Load the picture right away (for tiles at the top of the page) */
+  eager?: boolean;
 }
 const { project } = Astro.props;
 const title = project?.title ?? Astro.props.title;
@@ -25,8 +27,9 @@ const dim = Astro.props.dim ?? true;
 ---
 <Tag data-reveal class:list={["tile", { link: !!href }]} {...(href ? { href } : {})}>
   <div class="box" data-loader>
-    {project ? <TileMedia slug={project.slug} /> : <slot />}
+    {project ? <TileMedia slug={project.slug} eager={Astro.props.eager} /> : <slot />}
     {dim && <div class="hover-dim" aria-hidden="true"></div>}
+    <div class="edge" aria-hidden="true"></div>
   </div>
   <div class="caption">
     <p class="title t-body-strong">
@@ -57,20 +60,30 @@ const dim = Astro.props.dim ?? true;
       transform 450ms var(--ease-out),
       box-shadow 450ms var(--ease-out);
   }
-  .box > :global(:first-child) {
-    transition:
-      opacity 500ms var(--ease-out),
-      transform 700ms var(--ease-out);
-  }
-  /* Light border on top of the picture, so white edges don't melt into the page */
-  .box::after {
-    content: "";
+  /* Light border on top of the picture, so white edges don't melt into the page.
+     (A real element, not ::after, because ::after is the loading shimmer.) */
+  .edge {
     position: absolute;
     inset: 0;
-    border: 1px solid var(--theme-border);
+    /* See-through black reads on white edges and on photos alike */
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: inherit;
     pointer-events: none;
     z-index: 2;
+  }
+  :global(.js) .box:not(.is-loaded) > .edge { opacity: 1; }
+
+  /* Loading: soft shimmer (global), then the picture fades in while it
+     settles from slightly zoomed and soft to sharp. */
+  :global(.js) .box > :global(:first-child) {
+    transition:
+      opacity 600ms var(--ease-out),
+      filter 700ms var(--ease-out),
+      transform 900ms var(--ease-out);
+  }
+  :global(.js) .box:not(.is-loaded) > :global(:first-child) {
+    transform: scale(1.04);
+    filter: blur(6px);
   }
   .hover-dim {
     position: absolute;
@@ -116,6 +129,7 @@ const dim = Astro.props.dim ?? true;
   @media (prefers-reduced-motion: reduce) {
     .link:hover .box,
     .link:hover .box > :global(:first-child) { transform: none; }
+    :global(.js) .box:not(.is-loaded) > :global(:first-child) { transform: none; filter: none; }
   }
   @media (max-width: 1023px) {
     .box { aspect-ratio: 4 / 3; }
